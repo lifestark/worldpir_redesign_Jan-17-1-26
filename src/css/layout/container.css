@@ -1,0 +1,11 @@
+/* ================================================
+   CONTAINER
+   Контейнер для контента
+   ================================================ */
+
+.container, .navigation__container {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 clamp(12px, 5vw, 80px);
+    width: 100%;
+}

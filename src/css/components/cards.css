@@ -1,0 +1,152 @@
+/* ================================================
+   CARDS
+   Карточки для услуг и пакетов
+   ================================================ */
+
+.card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+    position: relative;
+}
+
+/* Service Card */
+.card--service {
+    text-align: center;
+    box-shadow: var(--shadow-md);
+}
+
+.card--service:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+.card__icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.card__title {
+    font-size: var(--fs-h5);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-black);
+}
+
+.card__description {
+    font-size: var(--fs-base);
+    color: var(--color-gray-600);
+    line-height: var(--line-height-relaxed);
+}
+
+/* Package Card */
+.card--package {
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+}
+
+.card--package:hover {
+    border-color: var(--color-primary-light);
+    box-shadow: var(--shadow-xl);
+}
+
+.card--featured {
+    border-color: var(--color-primary);
+    transform: scale(1.05);
+}
+
+.card--featured:hover {
+    transform: scale(1.07);
+}
+
+.card__badge {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-full);
+    font-size: var(--fs-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.card__badge--accent {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+}
+
+.card__price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    margin: var(--spacing-lg) 0;
+}
+
+.card__price-value {
+    font-size: var(--fs-h2);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-black);
+}
+
+.card__price-currency {
+    font-size: var(--fs-h5);
+    color: var(--color-gray-500);
+}
+
+.card__features {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.card__feature {
+    position: relative;
+    padding-left: var(--spacing-lg);
+    font-size: var(--fs-base);
+    color: var(--color-gray-600);
+    line-height: var(--line-height-relaxed);
+}
+
+.card__feature::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card {
+        padding: var(--spacing-md);
+    }
+
+    .card--package {
+        padding: var(--spacing-lg);
+    }
+
+    .card__title {
+        font-size: var(--fs-nav);
+    }
+
+    .card__price-value {
+        font-size: var(--fs-h3);
+    }
+}
+
+@media (max-width: 480px) {
+    .card--featured {
+        transform: scale(1);
+    }
+
+    .card--featured:hover {
+        transform: scale(1.02);
+    }
+}

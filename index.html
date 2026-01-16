@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Вселенная праздников - Организация детских и семейных праздников под ключ в Москве">
+    <title>Вселенная праздников — Организация детских праздников под ключ</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="src/css/main.css">
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navigation navigation--with-hero" id="mainNav">
+        <div class="navigation__container">
+            <!-- Left Zone -->
+            <div class="navigation__left">
+                <a href="#" class="navigation__logo">
+                    <img src="src/img/brand/logo-main__white_main.svg" alt="Вселенная праздников"
+                        class="navigation__logo-img navigation__logo-img--light">
+                    <img src="src/img/brand/logo-main__dark_main.svg" alt="Вселенная праздников"
+                        class="navigation__logo-img navigation__logo-img--dark">
+                </a>
+                <div class="nav__description">
+                    <div class="nav__title--line">Организация детских<br>праздников в Москве и МО</div>
+                    <div class="nav__address">Москва, ул Стромынка 19к2</div>
+                </div>
+            </div>
+
+            <!-- Center Zone -->
+            <div class="navigation__center">
+                <ul class="navigation__menu" id="navMenu">
+                    <li class="navigation__item"><a href="#services" class="navigation__link">Услуги</a></li>
+                    <li class="navigation__item"><a href="#packages" class="navigation__link">Пакеты</a></li>
+                    <li class="navigation__item"><a href="#gallery" class="navigation__link">Галерея</a></li>
+                    <li class="navigation__item"><a href="#reviews" class="navigation__link">Отзывы</a></li>
+                    <li class="navigation__item"><a href="#faq" class="navigation__link">FAQ</a></li>
+                    <li class="navigation__item"><a href="#contacts" class="navigation__link">Контакты</a></li>
+                </ul>
+            </div>
+
+            <!-- Right Zone -->
+            <div class="navigation__right">
+                <div class="nav__socials">
+                    <a class="nav-socials__item" href="#" aria-label="VK" data-social="vk">VK</a>
+                    <a class="nav-socials__item" href="#" aria-label="Telegram" data-social="tg">TG</a>
+                    <a class="nav-socials__item" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
+                </div>
+                <div class="nav__contact">
+                    <div class="nav__hours" data-set="hours">Часы работы: 10:00 - 22:00</div>
+                    <a class="nav__phone" href="tel:+78000000000" data-set-link="phone">+7(800)000-00-00</a>
+                    <a href="#orderModal">Заказать звонок</a>
+                </div>
+            </div>
+
+            <!-- Burger Menu -->
+            <button class="navigation__burger" id="burgerBtn" type="button" aria-label="Открыть меню">
+                <span class="navigation__burger-lines">
+                    <span class="navigation__burger-line"></span>
+                    <span class="navigation__burger-line"></span>
+                    <span class="navigation__burger-line"></span>
+                </span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="navigation__mobile" id="mobileMenu">
+            <ul class="navigation__mobile-menu">
+                <li class="navigation__mobile-item"><a href="#services" class="navigation__mobile-link">Услуги</a></li>
+                <li class="navigation__mobile-item"><a href="#packages" class="navigation__mobile-link">Пакеты</a></li>
+                <li class="navigation__mobile-item"><a href="#gallery" class="navigation__mobile-link">Галерея</a></li>
+                <li class="navigation__mobile-item"><a href="#reviews" class="navigation__mobile-link">Отзывы</a></li>
+                <li class="navigation__mobile-item"><a href="#faq" class="navigation__mobile-link">FAQ</a></li>
+                <li class="navigation__mobile-item"><a href="#contacts" class="navigation__mobile-link">Контакты</a>
+                </li>
+            </ul>
+            <div class="navigation__mobile-contacts">
+                <a href="tel:+70000000000" class="navigation__mobile-phone">+7 (000) 000-00-00</a>
+                <a href="#orderModal" class="navigation__mobile-cta">Заказать звонок</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero__container">
+            <div class="hero__content">
+                <h1 class="hero__title">Организация детских праздников под ключ</h1>
+                <p class="hero__subtitle">Создаём незабываемые эмоции для ваших детей. Полный спектр услуг от идеи до
+                    реализации</p>
+                <div class="hero__actions">
+                    <button class="btn btn--primary btn--large" data-modal="order">Заказать праздник</button>
+                    <a href="#services" class="btn btn--secondary btn--large">Узнать больше</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero__overlay"></div>
+    </section>
+    <!-- Animators Section -->
+    <section id="animators" class="animators">
+        <div class="container">
+            <h2 class="animators__title">
+                Аниматор на праздник, день рождения и выпускной в Москве и МО
+            </h2>
+
+            <!-- Filters -->
+            <div class="animators__filters">
+                <div class="filter-group filter-group--main">
+                    <button class="filter-btn filter-btn--active" data-filter="all">Все вместе</button>
+
+                </div>
+
+                <div class="filter-group" data-type="gender">
+                    <span class="filter-group__title">Для кого</span>
+                    <div class="filter-buttons-row">
+                        <button class="filter-option" data-filter="boy">Мальчик</button>
+                        <button class="filter-option" data-filter="girl">Девочка</button>
+                    </div>
+                </div>
+
+                <div class="filter-group" data-type="format">
+                    <span class="filter-group__title">Формат праздника</span>
+                    <div class="filter-buttons-row">
+                        <button class="filter-option" data-filter="kindergarten">Детский сад</button>
+                        <button class="filter-option" data-filter="school">Школа</button>
+                        <button class="filter-option" data-filter="restaurant">Ресторан</button>
+                        <button class="filter-option" data-filter="home">Дома</button>
+                        <button class="filter-option" data-filter="street">Улица</button>
+                    </div>
+                </div>
+
+                <div class="filter-group" data-type="age">
+                    <span class="filter-group__title">Возраст ребенка</span>
+                    <div class="filter-buttons-row">
+                        <button class="filter-option" data-filter="age-2-5">2-5 лет</button>
+                        <button class="filter-option" data-filter="age-5-6">5-6 лет</button>
+                        <button class="filter-option" data-filter="age-7-8">7-8 лет</button>
+                        <button class="filter-option" data-filter="age-9-10">9-10 лет</button>
+                    </div>
+                </div>
+
+                <div class="filter-group filter-group--theme" data-type="theme">
+                    <span class="filter-group__title">Тематика мероприятия</span>
+                    <div class="filter-buttons-row">
+                        <button class="filter-option" data-filter="theme-marvel">По Марвел</button>
+                        <button class="filter-option" data-filter="theme-disney">По Дисней</button>
+                        <button class="filter-option" data-filter="theme-anime">По Аниме</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Cards Grid -->
+            <div class="animators__grid">
+                <div class="animator-card" data-category="prince" data-gender="girl" data-format="home"
+                    data-age="age-5-6" data-theme="theme-disney">
+                    <div class="animator-card__bg">
+                        <img src="src/img/animators/card_minecraft.png" alt="Принцесса" class="animator-card__image">
+                    </div>
+                    <div class="animator-card__content">
+                        <h3>Принцесса Ариэль</h3>
+                    </div>
+                </div>
+                <div class="animator-card" data-category="prince" data-gender="boy" data-format="restaurant"
+                    data-age="age-7-8" data-theme="theme-disney">
+                    <div class="animator-card__bg">
+                        <img src="src/img/animators/card_minecraft.png" alt="Принц" class="animator-card__image">
+                    </div>
+                    <div class="animator-card__content">
+                        <h3>Принц Чарминг</h3>
+                    </div>
+                </div>
+                <div class="animator-card" data-category="superhero" data-gender="boy" data-format="school"
+                    data-age="age-9-10" data-theme="theme-marvel">
+                    <div class="animator-card__bg">
+                        <img src="src/img/animators/card_minecraft.png" alt="Человек-паук" class="animator-card__image">
+                    </div>
+                    <div class="animator-card__content">
+                        <h3>Человек-паук</h3>
+                    </div>
+                </div>
+                <div class="animator-card" data-category="superhero" data-gender="boy" data-format="kindergarten"
+                    data-age="age-7-8" data-theme="theme-marvel">
+                    <div class="animator-card__bg">
+                        <img src="src/img/animators/card_minecraft.png" alt="Бэтмен" class="animator-card__image">
+                    </div>
+                    <div class="animator-card__content">
+                        <h3>Бэтмен</h3>
+                    </div>
+                </div>
+                <div class="animator-card" data-category="fantasy" data-gender="girl" data-format="home"
+                    data-age="age-7-8" data-theme="theme-anime">
+                    <div class="animator-card__bg">
+                        <img src="src/img/animators/card_minecraft.png" alt="Ведьма" class="animator-card__image">
+                    </div>
+                    <div class="animator-card__content">
+                        <h3>Добрая Ведьма</h3>
+                    </div>
+                </div>
+                <div class="animator-card" data-category="cartoon" data-gender="boy" data-format="street"
+                    data-age="age-2-5" data-theme="theme-disney">
+                    <div class="animator-card__bg">
+                        <img src="src/img/animators/card_minecraft.png" alt="Микки Маус" class="animator-card__image">
+                    </div>
+                    <div class="animator-card__content">
+                        <h3>Микки Маус</h3>
+                    </div>
+                </div>
+                <div class="animator-card" data-category="prince" data-gender="girl" data-format="restaurant"
+                    data-age="age-5-6" data-theme="theme-disney">
+                    <div class="animator-card__bg">
+                        <img src="src/img/animators/card_minecraft.png" alt="Снежная королева"
+                            class="animator-card__image">
+                    </div>
+                    <div class="animator-card__content">
+                        <h3>Снежная королева</h3>
+                    </div>
+                </div>
+                <div class="animator-card" data-category="superhero" data-gender="boy" data-format="school"
+                    data-age="age-9-10" data-theme="theme-marvel">
+                    <div class="animator-card__bg">
+                        <img src="src/img/animators/card_minecraft.png" alt="Железный человек"
+                            class="animator-card__image">
+                    </div>
+                    <div class="animator-card__content">
+                        <h3>Железный человек</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secondary Button -->
+            <div class="animators__footer">
+                <button class="btn btn--secondary"
+                    onclick="document.getElementById('modal').style.display='block'">Посмотреть всех аниматоров</button>
+            </div>
+        </div>
+    </section>
+    <!-- End  animators -->
+    <!-- SERVICES SECTION -->
+    <section class="section" id="services">
+        <div class="container">
+            <h2 class="section__title">Наши услуги</h2>
+            <p class="section__subtitle">Всё для идеального праздника в одном месте</p>
+
+            <div class="services">
+                <div class="card card--service">
+                    <div class="card__icon">🎈</div>
+                    <h3 class="card__title">Детские дни рождения</h3>
+                    <p class="card__description">Организация праздника под ключ с аниматорами, декором и развлечениями
+                    </p>
+                </div>
+
+                <div class="card card--service">
+                    <div class="card__icon">🎭</div>
+                    <h3 class="card__title">Тематические вечеринки</h3>
+                    <p class="card__description">Реализация любых тематик: от супергероев до принцесс</p>
+                </div>
+
+                <div class="card card--service">
+                    <div class="card__icon">🎪</div>
+                    <h3 class="card__title">Семейные мероприятия</h3>
+                    <p class="card__description">Организация выпускных, семейных праздников и корпоративов</p>
+                </div>
+
+                <div class="card card--service">
+                    <div class="card__icon">🎨</div>
+                    <h3 class="card__title">Декор и оформление</h3>
+                    <p class="card__description">Создание уникальной атмосферы с помощью декораций и световых решений
+                    </p>
+                </div>
+
+                <div class="card card--service">
+                    <div class="card__icon">🎬</div>
+                    <h3 class="card__title">Фото и видеосъёмка</h3>
+                    <p class="card__description">Профессиональная съёмка для сохранения самых ярких моментов</p>
+                </div>
+
+                <div class="card card--service">
+                    <div class="card__icon">🍰</div>
+                    <h3 class="card__title">Кейтеринг</h3>
+                    <p class="card__description">Детское меню, торты и сладкий стол от проверенных партнёров</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES SECTION -->
+    <section class="section section--alt" id="packages">
+        <div class="container">
+            <h2 class="section__title">Пакеты услуг</h2>
+            <p class="section__subtitle">Выберите готовый пакет или создайте свой</p>
+
+            <div class="packages">
+                <div class="card card--package">
+                    <div class="card__badge">Популярный</div>
+                    <h3 class="card__title">Базовый</h3>
+                    <div class="card__price">
+                        <span class="card__price-value">25 000</span>
+                        <span class="card__price-currency">₽</span>
+                    </div>
+                    <ul class="card__features">
+                        <li class="card__feature">2 часа анимации</li>
+                        <li class="card__feature">Простой декор</li>
+                        <li class="card__feature">Музыкальное сопровождение</li>
+                        <li class="card__feature">До 10 детей</li>
+                        <li class="card__feature">Базовый реквизит</li>
+                    </ul>
+                    <button class="btn btn--outline btn--full" data-modal="order" data-package="basic">Выбрать</button>
+                </div>
+
+                <div class="card card--package card--featured">
+                    <div class="card__badge card__badge--accent">Лучшее предложение</div>
+                    <h3 class="card__title">Стандарт</h3>
+                    <div class="card__price">
+                        <span class="card__price-value">45 000</span>
+                        <span class="card__price-currency">₽</span>
+                    </div>
+                    <ul class="card__features">
+                        <li class="card__feature">3 часа анимации</li>
+                        <li class="card__feature">Профессиональный декор</li>
+                        <li class="card__feature">Музыка + световое шоу</li>
+                        <li class="card__feature">До 20 детей</li>
+                        <li class="card__feature">Расширенный реквизит</li>
+                        <li class="card__feature">Аквагрим</li>
+                        <li class="card__feature">Фотозона</li>
+                    </ul>
+                    <button class="btn btn--primary btn--full" data-modal="order"
+                        data-package="standard">Выбрать</button>
+                </div>
+
+                <div class="card card--package">
+                    <div class="card__badge">Premium</div>
+                    <h3 class="card__title">Премиум</h3>
+                    <div class="card__price">
+                        <span class="card__price-value">75 000</span>
+                        <span class="card__price-currency">₽</span>
+                    </div>
+                    <ul class="card__features">
+                        <li class="card__feature">4 часа анимации</li>
+                        <li class="card__feature">Эксклюзивный декор</li>
+                        <li class="card__feature">Полное звуковое/световое шоу</li>
+                        <li class="card__feature">Без ограничений по гостям</li>
+                        <li class="card__feature">Профессиональный реквизит</li>
+                        <li class="card__feature">Аквагрим + мастер-классы</li>
+                        <li class="card__feature">2 фотозоны</li>
+                        <li class="card__feature">Фото/видеосъёмка</li>
+                        <li class="card__feature">Сладкий стол</li>
+                    </ul>
+                    <button class="btn btn--outline btn--full" data-modal="order"
+                        data-package="premium">Выбрать</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS SECTION -->
+    <section class="section" id="benefits">
+        <div class="container">
+            <h2 class="section__title">Почему выбирают нас</h2>
+
+            <div class="benefits">
+                <div class="benefit">
+                    <div class="benefit__number">01</div>
+                    <h3 class="benefit__title">Опыт более 5 лет</h3>
+                    <p class="benefit__description">Более 500 успешно проведённых мероприятий</p>
+                </div>
+
+                <div class="benefit">
+                    <div class="benefit__number">02</div>
+                    <h3 class="benefit__title">Индивидуальный подход</h3>
+                    <p class="benefit__description">Учитываем все пожелания и создаём уникальный праздник</p>
+                </div>
+
+                <div class="benefit">
+                    <div class="benefit__number">03</div>
+                    <h3 class="benefit__title">Профессиональная команда</h3>
+                    <p class="benefit__description">Аниматоры с педагогическим образованием и опытом работы</p>
+                </div>
+
+                <div class="benefit">
+                    <div class="benefit__number">04</div>
+                    <h3 class="benefit__title">Безопасность</h3>
+                    <p class="benefit__description">Все материалы и реквизит сертифицированы и безопасны</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section class="section section--alt" id="gallery">
+        <div class="container">
+            <h2 class="section__title">Галерея наших праздников</h2>
+            <p class="section__subtitle">Посмотрите примеры наших работ</p>
+
+            <div class="gallery">
+                <div class="gallery__slider" id="gallerySlider">
+                    <div class="gallery__track">
+                        <div class="gallery__slide">
+                            <div class="gallery__item" style="background-color: #f0e6ff;">
+                                <div class="gallery__placeholder">Праздник 1</div>
+                            </div>
+                        </div>
+                        <div class="gallery__slide">
+                            <div class="gallery__item" style="background-color: #e6f0ff;">
+                                <div class="gallery__placeholder">Праздник 2</div>
+                            </div>
+                        </div>
+                        <div class="gallery__slide">
+                            <div class="gallery__item" style="background-color: #ffe6f0;">
+                                <div class="gallery__placeholder">Праздник 3</div>
+                            </div>
+                        </div>
+                        <div class="gallery__slide">
+                            <div class="gallery__item" style="background-color: #f0ffe6;">
+                                <div class="gallery__placeholder">Праздник 4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery__controls">
+                    <button class="gallery__control gallery__control--prev" id="galleryPrev"
+                        aria-label="Предыдущий слайд">←</button>
+                    <button class="gallery__control gallery__control--next" id="galleryNext"
+                        aria-label="Следующий слайд">→</button>
+                </div>
+
+                <div class="gallery__dots" id="galleryDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section class="section" id="reviews">
+        <div class="container">
+            <h2 class="section__title">Отзывы клиентов</h2>
+            <p class="section__subtitle">Что говорят о нас родители</p>
+
+            <div class="reviews">
+                <div class="review">
+                    <div class="review__header">
+                        <div class="review__avatar">ЕС</div>
+                        <div class="review__info">
+                            <div class="review__name">Елена Смирнова</div>
+                            <div class="review__rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review__text">Отличная организация! Дети были в восторге. Аниматоры профессиональные,
+                        нашли подход к каждому ребёнку. Обязательно обратимся снова!</p>
+                </div>
+
+                <div class="review">
+                    <div class="review__header">
+                        <div class="review__avatar">АП</div>
+                        <div class="review__info">
+                            <div class="review__name">Алексей Петров</div>
+                            <div class="review__rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review__text">Заказывали выпускной в детском саду. Всё прошло на высшем уровне. Декор был
+                        потрясающий, программа продумана до мелочей. Спасибо!</p>
+                </div>
+
+                <div class="review">
+                    <div class="review__header">
+                        <div class="review__avatar">МК</div>
+                        <div class="review__info">
+                            <div class="review__name">Мария Козлова</div>
+                            <div class="review__rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review__text">Очень довольны! День рождения дочки прошёл волшебно. Особенно понравилась
+                        фотозона - все гости делали снимки. Рекомендую всем!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section section--alt" id="faq">
+        <div class="container">
+            <h2 class="section__title">Часто задаваемые вопросы</h2>
+
+            <div class="faq">
+                <div class="faq__item">
+                    <button class="faq__question" type="button">
+                        <span>За какое время нужно бронировать дату праздника?</span>
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>Рекомендуем бронировать дату за 2-3 недели. В пиковые сезоны (май-июнь, декабрь) лучше за
+                            месяц. Однако мы стараемся принимать заказы и в более сжатые сроки.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question" type="button">
+                        <span>Можно ли провести праздник у нас дома?</span>
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>Да, конечно! Мы проводим праздники как дома, так и в арендованных помещениях, парках и любых
+                            других локациях по вашему выбору.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question" type="button">
+                        <span>Что входит в стоимость пакета?</span>
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>В стоимость каждого пакета входит работа аниматоров, реквизит, музыкальное оборудование и
+                            базовый декор. Дополнительные услуги (фотограф, кейтеринг, эксклюзивный декор) оплачиваются
+                            отдельно.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question" type="button">
+                        <span>Можно ли изменить программу праздника?</span>
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>Абсолютно! Все наши пакеты можно адаптировать под ваши пожелания. Мы обсуждаем детали
+                            программы на этапе планирования и вносим необходимые изменения.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question" type="button">
+                        <span>Какие способы оплаты вы принимаете?</span>
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>Мы принимаем оплату наличными, банковским переводом и картой. Обычно требуется предоплата 30%
+                            для бронирования даты, остальное — в день мероприятия.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer__box">
+            <div class="footer__mascot" aria-hidden="true">
+                <img src="src/img/brand/footer__logo.svg" alt="">
+            </div>
+            <div class="footer__grid">
+                <!-- Brand -->
+                <div class="footer__brand">
+                    <div class="footer__logo">
+                        <img src="src/img/brand/logo-short__white.svg" alt="Вселенная Праздников">
+                    </div>
+                    <p class="footer__desc">
+                        Создаём яркие детские праздники и&nbsp;мероприятия под&nbsp;ключ.
+                        Event-агентство полного цикла с&nbsp;готовыми программами, профессиональными аниматорами
+                        и&nbsp;собственным реквизитом.
+                    </p>
+                </div>
+
+                <!-- Menu -->
+                <nav class="footer__menu" aria-label="Навигация в подвале">
+                    <a href="/animators.html">Аниматоры</a>
+                    <a href="/shows.html">Шоу-программы</a>
+                    <a href="/quests.html">Квесты</a>
+                    <a href="/addons.html">Доп. услуги</a>
+                    <a href="/prices.html">Цены</a>
+                    <a href="/about.html">О нас</a>
+                    <a href="/gallery.html">Фотогалерея</a>
+                    <a href="/contacts.html">Контакты</a>
+                </nav>
+
+                <!-- Contacts -->
+                <div class="footer__contacts">
+                    <div class="footer__socials" aria-label="Соцсети">
+                        <a class="footer__icon" href="#" aria-label="VK" data-social="vk">VK</a>
+                        <a class="footer__icon" href="#" aria-label="Telegram" data-social="tg">TG</a>
+                        <a class="footer__icon" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
+                    </div>
+                    <a href="tel:+74950777490" class="footer__phone" data-set-link="phone">+7 (495) 077-74-90</a>
+                    <div class="footer__hours" data-set="hours">с 9:00 до 21:00 без выходных</div>
+                    <a class="footer__cta" href="#calc">Получить расчет</a>
+                </div>
+            </div>
+
+            <div class="footer__bottom">
+                <div class="footer__legal">
+                    <a href="/pages/policy.html">Политика конфиденциальности</a>
+                    <a href="/pages/data-agreement.html">Согласие на&nbsp;обработку персональных данных</a>
+                    <a href="/pages/user-agreement.html">Соглашение пользователя</a>
+                </div>
+                <div class="footer__copy">
+                    <p>Все права защищены, 2020-2026</p>
+                    <p>Информация, указанная на&nbsp;сайте, не&nbsp;являются публичной офертой</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JavaScript -->
+
+    <script src="src/js/main.js" type="module"></script>
+    <script src="src/js/components/filter.js" type="module"></script>
+</body>
+
+</html>
