@@ -5,13 +5,18 @@
 ```
 src/js/
 ├── main.js                      # Точка входа, инициализация всех компонентов
+├── settings.js                  # Глобальные настройки проекта
 └── components/                  # Модули компонентов
     ├── navigation.js            # Навигация и бургер-меню
-    ├── gallery.js               # Слайдер галереи
+    ├── gallerySlider.js         # Слайдер галереи
     ├── modal.js                 # Модальные окна
-    ├── FAQ_accordeon.js         # FAQ аккордеон
-    ├── phone_mask.js            # Маска телефона + плавный скролл
-    └── scroll_animation.js      # Анимация при скролле
+    ├── faq.js                   # FAQ аккордеон
+    ├── phoneMask.js             # Маска телефона
+    ├── scrollAnimations.js      # Анимация при скролле
+    ├── smoothScroll.js          # Плавная прокрутка
+    ├── applySettings.js         # Применение глобальных настроек
+    ├── filter.js                # Фильтрация контента
+    └── typograph.js             # Автоматическая типографика
 ```
 
 ## 🔧 Компоненты
@@ -30,7 +35,7 @@ src/js/
 new Navigation();
 ```
 
-### 2. **GallerySlider** (`gallery.js`)
+### 2. **GallerySlider** (`gallerySlider.js`)
 **Класс:** `GallerySlider`
 
 **Функции:**
@@ -63,7 +68,7 @@ new Modal();
 <button data-modal="order" data-package="basic">Заказать</button>
 ```
 
-### 4. **FAQ** (`FAQ_accordeon.js`)
+### 4. **FAQ** (`faq.js`)
 **Класс:** `FAQ`
 
 **Функции:**
@@ -75,7 +80,7 @@ new Modal();
 new FAQ();
 ```
 
-### 5. **PhoneMask** (`phone_mask.js`)
+### 5. **PhoneMask** (`phoneMask.js`)
 **Класс:** `PhoneMask`
 
 **Функции:**
@@ -89,7 +94,7 @@ const phoneInput = document.getElementById('phone');
 new PhoneMask(phoneInput);
 ```
 
-### 6. **SmoothScroll** (`phone_mask.js`)
+### 6. **SmoothScroll** (`smoothScroll.js`)
 **Класс:** `SmoothScroll`
 
 **Функции:**
@@ -101,7 +106,7 @@ new PhoneMask(phoneInput);
 new SmoothScroll();
 ```
 
-### 7. **initScrollAnimations** (`scroll_animation.js`)
+### 7. **ScrollAnimations** (`scrollAnimations.js`)
 **Функция:** `initScrollAnimations()`
 
 **Функции:**
@@ -112,6 +117,41 @@ new SmoothScroll();
 **Использование:**
 ```javascript
 initScrollAnimations();
+```
+
+### 8. **ApplySettings** (`applySettings.js`)
+**Функция:** `applySettings()`
+
+**Функции:**
+- Применение глобальных настроек к элементам страницы
+
+**Использование:**
+```javascript
+applySettings();
+```
+
+### 9. **Filter** (`filter.js`)
+**Класс:** `Filter`
+
+**Функции:**
+- Фильтрация контента по категориям
+- Поддержка динамических данных
+
+**Использование:**
+```javascript
+new Filter();
+```
+
+### 10. **Typograph** (`typograph.js`)
+**Класс:** `Typograph`
+
+**Функции:**
+- Автоматическая типографика текста
+- Замена кавычек, дефисов и других символов
+
+**Использование:**
+```javascript
+new Typograph();
 ```
 
 ## 🚀 Инициализация
@@ -132,6 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     new SmoothScroll();
     initScrollAnimations();
+    applySettings();
+    new Filter();
+    new Typograph();
 });
 ```
 
@@ -142,11 +185,15 @@ document.addEventListener('DOMContentLoaded', () => {
 ```html
 <!-- Компоненты -->
 <script src="src/js/components/navigation.js"></script>
-<script src="src/js/components/gallery.js"></script>
+<script src="src/js/components/gallerySlider.js"></script>
 <script src="src/js/components/modal.js"></script>
-<script src="src/js/components/FAQ_accordeon.js"></script>
-<script src="src/js/components/phone_mask.js"></script>
-<script src="src/js/components/scroll_animation.js"></script>
+<script src="src/js/components/faq.js"></script>
+<script src="src/js/components/phoneMask.js"></script>
+<script src="src/js/components/scrollAnimations.js"></script>
+<script src="src/js/components/smoothScroll.js"></script>
+<script src="src/js/components/applySettings.js"></script>
+<script src="src/js/components/filter.js"></script>
+<script src="src/js/components/typograph.js"></script>
 
 <!-- Инициализация -->
 <script src="src/js/main.js"></script>
