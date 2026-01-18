@@ -7,7 +7,11 @@
     position: relative;
     top: 0;
     left: 0;
-    min-height: 100vh;
+     /* Ограничиваем секцию высотой экрана и делаем отступ под фиксированную навигацию.
+         Используем переменную --nav-height с запасным значением 80px. */
+     min-height: calc(100vh - var(--nav-height, 80px));
+     max-height: 100vh;
+     padding-top: var(--nav-height, 80px);
     display: flex;
     align-items: center;
     justify-content: center;
