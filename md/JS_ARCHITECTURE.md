@@ -324,3 +324,5 @@ terser dist/bundle.js -o dist/bundle.min.js
 - **ES6 Classes:** https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Classes
 - **IntersectionObserver:** https://developer.mozilla.org/ru/docs/Web/API/Intersection_Observer_API
 - **Touch Events:** https://developer.mozilla.org/ru/docs/Web/API/Touch_events
+
+Обновлено: 18 января 2026 г.
