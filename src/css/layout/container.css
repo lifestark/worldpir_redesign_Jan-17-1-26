@@ -1,11 +1,13 @@
 /* ================================================
-   CONTAINER
-   Контейнер для контента
-   ================================================ */
+    КОНТЕЙНЕР
+    Контейнер для контента
+    ================================================ */
 
-.container, .navigation__container {
-    max-width: 1920px;
+.container,
+.navigation__container {
+    /* Use project variables so all content containers share the same width and padding */
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 0 clamp(12px, 5vw, 80px);
+    padding: 0 var(--container-padding);
     width: 100%;
 }

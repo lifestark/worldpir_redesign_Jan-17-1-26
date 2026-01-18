@@ -1,7 +1,7 @@
 /* ================================================
-   CSS VARIABLES
-   Все CSS переменные проекта
-   ================================================ */
+    ПЕРЕМЕННЫЕ CSS
+    Все CSS-переменные проекта
+    ================================================ */
 
 :root {
     /* Colors - Цвета */
@@ -67,7 +67,7 @@
     --spacing-3xl: 6rem;
 
     /* Layout - Лейаут */
-    --container-max-width: 1200px;
+    --container-max-width: calc(100vw - 2 * var(--container-padding));
     --container-padding: 1rem;
 
     /* Border Radius - Скругления */
@@ -95,4 +95,25 @@
     --z-modal-backdrop: 400;
     --z-modal: 500;
     --z-tooltip: 600;
+
+    /* Определение адаптивного отступа для контейнера */
+    --container-pad: clamp(12px,
+            /* Минимальный отступ для экранов шириной 375px */
+            calc(12px + (160 - 12) * ((100vw - 375px) / (3840 - 375))),
+            /* Адаптивный расчет отступа */
+            160px
+            /* Максимальный отступ для экранов шириной 3840px */
+        );
+}
+
+/* Применение адаптивного отступа для контейнеров */
+.container,
+.hero__container,
+.navigation__container {
+    width: calc(100vw - (var(--container-pad) * 2));
+    /* Ширина с учетом отступов */
+    padding-left: var(--container-pad);
+    /* Левый отступ */
+    padding-right: var(--container-pad);
+    /* Правый отступ */
 }

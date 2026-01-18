@@ -1,7 +1,7 @@
 /* ================================================
-   NAVIGATION
-   Компонент навигации
-   ================================================ */
+    НАВИГАЦИЯ
+    Компонент шапки/навигации
+    ================================================ */
 
 .navigation {
     position: fixed;
@@ -29,6 +29,14 @@
     align-items: center;
     justify-content: space-between;
     gap: clamp(20px, 3vw, 60px);
+}
+
+/* Ensure navigation container matches the project content container exactly */
+.navigation__container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    width: 100%;
 }
 
 /* --- Left Zone - Логотип --- */
@@ -424,15 +432,5 @@
 
     .navigation__logo-img--dark {
         opacity: 0 !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav__phone {
-        font-size: 16px;
-    }
-
-    .navigation__logo-img {
-        height: 45px;
     }
 }

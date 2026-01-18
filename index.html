@@ -52,7 +52,7 @@
                 <div class="nav__contact">
                     <div class="nav__hours" data-set="hours">Часы работы: 10:00 - 22:00</div>
                     <a class="nav__phone" href="tel:+78000000000" data-set-link="phone">+7(800)000-00-00</a>
-                    <a href="#orderModal">Заказать звонок</a>
+                    <a href="#" class="nav__phone" data-modal="order">Заказать звонок</a>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@
             </ul>
             <div class="navigation__mobile-contacts">
                 <a href="tel:+70000000000" class="navigation__mobile-phone">+7 (000) 000-00-00</a>
-                <a href="#orderModal" class="navigation__mobile-cta">Заказать звонок</a>
+                <a href="#orderModal" data-modal="order" class="navigation__mobile-cta">Заказать звонок</a>
             </div>
         </div>
     </nav>
@@ -88,16 +88,16 @@
     <section class="hero" id="hero">
         <div class="hero__container">
             <div class="hero__content">
-                <h1 class="hero__title">Организация детских праздников под ключ</h1>
-                <p class="hero__subtitle">Создаём незабываемые эмоции для ваших детей. Полный спектр услуг от идеи до
+                <h1 class="hero__title">Организация детских <br>праздников под ключ</h1>
+                <p class="hero__subtitle">Создаём незабываемые эмоции для ваших детей. <br>Полный спектр услуг от идеи
+                    до
                     реализации</p>
                 <div class="hero__actions">
                     <button class="btn btn--primary btn--large" data-modal="order">Заказать праздник</button>
-                    <a href="#services" class="btn btn--secondary btn--large">Узнать больше</a>
                 </div>
             </div>
         </div>
-        <div class="hero__overlay"></div>
+
     </section>
     <!-- Animators Section -->
     <section id="animators" class="animators">
@@ -603,6 +603,25 @@
 
     <script src="src/js/main.js" type="module"></script>
     <script src="src/js/components/filter.js" type="module"></script>
+
+    <!-- Modal Structure -->
+    <div id="orderModal" class="modal">
+        <div class="modal__content">
+            <button class="modal__close" data-modal-close>&times;</button>
+            <div class="modal__header">Заказать звонок</div>
+            <div class="modal__body">
+                Заполните форму, мы свяжемся с вами, ответим на все ваши вопросы
+            </div>
+            <form id="orderForm" class="modal__form">
+                <input type="text" id="name" name="name" class="modal__input" placeholder="Имя" required>
+                <input type="tel" id="phone" name="phone" class="modal__input" placeholder="Телефон*" required>
+                <button type="submit" class="modal__button">Отправить</button>
+            </form>
+            <div class="modal__footer">
+                Заполняя данную форму, Вы принимаете условия <a href="#">Соглашения</a> и <a href="#">Политики</a>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
