@@ -67,4 +67,21 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeScrollAnimations();
 });
 
+// Check for 'no-hero' mode
+const isNoHero = document.body.classList.contains('no-hero');
+const navigation = document.querySelector('.navigation');
+
+if (isNoHero) {
+    navigation.classList.add('scrolled');
+} else {
+    // Existing scroll logic
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 0) {
+            navigation.classList.add('scrolled');
+        } else {
+            navigation.classList.remove('scrolled');
+        }
+    });
+}
+
 

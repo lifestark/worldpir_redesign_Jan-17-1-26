@@ -32,3 +32,44 @@
 @import url('sections/faq.css');
 @import url('sections/cta.css');
 @import url('sections/footer.css');
+
+/* Styles for pages without a hero section */
+.page--no-hero main,
+.page--no-hero .page-content {
+   padding-top: var(--nav-height);
+}
+
+/* Ensure footer sticks to the bottom on pages without a hero section */
+.page--no-hero {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+
+.page--no-hero main {
+   flex-grow: 1;
+}
+
+.page--no-hero .footer {
+   margin-top: auto;
+}
+
+/* Styles for 'no-hero' class to ensure proper footer positioning */
+.no-hero {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+
+.no-hero main {
+   flex-grow: 1;
+   margin-top: var(--no-hero-nav-spacing);
+}
+
+.no-hero footer {
+   margin-top: auto;
+}
+
+:root {
+  --no-hero-nav-spacing: clamp(40px, 12vw, 200px); /* Increased max spacing for more 'air' */
+}
