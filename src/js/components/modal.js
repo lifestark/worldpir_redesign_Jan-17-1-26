@@ -8,6 +8,12 @@ class Modal {
     constructor() {
         this.modal = document.getElementById('orderModal');
         this.modalTriggers = document.querySelectorAll('[data-modal="order"]');
+        if (!this.modal) {
+            // No modal on the page — nothing to initialize
+            console.warn('Modal: #orderModal not found on this page. Skipping modal initialization.');
+            return;
+        }
+
         this.modalClosers = this.modal.querySelectorAll('[data-modal-close]');
         this.form = document.getElementById('orderForm');
 
@@ -45,10 +51,27 @@ class Modal {
             }
         });
 
-        // Отправка формы
-        this.form.addEventListener('submit', (e) => {
-            this.handleSubmit(e);
-        });
+        // Отправка формы (если форма присутствует)
+        if (this.form) {
+            this.form.addEventListener('submit', (e) => {
+                this.handleSubmit(e);
+            });
+        }
+
+        // Toggle consent dropdown
+        this.consentToggle = this.modal.querySelector('.modal__consent-toggle');
+        this.consentList = this.modal.querySelector('.modal__consent-list');
+        if (this.consentToggle && this.consentList) {
+            this.consentToggle.addEventListener('click', () => {
+                const isOpen = this.consentToggle.getAttribute('aria-expanded') === 'true';
+                this.consentToggle.setAttribute('aria-expanded', String(!isOpen));
+                if (isOpen) {
+                    this.consentList.classList.remove('modal__consent-list--open');
+                } else {
+                    this.consentList.classList.add('modal__consent-list--open');
+                }
+            });
+        }
     }
 
     open(packageType = null) {

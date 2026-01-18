@@ -11,3 +11,13 @@
     padding: 0 var(--container-padding);
     width: 100%;
 }
+.navigation__burger .no-hero{
+    background: var(--color-primary);
+    
+}
+.leagals__container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    width: 100%;
+}

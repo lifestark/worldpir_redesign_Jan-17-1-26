@@ -11,6 +11,7 @@
     z-index: var(--z-fixed);
     transition: all var(--transition-base);
     padding: clamp(8px, 2vw, 20px) 0;
+    min-height: 80px;
 }
 
 .navigation--with-hero {
@@ -256,6 +257,7 @@
     z-index: 10000;
 }
 
+
 .navigation__burger-lines {
     width: 22px;
     height: 16px;
@@ -270,6 +272,41 @@
     background: var(--color-black);
     border-radius: 2px;
     transition: all 0.3s ease;
+}
+
+/* Hover / focus states for burger */
+.navigation__burger:hover,
+.navigation__burger:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    background: var(--color-primary-light);
+}
+
+.navigation__burger:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+.navigation__burger:hover .navigation__burger-line,
+.navigation__burger:focus .navigation__burger-line {
+    background: var(--color-accent-dark);
+}
+
+/* Slight enlarge hit area on touch devices */
+@media (hover: none) {
+    .navigation__burger {
+        width: 56px;
+        height: 56px;
+    }
+
+    .navigation__burger-lines {
+        width: 26px;
+    }
+}
+
+.navigation__burger .no-hero {
+    background: var(--color-primary);
+
 }
 
 /* Анимация бургера */
@@ -436,7 +473,7 @@
 }
 
 body.no-hero .navigation {
-    background-color: white;
+    background-color: transparent;
     color: black;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

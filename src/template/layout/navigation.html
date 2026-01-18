@@ -23,7 +23,7 @@
                 <li class="navigation__item"><a href="#gallery" class="navigation__link">Галерея</a></li>
                 <li class="navigation__item"><a href="#reviews" class="navigation__link">Отзывы</a></li>
                 <li class="navigation__item"><a href="#faq" class="navigation__link">FAQ</a></li>
-                <li class="navigation__item"><a href="#contacts" class="navigation__link">Контакты</a></li>
+                <li class="navigation__item"><a href="contact_no_hero.html" class="navigation__link">Контакты</a></li>
             </ul>
         </div>
 
@@ -37,7 +37,7 @@
             <div class="nav__contact">
                 <div class="nav__hours" data-set="hours">Часы работы: 10:00 - 22:00</div>
                 <a class="nav__phone" href="tel:+78000000000" data-set-link="phone">+7(800)000-00-00</a>
-                <a href="#orderModal">Заказать звонок</a>
+                <a href="#orderModal" data-modal="order">Заказать звонок</a>
             </div>
         </div>
 
@@ -59,12 +59,55 @@
             <li class="navigation__mobile-item"><a href="#gallery" class="navigation__mobile-link">Галерея</a></li>
             <li class="navigation__mobile-item"><a href="#reviews" class="navigation__mobile-link">Отзывы</a></li>
             <li class="navigation__mobile-item"><a href="#faq" class="navigation__mobile-link">FAQ</a></li>
-            <li class="navigation__mobile-item"><a href="#contacts" class="navigation__mobile-link">Контакты</a>
+            <li class="navigation__mobile-item"><a href="contact_no_hero.html"
+                    class="navigation__mobile-link">Контакты</a>
             </li>
         </ul>
         <div class="navigation__mobile-contacts">
             <a href="tel:+70000000000" class="navigation__mobile-phone">+7 (000) 000-00-00</a>
-            <a href="#orderModal" class="navigation__mobile-cta">Заказать звонок</a>
+            <a href="#orderModal" data-modal="order" class="navigation__mobile-cta">Заказать звонок</a>
+        </div>
+    </div>
+
+    <!-- Бургер-меню -->
+    <div class="burger-menu" id="burgerMenu">
+        <div class="burger-menu__overlay" onclick="closeBurgerMenu()"></div>
+        <div class="burger-menu__content">
+            <button class="burger-menu__close" onclick="closeBurgerMenu()">&times;</button>
+            <div class="burger-menu__logo">
+                <img src="src/img/brand/logo.png" alt="Banana Show">
+            </div>
+            <nav class="burger-menu__nav">
+                <ul>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="prices.html">Цены</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                    <li><a href="gallery.html">Фотогалерея</a></li>
+                    <li><a href="reviews.html">Отзывы</a></li>
+                    <li><a href="contact_no_hero.html">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="burger-menu__contact">
+                <p>Москва, ул. Земляной Вал, 7</p>
+                <p>С 9:00 до 20:00 без выходных</p>
+                <a href="tel:+74950777490">+7 (495) 077-74-90</a>
+                <button class="button button--secondary" data-modal="order">Заказать обратный звонок</button>
+            </div>
+            <div class="burger-menu__social">
+                <a href="#" class="social-icon vk">VK</a>
+                <a href="#" class="social-icon whatsapp">WhatsApp</a>
+                <a href="#" class="social-icon telegram">Telegram</a>
+            </div>
         </div>
     </div>
 </nav>
+
+<script>
+    function openBurgerMenu() {
+        document.getElementById('burgerMenu').classList.add('burger-menu--visible');
+    }
+
+    function closeBurgerMenu() {
+        document.getElementById('burgerMenu').classList.remove('burger-menu--visible');
+    }
+</script>

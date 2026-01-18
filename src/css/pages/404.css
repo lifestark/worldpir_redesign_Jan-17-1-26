@@ -1,0 +1,44 @@
+/* Стили для страницы 404 — отдельный файл */
+
+.page-404 .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: calc(100vh - var(--nav-height));
+    padding-top: calc(var(--nav-height) + 20px);
+}
+
+.page-404 .main__content {
+    width: 100%;
+    max-width: 840px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-404 .main__content img {
+    /* Размер изображения с использованием clamp():
+         min 280px, идеальный - 40vw + 60px, max 920px */
+    width: clamp(280px, 40vw + 60px, 920px);
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.page-404 .button--secondary {
+    margin: 24px auto 0;
+    display: block;
+    width: max-content;
+}
+
+/* Адаптив */
+@media (max-width: 767px) {
+    .page-404 main {
+        margin-top: 100px;
+    }
+
+    .page-404 .container {
+        padding-top: calc(var(--nav-height) + 12px);
+    }
+}

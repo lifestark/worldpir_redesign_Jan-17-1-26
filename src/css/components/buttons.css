@@ -3,6 +3,7 @@
    Кнопки различных стилей
    ================================================ */
 
+.button,
 .btn {
     display: inline-flex;
     align-items: center;
@@ -26,12 +27,14 @@
 }
 
 /* Primary Button */
+.button--primary,
 .btn--primary {
     background-color: var(--color-accent);
     color: var(--color-white);
     border-color: var(--color-accent);
 }
 
+.button--primary:hover,
 .btn--primary:hover {
     background-color: var(--color-accent-dark);
     border-color: var(--color-accent-dark);
@@ -39,20 +42,26 @@
     box-shadow: var(--shadow-lg);
 }
 
+.button--primary:active,
 .btn--primary:active {
     transform: translateY(0);
 }
 
 /* Secondary Button */
+.button--secondary,
 .btn--secondary {
     background-color: transparent;
-    color: var(--color-white);
-    border-color: var(--color-white);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    padding: 10px 20px;
+    border-radius: 8px;
 }
 
+.button--secondary:hover,
 .btn--secondary:hover {
-    background-color: var(--color-white);
-    color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    transform: translateY(-2px);
 }
 
 /* Outline Button */

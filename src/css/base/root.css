@@ -24,6 +24,7 @@
     --color-success: #10b981;
     --color-error: #ef4444;
     --color-warning: #f59e0b;
+    --color-cta: #ffd000;
 
     /* Typography - Типографика */
     --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -69,7 +70,7 @@
     /* Layout - Лейаут */
     --container-max-width: calc(100vw - 2 * var(--container-padding));
     --container-padding: 1rem;
-    --no-hero-nav-spacing: clamp(40px, 10vw, 80px);
+
 
     /* Border Radius - Скругления */
     --radius-sm: 0.25rem;
@@ -105,6 +106,14 @@
             160px
             /* Максимальный отступ для экранов шириной 3840px */
         );
+
+    /* Переменные для отступов и размеров навигации */
+    --no-hero-nav-spacing: clamp(60px, 12vw, 200px);
+    /* Минимальный отступ для контента на странице no-hero */
+
+    /* Адаптивный отступ для основного контента на странице no-hero */
+    --no-hero-main-spacing: clamp(80px, 15vw, 220px);
+    /* Отступ для основного контента */
 }
 
 /* Применение адаптивного отступа для контейнеров */
