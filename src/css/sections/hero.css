@@ -7,21 +7,21 @@
     position: relative;
     top: 0;
     left: 0;
-     /* Ограничиваем секцию высотой экрана и делаем отступ под фиксированную навигацию.
+    /* Ограничиваем секцию высотой экрана и делаем отступ под фиксированную навигацию.
          Используем переменную --nav-height с запасным значением 80px. */
-     min-height: calc(100vh - var(--nav-height, 80px));
-     max-height: 100vh;
-     padding-top: var(--nav-height, 80px);
+    min-height: calc(100vh - var(--nav-height, 80px));
+    max-height: 100vh;
+    padding-top: var(--nav-height, 80px);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
     overflow: hidden;
 }
 
 .hero__container {
     max-width: var(--container-max-width);
-    margin: 0 auto;
+    margin: 0;
     padding: 0 var(--container-padding);
     position: relative;
     z-index: 2;
