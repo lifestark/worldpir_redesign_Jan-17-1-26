@@ -1,0 +1,70 @@
+
+/* Nunito: Google Fonts import + локальные @font-face для оффлайн/приоритета */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/* Локальные файлы находятся в src/font/ */
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 200;
+	src: local('Nunito ExtraLight'), local('Nunito-ExtraLight'), url('../../font/Nunito-ExtraLight.woff2') format('woff2');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Nunito Light'), local('Nunito-Light'), url('../../font/Nunito-Light.woff2') format('woff2');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Nunito'), local('Nunito-Regular'), url('../../font/Nunito-Regular.woff2') format('woff2');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 500;
+	src: local('Nunito Medium'), local('Nunito-Medium'), url('../../font/Nunito-Medium.woff2') format('woff2');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 600;
+	src: local('Nunito SemiBold'), local('Nunito-SemiBold'), url('../../font/Nunito-SemiBold.woff2') format('woff2');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Nunito Bold'), local('Nunito-Bold'), url('../../font/Nunito-Bold.woff2') format('woff2');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 800;
+	src: local('Nunito ExtraBold'), local('Nunito-ExtraBold'), url('../../font/Nunito-ExtraBold.woff2') format('woff2');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Nunito';
+	font-style: normal;
+	font-weight: 900;
+	src: local('Nunito Black'), local('Nunito-Black'), url('../../font/Nunito-Black.woff2') format('woff2');
+	font-display: swap;
+}
+
+/* Итого: примените шрифт через переменную --font-primary (в root.css) */

@@ -27,7 +27,7 @@
     --color-cta: #ffd000;
 
     /* Typography - Типографика */
-    --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-primary: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
     /* Базовый размер шрифта */
     --fs-base: clamp(16px, 0.6vw + 14px, 22px);
