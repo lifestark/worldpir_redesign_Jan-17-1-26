@@ -1,3 +1,4 @@
+/* DO NOT EDIT: footer CSS locked by developer until further notice */
 /* Запретить перенос для телефона в навигации */
 .nav-phone {
     white-space: nowrap;
@@ -9,8 +10,9 @@
    ========================= */
 
 .footer {
-    padding: 60px 0 0 0;
+    padding: 60px 0 24px 0;
     margin-top: auto;
+    color: var(--color-white);
 }
 
 .footer__wrap {
@@ -70,7 +72,7 @@
 
 .footer__desc {
     margin: 14px 0 0;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.95);
     font-size: clamp(14px, 1vw, 18px);
     line-height: 1.5;
     max-width: 520px;
@@ -84,7 +86,7 @@
 }
 
 .footer__menu a {
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.98);
     text-decoration: none;
     font-size: clamp(14px, 1vw, 18px);
     line-height: 1.2;
@@ -137,7 +139,8 @@
 }
 
 .footer__phone:hover {
-    color: var(--color-hover-yellow); /* Or same yellow as button */
+    color: var(--color-hover-yellow);
+    /* Or same yellow as button */
 }
 
 .footer__hours {
@@ -182,7 +185,7 @@
 }
 
 .footer__legal a {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
     font-size: 13px;
     transition: color 0.2s ease;
@@ -198,9 +201,21 @@
 
 .footer__copy p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 12px;
     line-height: 1.6;
+}
+
+/* Дополнительная секция компании в футере (добавлена в разметке) */
+.footer_company {
+    text-align: right;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.footer_company p {
+    margin: 0;
 }
 
 /* Перенос в конец для корректного переопределения стилей */
@@ -217,7 +232,7 @@
         gap: 40px;
     }
 
-    .footer__brand, 
+    .footer__brand,
     .footer__contacts {
         display: flex !important;
         flex-direction: column !important;
@@ -251,7 +266,7 @@
         margin: 14px auto 0 !important;
     }
 
-    .footer__phone, 
+    .footer__phone,
     .footer__hours {
         text-align: center !important;
         width: 100% !important;

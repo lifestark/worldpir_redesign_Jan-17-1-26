@@ -13,6 +13,9 @@ import Modal from './components/modal.js';
 import PhoneMask from './components/phoneMask.js';
 import SmoothScroll from './components/smoothScroll.js';
 import ScrollAnimations from './components/scrollAnimations.js';
+// Автоматическая подстановка года
+import './year.js';
+import './settings.js';
 
 /**
  * ================================================
@@ -65,23 +68,61 @@ document.addEventListener('DOMContentLoaded', () => {
     initializePhoneMask();
     initializeSmoothScroll();
     initializeScrollAnimations();
-});
 
-// Check for 'no-hero' mode
-const isNoHero = document.body.classList.contains('no-hero');
-const navigation = document.querySelector('.navigation');
+    // Надёжно получаем элемент навигации после загрузки DOM
+    const navigation = document.querySelector('.navigation');
+    if (!navigation) return;
 
-if (isNoHero) {
-    navigation.classList.add('scrolled');
-} else {
-    // Existing scroll logic
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 0) {
-            navigation.classList.add('scrolled');
+    // Helper: toggle BEM modifier used in CSS
+    function setScrolledState(scrolled) {
+        if (scrolled) {
+            navigation.classList.add('navigation--scrolled');
         } else {
-            navigation.classList.remove('scrolled');
+            navigation.classList.remove('navigation--scrolled');
         }
+    }
+
+    // Initial state: pages with no hero should appear scrolled
+    const isNoHero = document.body.classList.contains('no-hero');
+    if (isNoHero || window.scrollY > 0) {
+        setScrolledState(true);
+    } else {
+        setScrolledState(false);
+    }
+
+    // Scroll handler: toggle the modifier used in CSS
+    window.addEventListener('scroll', () => {
+        setScrolledState(window.scrollY > 0);
+    }, { passive: true });
+
+    // Устанавливаем CSS-переменную --nav-height равной текущей высоте навигации
+    function updateNavHeight() {
+        const height = navigation.offsetHeight;
+        document.documentElement.style.setProperty('--nav-height', `${height}px`);
+    }
+
+    // Обновляем при загрузке и при изменении размера окна
+    window.addEventListener('load', () => {
+        // небольшая задержка, чтобы стили и переходы завершились
+        setTimeout(updateNavHeight, 50);
     });
-}
+
+    window.addEventListener('resize', () => {
+        clearTimeout(window.__updateNavHeightTimeout);
+        window.__updateNavHeightTimeout = setTimeout(updateNavHeight, 120);
+    });
+
+    // Также наблюдаем за изменениями внутри навигации (открытие мобильного меню, изменение логотипов и т.п.)
+    const observer = new MutationObserver(() => {
+        // debounce
+        clearTimeout(window.__updateNavHeightMutation);
+        window.__updateNavHeightMutation = setTimeout(updateNavHeight, 60);
+    });
+
+    observer.observe(navigation, { attributes: true, childList: true, subtree: true });
+
+    // Также обновляем сразу
+    updateNavHeight();
+});
 
 

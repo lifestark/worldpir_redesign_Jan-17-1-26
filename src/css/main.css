@@ -32,6 +32,7 @@
 @import url('sections/reviews.css');
 @import url('sections/faq.css');
 @import url('sections/cta.css');
+@import url('sections/contacts.css');
 @import url('sections/footer.css');
 
 /* Styles for pages without a hero section */
@@ -64,8 +65,25 @@
 
 .no-hero main {
    flex-grow: 1;
-   margin-top: 200px;
-   /* Фиксированный отступ 200px от навигации для страниц no-hero */
+   padding-top: 0;
+   /* Отступ перемещён на body.no-hero; main больше не добавляет дополнительный gap */
+}
+
+/* Safety: ensure content sits below fixed navigation even before JS runs */
+body.no-hero {
+   /* Use the computed --nav-height directly to avoid double offsets */
+   padding-top: var(--nav-height) !important;
+}
+
+/* Make browser anchor scrolling account for fixed header */
+html {
+   scroll-padding-top: var(--nav-height);
+}
+
+/* Reduce large top padding on the first section for pages without hero */
+body.no-hero main>.section:first-of-type {
+   padding-top: 12px;
+   /* minimal gap — nav offset is handled on body */
 }
 
 .no-hero footer {
@@ -332,7 +350,8 @@
    justify-content: center;
    flex-direction: column;
    min-height: calc(100vh - var(--nav-height));
-   padding-top: calc(var(--nav-height) + 20px);
+   padding-top: 12px;
+   /* minimal inner padding; body handles nav offset */
 }
 
 .no-hero main .main__content {
@@ -341,6 +360,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
+   padding-top: var(--nav-height);
 }
 
 .no-hero main .main__content img {
@@ -352,9 +372,10 @@
 /* Адаптивное уменьшение отступа для мобильных экранов */
 @media (max-width: 767px) {
    .no-hero main {
-      margin-top: 100px;
+      padding-top: 0;
    }
+
    .no-hero main .container {
-      padding-top: calc(var(--nav-height) + 12px);
+      padding-top: 12px;
    }
 }

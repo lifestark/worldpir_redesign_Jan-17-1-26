@@ -12,119 +12,31 @@
     <link rel="stylesheet" href="/src/css/pages/404.css">
 </head>
 
-<body class="no-hero">
+<body class="error">
+    <img src="/src/img/brand/logo-main__white_main.svg" alt="Вселенная праздников" class="logo--fixed logo--white"
+        onclick="window.location.href='/'">
 
-    <!-- NAVIGATION -->
-    <nav class="navigation navigation--with-hero" id="mainNav">
-        <div class="navigation__container">
-            <!-- Left Zone -->
-            <div class="navigation__left">
-                <a href="#" class="navigation__logo">
-                    <img src="/src/img/brand/logo-main__white_main.svg" alt="Вселенная праздников"
-                        class="navigation__logo-img navigation__logo-img--light">
-                    <img src="/src/img/brand/logo-main__dark_main.svg" alt="Вселенная праздников"
-                        class="navigation__logo-img navigation__logo-img--dark">
-                </a>
-                <div class="nav__description">
-                    <div class="nav__title--line">Организация детских<br>праздников в Москве и МО</div>
-                    <div class="nav__address">Москва, ул Стромынка 19к2</div>
-                </div>
-            </div>
-
-            <!-- Center Zone -->
-            <div class="navigation__center">
-                <ul class="navigation__menu" id="navMenu">
-                    <li class="navigation__item"><a href="#services" class="navigation__link">Услуги</a></li>
-                    <li class="navigation__item"><a href="#packages" class="navigation__link">Пакеты</a></li>
-                    <li class="navigation__item"><a href="#gallery" class="navigation__link">Галерея</a></li>
-                    <li class="navigation__item"><a href="#reviews" class="navigation__link">Отзывы</a></li>
-                    <li class="navigation__item"><a href="#faq" class="navigation__link">FAQ</a></li>
-                    <li class="navigation__item"><a href="contact_no_hero.html" class="navigation__link">Контакты</a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Right Zone -->
-            <div class="navigation__right">
-                <div class="nav__socials">
-                    <a class="nav-socials__item" href="#" aria-label="VK" data-social="vk">VK</a>
-                    <a class="nav-socials__item" href="#" aria-label="Telegram" data-social="tg">TG</a>
-                    <a class="nav-socials__item" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
-                </div>
-                <div class="nav__contact">
-                    <div class="nav__hours" data-set="hours">Часы работы: 10:00 - 22:00</div>
-                    <a class="nav__phone" href="tel:+78000000000" data-set-link="phone">+7(800)000-00-00</a>
-                    <a href="#orderModal" data-modal="order">Заказать звонок</a>
-                </div>
-            </div>
-
-            <!-- Burger Menu -->
-            <button type="button" class="navigation__burger" id="burgerBtn" aria-label="Открыть меню">
-                <span class="navigation__burger-lines">
-                    <span class="navigation__burger-line"></span>
-                    <span class="navigation__burger-line"></span>
-                    <span class="navigation__burger-line"></span>
-                </span>
-            </button>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div class="navigation__mobile" id="mobileMenu">
-            <ul class="navigation__mobile-menu">
-                <li class="navigation__mobile-item"><a href="#services" class="navigation__mobile-link">Услуги</a></li>
-                <li class="navigation__mobile-item"><a href="#packages" class="navigation__mobile-link">Пакеты</a></li>
-                <li class="navigation__mobile-item"><a href="#gallery" class="navigation__mobile-link">Галерея</a></li>
-                <li class="navigation__mobile-item"><a href="#reviews" class="navigation__mobile-link">Отзывы</a></li>
-                <li class="navigation__mobile-item"><a href="#faq" class="navigation__mobile-link">FAQ</a></li>
-                <li class="navigation__mobile-item"><a href="contact_no_hero.html"
-                        class="navigation__mobile-link">Контакты</a>
-                </li>
-            </ul>
-            <div class="navigation__mobile-contacts">
-                <a href="tel:+70000000000" class="navigation__mobile-phone">+7 (000) 000-00-00</a>
-                <a href="#orderModal" data-modal="order" class="navigation__mobile-cta">Заказать звонок</a>
-            </div>
-        </div>
-
-        <!-- Бургер-меню -->
-        <div class="burger-menu" id="burgerMenu">
-            <div class="burger-menu__overlay" onclick="closeBurgerMenu()"></div>
-            <div class="burger-menu__content">
-                <button class="burger-menu__close" onclick="closeBurgerMenu()">&times;</button>
-                <div class="burger-menu__logo">
-                    <img src="/src/img/brand/logo.png" alt="Banana Show">
-                </div>
-                <nav class="burger-menu__nav">
-                    <ul>
-                        <li><a href="about.html">О нас</a></li>
-                        <li><a href="prices.html">Цены</a></li>
-                        <li><a href="blog.html">Блог</a></li>
-                        <li><a href="gallery.html">Фотогалерея</a></li>
-                        <li><a href="reviews.html">Отзывы</a></li>
-                        <li><a href="contact_no_hero.html">Контакты</a></li>
-                    </ul>
-                </nav>
-                <div class="burger-menu__contact">
-                    <p>Москва, ул. Земляной Вал, 7</p>
-                    <p>С 9:00 до 20:00 без выходных</p>
-                    <a href="tel:+74950777490">+7 (495) 077-74-90</a>
-                    <button class="button button--secondary" data-modal="order">Заказать обратный звонок</button>
-                </div>
-                <div class="burger-menu__social">
-                    <a href="#" class="social-icon vk">VK</a>
-                    <a href="#" class="social-icon whatsapp">WhatsApp</a>
-                    <a href="#" class="social-icon telegram">Telegram</a>
-                </div>
-            </div>
-        </div>
-    </nav>
     <main class="page-404">
         <div class="container">
             <div class="main__content">
-                <img src="/src/img/errors/404.svg" alt="404 Not Found">
+                <div class="error__visual">
+                    <span class="error__big" aria-hidden="true">404</span>
+                    <img src="/src/img/errors/404.svg" alt="404 Not Found" class="error__illustration">
+                </div>
+                <div class="error__text">
+                    <h1 class="error__title">Страница не найдена</h1>
+                    <p class="error__desc">Возможно, адрес введён неверно или страница была удалена. Попробуйте
+                        вернуться на главную.</p>
+                </div>
             </div>
+            <button onclick="window.location.href='/'" class="button button--secondary button--icon-left">
+                <svg class="icon icon--back" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor" />
+                </svg>
+                На главную
+            </button>
         </div>
-        <button onclick="window.location.href='/'" class="button button--secondary">На главную</button>
     </main>
 
     <script src="/src/js/main.js" type="module"></script>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/src/css/main.css">
 </head>
 
+
 <body class="no-hero">
 
     <!-- NAVIGATION -->
@@ -38,7 +39,6 @@
                     <li class="navigation__item"><a href="#gallery" class="navigation__link">Галерея</a></li>
                     <li class="navigation__item"><a href="#reviews" class="navigation__link">Отзывы</a></li>
                     <li class="navigation__item"><a href="#faq" class="navigation__link">FAQ</a></li>
-                    <li class="navigation__item"><a href="#contacts" class="navigation__link">Контакты</a></li>
                 </ul>
             </div>
 
@@ -74,7 +74,6 @@
                 <li class="navigation__mobile-item"><a href="#gallery" class="navigation__mobile-link">Галерея</a></li>
                 <li class="navigation__mobile-item"><a href="#reviews" class="navigation__mobile-link">Отзывы</a></li>
                 <li class="navigation__mobile-item"><a href="#faq" class="navigation__mobile-link">FAQ</a></li>
-                <li class="navigation__mobile-item"><a href="#contacts" class="navigation__mobile-link">Контакты</a>
                 </li>
             </ul>
             <div class="navigation__mobile-contacts">
@@ -89,144 +88,62 @@
 Main content
 Основной контент страницы должен быть размещен здесь.
 ================================================ -->
+
     <main>
-        <section class="offers section" aria-label="Предложения">
+        <section class="section section--contacts">
             <div class="container">
-                <h2 class="offers__title">Проводим детские праздники любой сложности</h2>
-                <p class="offers__desc">Возьмём на себя организацию под ключ как тихого семейного торжества, так и
-                    масштабного мероприятия — программы и шоу для любого возраста.</p>
+                <h1 class="section__title">Контакты</h1>
 
-                <div class="cards-wrap">
-                    <div class="offers__list cards-grid" aria-hidden="false">
-                        <!-- Eight cards -->
-                        <div class="offers__item">
-                            <article class="card--slide card--service">
-                                <div class="card__inner">
-                                    <div class="card__media">
-                                        <picture>
-                                            <source type="image/avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/480.avif 480w, /src/img/background/768.avif 768w, /src/img/background/1280.avif 1280w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px">
-                                            <img src="/src/img/background/375.avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/480.avif 480w, /src/img/background/768.avif 768w, /src/img/background/1280.avif 1280w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px"
-                                                alt="Детский День рождения">
-                                        </picture>
-                                    </div>
-                                    <div class="card__caption">Детский День рождения</div>
-                                </div>
-                                <div class="card__back-shadow" aria-hidden="true"></div>
-                            </article>
+                <div class="contacts__grid">
+                    <div class="contacts__info">
+                        <div class="contacts__col contacts__col--left">
+                            <p class="contacts__item contacts__label"><strong>Адрес:</strong></p>
+                            <p class="contacts__item contacts__value">Москва, ул. Стромынка, 19к2</p>
+
+                            <p class="contacts__item contacts__label"><strong>Метро:</strong></p>
+                            <p class="contacts__item contacts__value">
+                                <span class="metro">
+                                    <img src="/src/img/svg/metro_logo.svg" alt="Иконка метро" class="metro__icon">
+                                    <span class="metro__name">Преображенская площадь</span>
+                                    <span class="metro__dot" aria-hidden="true"></span>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="contacts__col contacts__col--right">
+                            <p class="contacts__item contacts__label"><strong>Звоните с:</strong></p>
+                            <p class="contacts__item contacts__value">с 09:00 до 20:00</p>
+
+                            <p class="contacts__item contacts__label"><strong>Номер телефона:</strong></p>
+                            <p class="contacts__item contacts__value"><a href="tel:+74950777490">+7 (495) 077-74-90</a>
+                            </p>
+
+                            <p class="contacts__item contacts__label"><strong>Отзывы и предложения:</strong></p>
+                            <p class="contacts__item contacts__value"><a
+                                    href="mailto:info@yourdomain.ru?subject=Отзывы%20и%20предложения">info@yourdomain.ru</a>
+                            </p>
                         </div>
 
-                        <div class="offers__item">
-                            <article class="card--slide card--service">
-                                <div class="card__inner">
-                                    <div class="card__media">
-                                        <picture>
-                                            <source type="image/avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/480.avif 480w, /src/img/background/768.avif 768w, /src/img/background/1280.avif 1280w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px">
-                                            <img src="/src/img/background/480.avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/480.avif 480w, /src/img/background/768.avif 768w, /src/img/background/1280.avif 1280w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px"
-                                                alt="Новый год">
-                                        </picture>
-                                    </div>
-                                    <div class="card__caption">Новый год</div>
-                                </div>
-                                <div class="card__back-shadow" aria-hidden="true"></div>
-                            </article>
-                        </div>
-
-                        <div class="offers__item">
-                            <article class="card--slide card--service">
-                                <div class="card__inner">
-                                    <div class="card__media">
-                                        <picture>
-                                            <source type="image/avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/480.avif 480w, /src/img/background/768.avif 768w, /src/img/background/1280.avif 1280w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px">
-                                            <img src="/src/img/background/768.avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/480.avif 480w, /src/img/background/768.avif 768w, /src/img/background/1280.avif 1280w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px"
-                                                alt="Масленица">
-                                        </picture>
-                                    </div>
-                                    <div class="card__caption">Масленица</div>
-                                </div>
-                                <div class="card__back-shadow" aria-hidden="true"></div>
-                            </article>
-                        </div>
-
-                        <div class="offers__item">
-                            <article class="card--slide card--service">
-                                <div class="card__inner">
-                                    <div class="card__media">
-                                        <picture>
-                                            <source type="image/avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/480.avif 480w, /src/img/background/768.avif 768w, /src/img/background/1280.avif 1280w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px">
-                                            <img src="/src/img/background/1280.avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/480.avif 480w, /src/img/background/768.avif 768w, /src/img/background/1280.avif 1280w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px"
-                                                alt="Выпускной">
-                                        </picture>
-                                    </div>
-                                    <div class="card__caption">Выпускной в школе</div>
-                                </div>
-                                <div class="card__back-shadow" aria-hidden="true"></div>
-                            </article>
-                        </div>
-
-                        <div class="offers__item">
-                            <article class="card--slide card--service">
-                                <div class="card__inner">
-                                    <div class="card__media">
-                                        <picture>
-                                            <source type="image/avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/375@2x.avif 750w, /src/img/background/480.avif 480w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px">
-                                            <img src="/src/img/background/375@2x.avif"
-                                                srcset="/src/img/background/375.avif 375w, /src/img/background/375@2x.avif 750w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px"
-                                                alt="Хеллоуин">
-                                        </picture>
-                                    </div>
-                                    <div class="card__caption">Хеллоуин</div>
-                                </div>
-                                <div class="card__back-shadow" aria-hidden="true"></div>
-                            </article>
-                        </div>
-
-                        <div class="offers__item">
-                            <article class="card--slide card--service">
-                                <div class="card__inner">
-                                    <div class="card__media">
-                                        <picture>
-                                            <source type="image/avif"
-                                                srcset="/src/img/background/480.avif 480w, /src/img/background/480@2x.avif 960w, /src/img/background/768.avif 768w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px">
-                                            <img src="/src/img/background/480@2x.avif"
-                                                srcset="/src/img/background/480.avif 480w, /src/img/background/480@2x.avif 960w, /src/img/background/768.avif 768w"
-                                                sizes="(max-width:480px) 180px, (max-width:1024px) 33vw, 260px"
-                                                alt="Детский день компании">
-                                        </picture>
-                                    </div>
-                                    <div class="card__caption">Детский день компании</div>
-                                </div>
-                                <div class="card__back-shadow" aria-hidden="true"></div>
-                            </article>
-                        </div>
-
-                        <!-- Removed: only 6 cards remain as requested -->
-
+                        <!-- actions moved below the map to match design -->
                     </div>
+                </div>
+
+                <div class="contacts__map">
+                    <script type="text/javascript" charset="utf-8" async
+                        src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A874bcdf0e4c1791400b9bf2c1e54dbf4f376be68a9fb469ac69dc56f07affea1&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+                    <noscript>
+                        <a href="https://yandex.ru/maps/?um=constructor%3A874bcdf0e4c1791400b9bf2c1e54dbf4f376be68a9fb469ac69dc56f07affea1"
+                            target="_blank" rel="noopener">Открыть карту в новой вкладке</a>
+                    </noscript>
+                </div>
+
+                <div class="contacts__actions contacts__actions--below">
+                    <a class="button button--primary button--route"
+                        href="https://yandex.ru/maps/?rtext=~%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0,%20%D1%83%D0%BB%20%D0%A1%D1%82%D1%80%D0%BE%D0%BC%D1%8B%D0%BD%D0%BA%D0%B0%2019%D0%BA2&rtt=auto"
+                        target="_blank" rel="noopener">Построить маршрут</a>
                 </div>
             </div>
         </section>
     </main>
-
 
     <!-- ================================================
 Main content end
@@ -254,14 +171,14 @@ Main content end
 
                 <!-- Menu -->
                 <nav class="footer__menu" aria-label="Навигация в подвале">
-                    <a href="/animators.html">Аниматоры</a>
-                    <a href="/shows.html">Шоу-программы</a>
-                    <a href="/quests.html">Квесты</a>
-                    <a href="/addons.html">Доп. услуги</a>
-                    <a href="/prices.html">Цены</a>
-                    <a href="/about.html">О нас</a>
-                    <a href="/gallery.html">Фотогалерея</a>
-                    <a href="/contacts.html">Контакты</a>
+                    <a href="index.html#animators">Аниматоры</a>
+                    <a href="index.html#services">Шоу-программы</a>
+                    <a href="index.html#services">Квесты</a>
+                    <a href="index.html#services">Доп. услуги</a>
+                    <a href="index.html#packages">Цены</a>
+                    <a href="index.html#hero">О нас</a>
+                    <a href="index.html#gallery">Фотогалерея</a>
+                    <a href="src/pages/contact.html">Контакты</a>
                 </nav>
 
                 <!-- Contacts -->
@@ -277,14 +194,14 @@ Main content end
                 </div>
             </div>
 
-            <div class="footer__bottom">
+                <div class="footer__bottom">
                 <div class="footer__legal">
-                    <a href="/pages/policy.html">Политика конфиденциальности</a>
-                    <a href="/pages/data-agreement.html">Согласие на&nbsp;обработку персональных данных</a>
+                    <a href="src/pages/legal/privacy_policy.html">Политика конфиденциальности</a>
+                    <a href="src/pages/legal/data_processing_agreement.html">Согласие на&nbsp;обработку персональных данных</a>
                     <a href="src/pages/legal/terms_of_use.html">Соглашение пользователя</a>
                 </div>
                 <div class="footer__copy">
-                    <p>Все права защищены, 2020-2026</p>
+                    <p>Все права защищены, <span data-year-start="2020"></span></p>
                     <p>Информация, указанная на&nbsp;сайте, не&nbsp;являются публичной офертой</p>
                     <p>Мы собираем обезличенные метаданные пользователя (cookie, данные об IP-адресе и местоположении)
                         для

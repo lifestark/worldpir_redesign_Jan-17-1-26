@@ -1,29 +1,101 @@
-/* Стили для страницы 404 — отдельный файл */
+/* Стили для страницы 404 — чистая, исправленная версия */
+
+.page-404 {
+    background: linear-gradient(180deg, #7F00FF 0.16%, #E100FF 97.82%);
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* Фоновое изображение для body на странице ошибки (под градиентом .page-404) */
+body.error {
+    /* Фон: используем изображение из папки errors */
+    background-image: url('/src/img/errors/clouds.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+@media (min-width: 1600px) {
+    body.error {
+        background-image: url('/src/img/errors/404_bg.jpg');
+        background-position: center center;
+    }
+}
+
+@media (max-width: 768px) {
+    body.error {
+        background-image: url('/src/img/errors/clouds.png');
+        background-position: center center;
+    }
+}
+
+/* Фиксированный логотип поверх фоновой секции */
+.logo--fixed {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    padding-top: 120px;
+    transform: translate(-50%, -50%);
+    z-index: 1100;
+    width: 220px;
+    height: auto;
+    cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    .logo--fixed {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 160px;
+    }
+}
 
 .page-404 .container {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    min-height: calc(100vh - var(--nav-height));
-    padding-top: calc(var(--nav-height) + 20px);
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 .page-404 .main__content {
     width: 100%;
-    max-width: 840px;
+    max-width: 900px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 24px;
 }
 
-.page-404 .main__content img {
-    /* Размер изображения с использованием clamp():
-         min 280px, идеальный - 40vw + 60px, max 920px */
-    width: clamp(280px, 40vw + 60px, 920px);
-    max-width: 100%;
+.page-404 .error__visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 320px;
+    flex: 1 1 480px;
+}
+
+.page-404 .error__illustration {
+    width: clamp(260px, 38vw, 520px);
     height: auto;
-    display: block;
+    z-index: 2;
+}
+
+.page-404 .error__big {
+    position: absolute;
+    font-size: clamp(80px, 18vw, 800px);
+    font-weight: 800;
+    color: rgba(246, 210, 255, 0.75);
+    line-height: 1;
+    pointer-events: none;
+    transform: translateY(-8px);
 }
 
 .page-404 .button--secondary {
@@ -32,13 +104,82 @@
     width: max-content;
 }
 
+/* Текстовое содержимое ошибки */
+.page-404 .error__text {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 0 24px;
+    max-width: 760px;
+}
+
+.page-404 .error__title {
+    font-size: var(--fs-h2);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    color: #F6D2FF;
+    font-weight: 700;
+}
+
+.page-404 .error__desc {
+    font-size: clamp(14px, 1.6vw, 18px);
+    color: #F6D2FF;
+    margin: 0 0 18px;
+    max-width: 680px;
+}
+
+.page-404__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+/* Стиль кнопки с иконкой слева */
+.button--icon-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.button--icon-left .icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Контрастная видимая кнопка на градиенте */
+.button--secondary {
+    background-color: #FFFFFF;
+    color: #7F00FF;
+    border-color: transparent;
+    padding: 12px 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    border-radius: 10px;
+}
+
+.button--secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
 /* Адаптив */
 @media (max-width: 767px) {
-    .page-404 main {
-        margin-top: 100px;
+    .page-404 .container {
+        height: auto;
+        min-height: 100vh;
+        padding: 24px 12px;
     }
 
-    .page-404 .container {
-        padding-top: calc(var(--nav-height) + 12px);
+    .page-404 .main__content {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .page-404 .error__text {
+        text-align: center;
+        padding: 0 12px;
+        margin-top: 12px;
+    }
+
+    .page-404 .error__big {
+        font-size: clamp(60px, 22vw, 140px);
     }
 }

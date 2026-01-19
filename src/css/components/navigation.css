@@ -1,3 +1,4 @@
+/* DO NOT EDIT: navigation CSS locked by developer until further notice */
 /* ================================================
     НАВИГАЦИЯ
     Компонент шапки/навигации
@@ -473,7 +474,7 @@
 }
 
 body.no-hero .navigation {
-    background-color: transparent;
+    background-color: var(--color-white);
     color: black;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
