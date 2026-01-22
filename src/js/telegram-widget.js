@@ -16,46 +16,59 @@
     }
 
     /* Chat Card */
-    .chat-card {
-      position: absolute;
-      bottom: 80px;
-      right: 0;
-      width: 384px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    .telegram-button {
+      width: 100%;
+      background: #2366f2; /* slightly darker blue to match example */
+      color: white;
+      font-weight: 500;
+      padding: 12px 56px 12px 24px; /* leave space for icon on the right */
+      border-radius: 9999px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 200ms ease, transform 200ms ease;
+      box-shadow: 0 8px 20px rgba(35, 102, 242, 0.18);
+      text-decoration: none;
+      font-size: 18px;
+      position: relative;
       overflow: hidden;
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-      transition: all 0.3s ease-out;
-      pointer-events: none;
     }
-
-    .chat-card.open {
+    .telegram-button:hover {
+      background: #1b57d1;
+      transform: translateY(-2px);
+    }
+    .telegram-icon {
+      width: 28px;
+      height: 28px;
+      display: block;
+    }
+    .telegram-icon-wrap {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+    }
+    /* Reveal animation for Telegram label */
+    .telegram-label {
+      display: block;
+      width: 100%;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 260ms cubic-bezier(.2,.9,.2,1), transform 260ms cubic-bezier(.2,.9,.2,1);
+      white-space: nowrap;
+    }
+    .telegram-button.reveal .telegram-label {
       opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: all;
-    }
-
-    .chat-card.closing {
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-    }
-
-    /* Header */
-    .chat-header {
-      background: linear-gradient(to right, #f9fafb, #f3f4f6);
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .chat-header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      transform: translateY(0);
     }
 
     .avatar-container {
@@ -318,12 +331,12 @@
 
         <div class="telegram-button-container">
           <a href="https://t.me/worldpir_bot" target="_blank" rel="noopener noreferrer" class="telegram-button">
+            <span class="telegram-label">Написать в телеграм</span>
             <span class="telegram-icon-wrap">
-              <svg class="telegram-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              <svg class="telegram-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
-            <span class="telegram-label">Чат в Telegram</span>
           </a>
         </div>
       </div>
