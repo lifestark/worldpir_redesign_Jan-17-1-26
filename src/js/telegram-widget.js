@@ -186,6 +186,21 @@
       width: 20px;
       height: 20px;
     }
+    /* Reveal animation for Telegram label */
+    .telegram-button {
+      overflow: hidden;
+    }
+    .telegram-label {
+      display: inline-block;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: opacity 260ms cubic-bezier(.2,.9,.2,1), transform 260ms cubic-bezier(.2,.9,.2,1);
+      white-space: nowrap;
+    }
+    .telegram-button.reveal .telegram-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
 
     /* Floating Button */
     .floating-button {
@@ -303,10 +318,12 @@
 
         <div class="telegram-button-container">
           <a href="https://t.me/worldpir_bot" target="_blank" rel="noopener noreferrer" class="telegram-button">
-            <svg class="telegram-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-            </svg>
-            Чат в Telegram
+            <span class="telegram-icon-wrap">
+              <svg class="telegram-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+            </span>
+            <span class="telegram-label">Чат в Telegram</span>
           </a>
         </div>
       </div>
@@ -413,6 +430,12 @@
     floatingBtn.classList.add('bounce');
     playClickSound();
     setTimeout(() => floatingBtn.classList.remove('bounce'), 600);
+    // раскрыть текст кнопки "Чат в Telegram"
+    const telegramBtn = document.querySelector('.telegram-button');
+    if (telegramBtn) {
+      // небольшая задержка, чтобы кнопка была видима
+      setTimeout(() => telegramBtn.classList.add('reveal'), 160);
+    }
   });
 
   closeBtn.addEventListener('click', () => {
@@ -423,6 +446,8 @@
     setTimeout(() => {
       chatCard.classList.remove('open', 'closing');
       floatingBtn.classList.remove('hidden');
+      const telegramBtn = document.querySelector('.telegram-button');
+      if (telegramBtn) telegramBtn.classList.remove('reveal');
       isClosing = false;
     }, 300);
   });
