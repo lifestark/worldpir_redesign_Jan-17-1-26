@@ -1,0 +1,382 @@
+/* ================================================
+   ГЛАВНЫЙ ФАЙЛ CSS
+   Основной файл стилей - импортирует все модули
+   Примечание: все комментарии в CSS пишем на русском (кроме коротких меток селекторов при необходимости).
+   ================================================ */
+
+/* Base - Базовые стили */
+@import url('base/root.css');
+@import url('base/reset.css');
+@import url('base/typography.css');
+@import url('base/utilities.css');
+@import url('base/fonts.css');
+
+/* Layout - Структура страницы */
+@import url('layout/container.css');
+@import url('layout/section.css');
+
+/* Components - Переиспользуемые компоненты */
+@import url('components/buttons.css');
+@import url('components/cards.css');
+@import url('components/modal.css');
+@import url('components/form.css');
+@import url('components/navigation.css');
+@import url('widgets/telegram.css');
+
+/* Sections - Секции страницы */
+@import url('sections/hero.css');
+@import url('sections/animators.css');
+@import url('sections/services.css');
+@import url('sections/packages.css');
+@import url('sections/benefits.css');
+@import url('sections/gallery.css');
+@import url('sections/reviews.css');
+@import url('sections/faq.css');
+@import url('sections/cta.css');
+@import url('sections/contacts.css');
+@import url('sections/footer.css');
+
+/* Styles for pages without a hero section */
+.page--no-hero main,
+.page--no-hero .page-content {
+   padding-top: var(--nav-height);
+}
+
+/* Ensure footer sticks to the bottom on pages without a hero section */
+.page--no-hero {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+
+.page--no-hero main {
+   flex-grow: 1;
+}
+
+.page--no-hero .footer {
+   margin-top: auto;
+}
+
+/* Styles for 'no-hero' class to ensure proper footer positioning */
+.no-hero {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+
+.no-hero main {
+   flex-grow: 1;
+   padding-top: 0;
+   /* Отступ перемещён на body.no-hero; main больше не добавляет дополнительный gap */
+}
+
+/* Safety: ensure content sits below fixed navigation even before JS runs */
+body.no-hero {
+   /* Use the computed --nav-height directly to avoid double offsets */
+   padding-top: var(--nav-height) !important;
+}
+
+/* Make browser anchor scrolling account for fixed header */
+html {
+   scroll-padding-top: var(--nav-height);
+}
+
+/* Reduce large top padding on the first section for pages without hero */
+body.no-hero main>.section:first-of-type {
+   padding-top: 12px;
+   /* minimal gap — nav offset is handled on body */
+}
+
+.no-hero footer {
+   margin-top: auto;
+}
+
+/* Применение стилей из root.css для формы заказа звонка */
+.call-form {
+   background-color: var(--color-primary-light);
+   color: var(--color-black);
+   border-radius: var(--radius-lg);
+   padding: var(--spacing-lg);
+   box-shadow: var(--shadow-lg);
+   max-width: 400px;
+   margin: 0 auto;
+}
+
+.call-form h2 {
+   font-size: var(--fs-h2);
+   color: var(--color-primary-dark);
+   margin-bottom: var(--spacing-md);
+}
+
+.call-form p {
+   font-size: var(--fs-sm);
+   margin-bottom: var(--spacing-md);
+   color: var(--color-gray-600);
+}
+
+.call-form input {
+   width: 100%;
+   padding: var(--spacing-sm);
+   margin-bottom: var(--spacing-sm);
+   border: 1px solid var(--color-primary);
+   border-radius: var(--radius-md);
+   font-size: var(--fs-base);
+   color: var(--color-black);
+}
+
+.call-form input::placeholder {
+   color: var(--color-gray-400);
+}
+
+.call-form button {
+   background-color: var(--color-accent);
+   color: var(--color-white);
+   font-size: var(--fs-btn);
+   padding: var(--spacing-sm) var(--spacing-md);
+   border: none;
+   border-radius: var(--radius-full);
+   cursor: pointer;
+   transition: background-color var(--transition-base);
+}
+
+.call-form button:hover {
+   background-color: var(--color-accent-dark);
+}
+
+.call-form .checkbox {
+   display: flex;
+   align-items: center;
+   margin-top: var(--spacing-md);
+   font-size: var(--fs-xs);
+   color: var(--color-gray-500);
+}
+
+.call-form .checkbox input {
+   margin-right: var(--spacing-xs);
+}
+
+.call-form .checkbox a {
+   color: var(--color-accent);
+   text-decoration: underline;
+   transition: color var(--transition-base);
+}
+
+.call-form .checkbox a:hover {
+   color: var(--color-accent-dark);
+}
+
+/* Стили для модального окна */
+.modal {
+   display: none;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   justify-content: center;
+   align-items: center;
+   z-index: var(--z-modal);
+}
+
+.modal--visible {
+   display: flex;
+}
+
+/* Backwards-compatible class used by JS */
+.modal--active {
+   display: flex;
+}
+
+.modal__overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+   position: relative;
+   background-color: var(--color-primary-light);
+   border-radius: var(--radius-lg);
+   padding: var(--spacing-lg);
+   box-shadow: var(--shadow-xl);
+   max-width: 400px;
+   width: 90%;
+}
+
+.modal__close {
+   position: absolute;
+   top: var(--spacing-sm);
+   right: var(--spacing-sm);
+   background: none;
+   border: none;
+   font-size: var(--fs-h3);
+   color: var(--color-gray-500);
+   cursor: pointer;
+   transition: color var(--transition-base);
+}
+
+.modal__close:hover {
+   color: var(--color-error);
+}
+
+/* Стили для бургер-меню */
+.burger-menu {
+   display: none;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: var(--z-modal);
+}
+
+.burger-menu--visible {
+   display: block;
+}
+
+.burger-menu__overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.burger-menu__content {
+   position: relative;
+   background-color: var(--color-white);
+   width: 80%;
+   max-width: 300px;
+   height: 100%;
+   box-shadow: var(--shadow-lg);
+   padding: var(--spacing-lg);
+   overflow-y: auto;
+}
+
+.burger-menu__close {
+   position: absolute;
+   top: var(--spacing-sm);
+   right: var(--spacing-sm);
+   background: none;
+   border: none;
+   font-size: var(--fs-h3);
+   color: var(--color-gray-500);
+   cursor: pointer;
+   transition: color var(--transition-base);
+}
+
+.burger-menu__close:hover {
+   color: var(--color-error);
+}
+
+.burger-menu__logo img {
+   max-width: 100%;
+   margin-bottom: var(--spacing-lg);
+}
+
+.burger-menu__nav ul {
+   list-style: none;
+   padding: 0;
+   margin: 0 0 var(--spacing-lg);
+}
+
+.burger-menu__nav li {
+   margin-bottom: var(--spacing-md);
+}
+
+.burger-menu__nav a {
+   text-decoration: none;
+   font-size: var(--fs-nav);
+   color: var(--color-black);
+   transition: color var(--transition-base);
+}
+
+.burger-menu__nav a:hover {
+   color: var(--color-primary-dark);
+}
+
+.burger-menu__contact {
+   margin-top: var(--spacing-lg);
+   font-size: var(--fs-sm);
+   color: var(--color-gray-600);
+}
+
+.burger-menu__contact a {
+   display: block;
+   margin-top: var(--spacing-sm);
+   font-size: var(--fs-base);
+   color: var(--color-accent);
+   text-decoration: none;
+}
+
+.burger-menu__contact a:hover {
+   color: var(--color-accent-dark);
+}
+
+.burger-menu__social {
+   display: flex;
+   gap: var(--spacing-sm);
+   margin-top: var(--spacing-lg);
+}
+
+.social-icon {
+   display: inline-block;
+   width: 40px;
+   height: 40px;
+   border-radius: var(--radius-full);
+   background-color: var(--color-gray-200);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   text-decoration: none;
+   color: var(--color-black);
+   font-size: var(--fs-base);
+   transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.social-icon:hover {
+   background-color: var(--color-accent);
+   color: var(--color-white);
+}
+
+/* 404 page: центрирование контента и предотвращение перекрытия навигацией */
+.no-hero main .container {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   min-height: calc(100vh - var(--nav-height));
+   padding-top: 12px;
+   /* minimal inner padding; body handles nav offset */
+}
+
+.no-hero main .main__content {
+   width: 100%;
+   max-width: 840px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding-top: var(--nav-height);
+}
+
+.no-hero main .main__content img {
+   max-width: 100%;
+   height: auto;
+   display: block;
+}
+
+/* Адаптивное уменьшение отступа для мобильных экранов */
+@media (max-width: 767px) {
+   .no-hero main {
+      padding-top: 0;
+   }
+
+   .no-hero main .container {
+      padding-top: 12px;
+   }
+}

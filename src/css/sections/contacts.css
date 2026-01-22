@@ -1,0 +1,167 @@
+body {
+    background-color: #f3edff;
+}
+
+.section--contacts {
+    padding: var(--no-hero-main-spacing) 0;
+}
+
+.container .contacts__grid {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.contacts__info {
+    max-width: min(1200px, var(--container-max-width));
+    /* explicit width to match map container exactly */
+    width: min(1200px, var(--container-max-width));
+    background-color: var(--color-white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    align-items: start;
+}
+
+.contacts__item {
+    margin: 0;
+    color: var(--color-gray-800);
+    font-weight: var(--font-weight-regular);
+}
+
+.contacts__label {
+    margin: 0 0 4px 0;
+    color: var(--color-gray-700);
+}
+
+.contacts__value {
+    margin: 0 0 12px 0;
+    font-weight: var(--font-weight-bold);
+}
+
+.contacts__col--left,
+.contacts__col--right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contacts__col--left .contacts__item strong,
+.contacts__col--right .contacts__item strong {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--color-gray-700);
+    font-weight: var(--font-weight-regular);
+}
+
+/* Links (values) stay bold and clearly visible */
+.contacts__item a {
+    font-weight: var(--font-weight-bold);
+    color: inherit;
+    text-decoration: none;
+}
+
+.contacts__actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+/* Route button: hidden on desktop, visible as primary on mobile */
+.contacts__actions .button--route {
+    display: none;
+}
+
+@media(max-width:768px) {
+    .contacts__actions .button--route {
+        display: inline-block;
+    }
+}
+
+.contacts__map {
+    /* container: same explicit width as contact card */
+    max-width: min(1200px, var(--container-max-width));
+    width: min(1200px, var(--container-max-width));
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: var(--spacing-md);
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    /* adaptive height instead of fixed pixels */
+    height: clamp(260px, 28vw, 420px);
+}
+
+/* child (wrapper or iframe) should fill the container — use 100% height
+   so injected constructors / iframes adapt to parent height */
+.contacts__map > * {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    box-sizing: border-box;
+}
+
+/* When actions placed below the map, center them and match card width */
+.contacts__actions--below {
+    max-width: min(1200px, var(--container-max-width));
+    margin: var(--spacing-sm) auto 0;
+    justify-content: center;
+    padding-left: var(--container-pad);
+    padding-right: var(--container-pad);
+}
+
+/* Tighter title spacing in this section */
+.section--contacts .section__title {
+    margin-bottom: var(--spacing-sm);
+}
+
+@media(max-width:768px) {
+    .container .contacts__grid {
+        grid-template-columns: 1fr
+    }
+
+    /* on small screens use a slightly smaller minimum height */
+    .contacts__map {
+        height: clamp(200px, 38vw, 320px);
+    }
+
+    .contacts__info {
+        padding: 20px;
+    }
+}
+
+/* Metro icon and colored dot */
+.metro {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.metro__icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    color: var(--color-gray-800);
+    flex: 0 0 20px;
+}
+
+.metro__dot {
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 50%;
+    background: #ff0000;
+    display: inline-block;
+    flex: 0 0 10px;
+}
+
+.metro__name {
+    font-weight: var(--font-weight-bold);
+}

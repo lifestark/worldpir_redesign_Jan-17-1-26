@@ -36,6 +36,21 @@
       position: relative;
       overflow: hidden;
     }
+    /* collapsed -> small circular button inside chat before expand */
+    .telegram-button.collapsed {
+      width: 56px;
+      padding: 10px;
+      border-radius: 9999px;
+      display: block;
+      margin: 0 auto;
+      transition: width 360ms cubic-bezier(.2,.9,.2,1), padding 360ms cubic-bezier(.2,.9,.2,1), border-radius 360ms cubic-bezier(.2,.9,.2,1);
+    }
+    .telegram-button.expanded {
+      width: 100%;
+      padding: 12px 56px 12px 24px;
+      border-radius: 9999px;
+      transition: width 360ms cubic-bezier(.2,.9,.2,1), padding 360ms cubic-bezier(.2,.9,.2,1), border-radius 360ms cubic-bezier(.2,.9,.2,1);
+    }
     .telegram-button:hover {
       background: #1b57d1;
       transform: translateY(-2px);
@@ -296,6 +311,77 @@
     .floating-button.bounce {
       animation: floatBounce 600ms ease;
     }
+
+    @keyframes pulseShadow {
+      0% { box-shadow: 0 8px 24px rgba(59,130,246,0.4); transform: translateY(0); }
+      50% { box-shadow: 0 18px 40px rgba(59,130,246,0.18); transform: translateY(-6px); }
+      100% { box-shadow: 0 8px 24px rgba(59,130,246,0.4); transform: translateY(0); }
+    }
+
+    .floating-button.pulse-shadow {
+      animation: pulseShadow 520ms cubic-bezier(.2,.9,.2,1);
+    }
+    @keyframes pulseShadowFade {
+      0% { box-shadow: 0 18px 40px rgba(59,130,246,0.18); opacity: 1; transform: translateY(-4px); }
+      60% { box-shadow: 0 28px 60px rgba(59,130,246,0.12); opacity: 0.7; transform: translateY(-8px); }
+      100% { box-shadow: 0 8px 24px rgba(59,130,246,0.4); opacity: 0.95; transform: translateY(0); }
+    }
+
+    .floating-button.pulse-shadow-fade {
+      animation: pulseShadowFade 720ms cubic-bezier(.2,.9,.2,1);
+    }
+    /* Temporary expanded button shown without opening full chat card */
+    .telegram-button.temp-expanded {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 10000;
+      width: 320px;
+      max-width: calc(100vw - 48px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 56px 12px 24px;
+      border-radius: 9999px;
+      box-shadow: 0 12px 32px rgba(59,130,246,0.22);
+      transform-origin: right bottom;
+      transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 260ms;
+    }
+    .telegram-button.temp-expanded.reveal .telegram-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    /* pulse for temp-expanded (repeated pulses) */
+    .telegram-button.temp-expanded.pulse {
+      animation: pulseShadow 520ms cubic-bezier(.2,.9,.2,1) 0s 1;
+    }
+
+    /* typing indicator */
+    .typing {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      height: 18px;
+      padding: 6px 10px;
+    }
+    .typing span {
+      width: 6px;
+      height: 6px;
+      background: #9ca3af;
+      border-radius: 50%;
+      opacity: 0.5;
+      transform: translateY(0);
+      animation: typingDot 900ms infinite ease-in-out;
+    }
+    .typing span:nth-child(1) { animation-delay: 0ms; }
+    .typing span:nth-child(2) { animation-delay: 120ms; }
+    .typing span:nth-child(3) { animation-delay: 240ms; }
+    @keyframes typingDot {
+      0% { transform: translateY(0); opacity: 0.45; }
+      40% { transform: translateY(-6px); opacity: 1; }
+      80% { transform: translateY(0); opacity: 0.45; }
+      100% { transform: translateY(0); opacity: 0.45; }
+    }
   `;
   document.head.appendChild(style);
 
@@ -351,12 +437,36 @@
   `;
   document.body.insertAdjacentHTML('beforeend', widgetHTML);
 
+  // ensure telegram button starts collapsed
+  const initialTelegramBtn = document.querySelector('.telegram-button');
+  if (initialTelegramBtn) initialTelegramBtn.classList.add('collapsed');
+
   // JavaScript
   const floatingBtn = document.getElementById('floatingBtn');
   const chatCard = document.getElementById('chatCard');
   const closeBtn = document.getElementById('closeBtn');
   const messageTime = document.getElementById('messageTime');
   let isClosing = false;
+
+  // Конфиг таймингов (ms) для этапов: удобно менять поведение
+  const delays = {
+    initialBadge: 450,
+    // увеличены интервалы между этапами x5
+    afterBadge: 6000,
+    expandRender: 1300,
+    revealAfterClone: 80,
+    revealDelay: 600,
+    bounceDuration: 600,
+    pulseDuration: 520,
+    pulseInterval: 3400,
+    pulsesCount: 3,
+    postPulseToOpen: 1300,
+    betweenLines: 1100,
+    typingSpeed: 200,
+    badgePulseDuration: 10000,
+    // автозакрытие виджета после финальной стадии (ms). 0 = не закрывать
+    autoCloseAfter: 7000
+  };
 
   // --- Sound (Web Audio API) ---
   function playBeep(freq = 880, duration = 120, volume = 0.05) {
@@ -384,6 +494,35 @@
   // Play short click sound on click
   function playClickSound() {
     playBeep(880, 90, 0.06);
+  }
+
+  // Sound dedupe: prevent very close consecutive sounds
+  let _lastSoundAt = 0;
+  function playOnce(fn, minGap = 700) {
+    const now = Date.now();
+    if (now - _lastSoundAt < minGap) return;
+    _lastSoundAt = now;
+    try { fn(); } catch (e) { }
+  }
+
+  // Helper: pulse an element `times` times (adds/removes pulse class). Optional callback after finished.
+  function pulseElement(el, times = 2, interval = delays.pulseInterval, cls = 'pulse-shadow', cb) {
+    if (!el) {
+      if (typeof cb === 'function') cb();
+      return;
+    }
+    let i = 0;
+    function p() {
+      if (i >= times) {
+        if (typeof cb === 'function') cb();
+        return;
+      }
+      i++;
+      el.classList.add(cls);
+      setTimeout(() => el.classList.remove(cls), delays.pulseDuration);
+      setTimeout(p, interval);
+    }
+    p();
   }
 
   // Try to load stock mp3 from project; fallback to WebAudio beeps
@@ -436,20 +575,157 @@
 
   updateTime();
 
-  floatingBtn.addEventListener('click', () => {
+  // Вынесенная логика открытия чата (можно вызывать вручную)
+  function openChatSequence() {
+    // remove any temporary expanded button
+    const temp = document.querySelector('.telegram-button.temp-expanded');
+    if (temp) temp.remove();
     chatCard.classList.add('open');
     floatingBtn.classList.add('hidden');
-    // небольшая анимация и звук при открытии
+    // небольшая анимация при открытии
     floatingBtn.classList.add('bounce');
-    playClickSound();
     setTimeout(() => floatingBtn.classList.remove('bounce'), 600);
-    // раскрыть текст кнопки "Чат в Telegram"
+    // звук активации 3-й стадии (при полном разворачивании)
+    // звук активации 3-й стадии (при полном разворачивании) — через дедупликатор
+    playOnce(() => playNotification(), 700);
+    // раскрыть текст кнопки "Написать в телеграм"
     const telegramBtn = document.querySelector('.telegram-button');
     if (telegramBtn) {
       // небольшая задержка, чтобы кнопка была видима
-      setTimeout(() => telegramBtn.classList.add('reveal'), 160);
+      setTimeout(() => {
+        telegramBtn.classList.remove('collapsed');
+        telegramBtn.classList.add('expanded');
+        // reveal label after expansion starts
+        setTimeout(() => telegramBtn.classList.add('reveal'), 120);
+      }, 160);
     }
-  });
+
+    // --- typing animation for the message bubble (type lines, then play send sound) ---
+    try {
+      const bubble = chatCard.querySelector('.message-bubble');
+      if (bubble) {
+        const originalHTML = bubble.innerHTML;
+        // collect original paragraph texts
+        const paras = Array.from(bubble.querySelectorAll('p')).map(p => p.textContent.trim());
+        // replace content with typing placeholders
+        bubble.innerHTML = '<p class="typing-line"></p><p class="typing-line-2"></p><span class="message-time" id="messageTime">' + messageTime.textContent + '</span>';
+        bubble.style.opacity = '1';
+
+        function typeLine(el, text, speed = 40) {
+          return new Promise((resolve) => {
+            let i = 0;
+            function step() {
+              if (i <= text.length) {
+                el.textContent = text.slice(0, i);
+                i++;
+                setTimeout(step, speed);
+              } else {
+                resolve();
+              }
+            }
+            step();
+          });
+        }
+
+        (async () => {
+          const line1 = bubble.querySelector('.typing-line');
+          const line2 = bubble.querySelector('.typing-line-2');
+          if (paras[0]) await typeLine(line1, paras[0], 40);
+          // small pause between lines
+          await new Promise(r => setTimeout(r, 220));
+          if (paras[1]) await typeLine(line2, paras[1], 40);
+          // finished typing — restore formatted bubble and play send sound
+          bubble.innerHTML = originalHTML;
+          updateTime();
+          // проигрываем звук отправки только один раз и после завершения печати
+          playOnce(() => playClickSound(), 700);
+          // автозакрытие после завершения печати (если включено)
+          if (delays.autoCloseAfter && delays.autoCloseAfter > 0) {
+            setTimeout(() => {
+              // закроем чат и восстановим плавающую кнопку
+              chatCard.classList.remove('open', 'closing');
+              floatingBtn.classList.remove('hidden');
+              const telegramBtn = document.querySelector('.telegram-button');
+              if (telegramBtn) {
+                telegramBtn.classList.remove('reveal');
+                telegramBtn.classList.remove('expanded');
+                telegramBtn.classList.add('collapsed');
+              }
+            }, delays.autoCloseAfter);
+          }
+        })();
+      }
+    } catch (e) {
+      // ignore typing animation errors
+    }
+  }
+
+  floatingBtn.addEventListener('click', openChatSequence);
+
+  // Повторная пульсация тени несколько раз, затем открыть чат
+  function pulseThenOpen(times = 3, gap = 600) {
+    let i = 0;
+    function next() {
+      if (i >= times) {
+        // небольшая пауза перед открытием
+        setTimeout(() => openChatSequence(), 200);
+        return;
+      }
+      i++;
+      floatingBtn.classList.add('pulse-shadow');
+      // убрать класс после окончания одной анимации
+      setTimeout(() => floatingBtn.classList.remove('pulse-shadow'), 520);
+      setTimeout(next, gap);
+    }
+    next();
+  }
+
+  // Сначала раскрыть кнопку, затем один или несколько пульсов с затуханием
+  function openThenPulse(times = 1, gap = 680) {
+    // сначала показываем только расширенную кнопку без полного чата
+    expandButtonOnly();
+    // потом даём кнопке время отрисоваться и пульсируем клонированную кнопку
+    setTimeout(() => {
+      const clone = document.querySelector('.telegram-button.temp-expanded');
+      if (!clone) {
+        // fallback: если клона нет, откроем чат
+        openChatSequence();
+        return;
+      }
+      // сделать несколько пульсов на клоне, затем открыть чат (3-я стадия)
+      pulseElement(clone, times || 3, gap || 680, 'pulse', () => {
+        // короткая пауза перед открытием полного чата
+        setTimeout(() => openChatSequence(), 260);
+      });
+    }, 260);
+  }
+
+  // Показать только расширенную кнопку (без показа полного chatCard)
+  function expandButtonOnly() {
+    // если уже есть временная кнопка, не создавать новую
+    if (document.querySelector('.telegram-button.temp-expanded')) return;
+    const source = document.querySelector('.telegram-button');
+    if (!source) return;
+    // скрываем плавающую кнопку
+    floatingBtn.classList.add('hidden');
+    // клонируем кнопку для временного показа
+    const clone = source.cloneNode(true);
+    clone.classList.add('temp-expanded');
+    // обеспечить видимость метки
+    clone.classList.add('expanded');
+    // добавим reveal после небольшой задержки
+    setTimeout(() => clone.classList.add('reveal'), 80);
+    // при клике на временную кнопку откроем полный чат
+    clone.addEventListener('click', (e) => {
+      e.preventDefault();
+      // удалить временную кнопку
+      clone.remove();
+      // открыть чат полноценно
+      openChatSequence();
+    });
+    // вставляем в документ
+    document.body.appendChild(clone);
+  }
 
   closeBtn.addEventListener('click', () => {
     if (isClosing) return;
@@ -459,19 +735,31 @@
     setTimeout(() => {
       chatCard.classList.remove('open', 'closing');
       floatingBtn.classList.remove('hidden');
+      // вернуть видимость бейджа после закрытия чата
+      const badge = document.querySelector('.notification-badge');
+      if (badge) badge.style.display = '';
       const telegramBtn = document.querySelector('.telegram-button');
-      if (telegramBtn) telegramBtn.classList.remove('reveal');
+      if (telegramBtn) {
+        telegramBtn.classList.remove('reveal');
+        telegramBtn.classList.remove('expanded');
+        telegramBtn.classList.add('collapsed');
+      }
       isClosing = false;
     }, 300);
   });
 
-  // Запустить начальную анимацию и звук уведомления при вставке
+  // Запустить начальную настройку: скрываем бейдж на первой стадии (пульс и звук убраны)
   setTimeout(() => {
     const badge = document.querySelector('.notification-badge');
     if (badge) {
-      badge.classList.add('pulse');
-      playNotification();
-      setTimeout(() => badge.classList.remove('pulse'), 2000);
+      // скрываем бейдж на начальной анимации
+      badge.style.display = 'none';
     }
-  }, 450);
+  }, delays.initialBadge);
+
+  // После начального баcджа: несколько пульсов тени на кнопке, затем автo‑раскрытие
+  setTimeout(() => {
+    // сначала раскрываем кнопку, затем несколько пульсов (настраивается через delays.pulsesCount)
+    openThenPulse(delays.pulsesCount, delays.pulseInterval);
+  }, delays.afterBadge);
 })();
