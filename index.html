@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
     <!-- NAVIGATION -->
     <nav class="navigation navigation--with-hero" id="mainNav">
         <div class="navigation__container">
@@ -37,8 +38,7 @@
                     <li class="navigation__item"><a href="#gallery" class="navigation__link">Галерея</a></li>
                     <li class="navigation__item"><a href="#reviews" class="navigation__link">Отзывы</a></li>
                     <li class="navigation__item"><a href="#faq" class="navigation__link">FAQ</a></li>
-                    <li class="navigation__item"><a href="src/pages/contact.html" class="navigation__link">Контакты</a>
-                    </li>
+                    <li class="navigation__item"><a href="#contacts" class="navigation__link">Контакты</a></li>
                 </ul>
             </div>
 
@@ -99,11 +99,6 @@
         </div>
 
     </section>
-
-    <!-- ================================================
-    Main content
-    Основной контент страницы должен быть размещен здесь.
-    ================================================ -->
     <!-- Animators Section -->
     <section id="animators" class="animators">
         <div class="container">
@@ -242,14 +237,6 @@
         </div>
     </section>
     <!-- End  animators -->
-
-
-
-
-
-
-
-
     <!-- SERVICES SECTION -->
     <section class="section" id="services">
         <div class="container">
@@ -303,9 +290,68 @@
         <div class="container">
             <h2 class="section__title">Пакеты услуг</h2>
             <p class="section__subtitle">Выберите готовый пакет или создайте свой</p>
-            <div class="packages">
 
+            <div class="packages">
+                <div class="card card--package">
+                    <div class="card__badge">Популярный</div>
+                    <h3 class="card__title">Базовый</h3>
+                    <div class="card__price">
+                        <span class="card__price-value">25 000</span>
+                        <span class="card__price-currency">₽</span>
+                    </div>
+                    <ul class="card__features">
+                        <li class="card__feature">2 часа анимации</li>
+                        <li class="card__feature">Простой декор</li>
+                        <li class="card__feature">Музыкальное сопровождение</li>
+                        <li class="card__feature">До 10 детей</li>
+                        <li class="card__feature">Базовый реквизит</li>
+                    </ul>
+                    <button class="btn btn--outline btn--full" data-modal="order" data-package="basic">Выбрать</button>
+                </div>
+
+                <div class="card card--package card--featured">
+                    <div class="card__badge card__badge--accent">Лучшее предложение</div>
+                    <h3 class="card__title">Стандарт</h3>
+                    <div class="card__price">
+                        <span class="card__price-value">45 000</span>
+                        <span class="card__price-currency">₽</span>
+                    </div>
+                    <ul class="card__features">
+                        <li class="card__feature">3 часа анимации</li>
+                        <li class="card__feature">Профессиональный декор</li>
+                        <li class="card__feature">Музыка + световое шоу</li>
+                        <li class="card__feature">До 20 детей</li>
+                        <li class="card__feature">Расширенный реквизит</li>
+                        <li class="card__feature">Аквагрим</li>
+                        <li class="card__feature">Фотозона</li>
+                    </ul>
+                    <button class="btn btn--primary btn--full" data-modal="order"
+                        data-package="standard">Выбрать</button>
+                </div>
+
+                <div class="card card--package">
+                    <div class="card__badge">Premium</div>
+                    <h3 class="card__title">Премиум</h3>
+                    <div class="card__price">
+                        <span class="card__price-value">75 000</span>
+                        <span class="card__price-currency">₽</span>
+                    </div>
+                    <ul class="card__features">
+                        <li class="card__feature">4 часа анимации</li>
+                        <li class="card__feature">Эксклюзивный декор</li>
+                        <li class="card__feature">Полное звуковое/световое шоу</li>
+                        <li class="card__feature">Без ограничений по гостям</li>
+                        <li class="card__feature">Профессиональный реквизит</li>
+                        <li class="card__feature">Аквагрим + мастер-классы</li>
+                        <li class="card__feature">2 фотозоны</li>
+                        <li class="card__feature">Фото/видеосъёмка</li>
+                        <li class="card__feature">Сладкий стол</li>
+                    </ul>
+                    <button class="btn btn--outline btn--full" data-modal="order"
+                        data-package="premium">Выбрать</button>
+                </div>
             </div>
+        </div>
     </section>
 
     <!-- BENEFITS SECTION -->
@@ -496,13 +542,7 @@
         </div>
     </section>
 
-    <!-- ================================================
-        Main content end
-        Основной контент конец
-        ================================================ -->
-
     <!-- FOOTER -->
-    <!-- include: src/template/layout/footer.html -->
     <footer class="footer">
         <div class="footer__box">
             <div class="footer__mascot" aria-hidden="true">
@@ -523,14 +563,14 @@
 
                 <!-- Menu -->
                 <nav class="footer__menu" aria-label="Навигация в подвале">
-                    <a href="index.html#animators">Аниматоры</a>
-                    <a href="index.html#services">Шоу-программы</a>
-                    <a href="index.html#services">Квесты</a>
-                    <a href="index.html#services">Доп. услуги</a>
-                    <a href="index.html#packages">Цены</a>
-                    <a href="index.html#hero">О нас</a>
-                    <a href="index.html#gallery">Фотогалерея</a>
-                    <a href="src/pages/contact.html">Контакты</a>
+                    <a href="/animators.html">Аниматоры</a>
+                    <a href="/shows.html">Шоу-программы</a>
+                    <a href="/quests.html">Квесты</a>
+                    <a href="/addons.html">Доп. услуги</a>
+                    <a href="/prices.html">Цены</a>
+                    <a href="/about.html">О нас</a>
+                    <a href="/gallery.html">Фотогалерея</a>
+                    <a href="/contacts.html">Контакты</a>
                 </nav>
 
                 <!-- Contacts -->
@@ -549,24 +589,13 @@
             <div class="footer__bottom">
                 <div class="footer__legal">
                     <a href="src/pages/legal/privacy_policy.html">Политика конфиденциальности</a>
-                    <a href="src/pages/legal/data_processing_agreement.html">Согласие на&nbsp;обработку персональных
+                    <a href="src/pages/legal/data_processing_agreement.html">Согласие на обработку персональных
                         данных</a>
-                    <a href="src/pages/legal/terms_of_use.html">Соглашение пользователя</a>
+                    <a href="src/pages/legal/terms_of_use.html">Пользовательское соглашение</a>
                 </div>
                 <div class="footer__copy">
-                    <p>Все права защищены, <span data-year-start="2020"></span></p>
+                    <p>Все права защищены, 2020-2026</p>
                     <p>Информация, указанная на&nbsp;сайте, не&nbsp;являются публичной офертой</p>
-                    <p>Мы собираем обезличенные метаданные пользователя (cookie, данные об IP-адресе и местоположении)
-                        для
-                        нормального
-                        функционирования сайта и если вы не желаете, чтобы эти данные обрабатывались, то пожалуйста
-                        покиньте
-                        сайт.</p>
-                </div>
-                <div class="footer_company">
-                    <p>ИП Старков Александр Александрович</p>
-                    <p>ИНН 7724375310 </p>
-                    <p>ОГРН 1207700139193</p>
                 </div>
             </div>
         </div>
@@ -585,7 +614,10 @@
 
             <form id="orderForm" class="modal__form">
                 <input type="text" id="name" name="name" class="modal__input" placeholder="Имя" required>
-                <input type="tel" id="phone" name="phone" class="modal__input" placeholder="Телефон*" required>
+                <input type="tel" id="phone" name="phone" class="modal__input" placeholder="Телефон*" required
+                    inputmode="tel" autocomplete="tel" pattern="^[0-9+()\- ]+$"
+                    title="Разрешены только цифры и символы + ( ) -" aria-describedby="phone-hint">
+                <small class="form__hint" id="phone-hint">Разрешены только цифры и символы + ( ) -</small>
                 <button type="submit" class="modal__button">Кнопка</button>
 
                 <div class="modal__consent-block">
