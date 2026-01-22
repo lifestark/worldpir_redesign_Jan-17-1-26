@@ -170,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) {
                     var c = hex.substring(1);
                     if (c.length === 3) c = c.split('').map(function (ch) { return ch + ch; }).join('');
-                    var r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
-                    var luminance = (0.299*r + 0.587*g + 0.114*b)/255;
+                    var r = parseInt(c.substr(0, 2), 16), g = parseInt(c.substr(2, 2), 16), b = parseInt(c.substr(4, 2), 16);
+                    var luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
                     if (luminance < 0.5) sw.querySelectorAll('.swatch__label, .swatch__value').forEach(function (el) { el.style.color = '#fff'; });
                 }
             }

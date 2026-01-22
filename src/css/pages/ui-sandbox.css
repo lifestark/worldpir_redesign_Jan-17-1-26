@@ -313,15 +313,15 @@ input[type="file"].form__input:focus {
     width: 56px;
     height: 40px;
     border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.06);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     flex: 0 0 56px;
     box-shadow: var(--shadow-sm);
 }
 
 .swatch__meta {
-    display:flex;
-    flex-direction:column;
-    gap:4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .swatch__label {
@@ -336,7 +336,10 @@ input[type="file"].form__input:focus {
 }
 
 @media (max-width:560px) {
-    .swatch__box { width:48px; height:36px }
+    .swatch__box {
+        width: 48px;
+        height: 36px
+    }
 }
 
 .ui-sandbox h1 {
