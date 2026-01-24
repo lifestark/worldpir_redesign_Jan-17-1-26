@@ -84,9 +84,15 @@ class Modal {
             packageSelect.value = packageType;
         }
 
+        // При открытии убираем экран "спасибо", если он был
+        if (this.thanksEl) {
+            this._hideThanks();
+        }
+
         // Фокус на первое поле
         setTimeout(() => {
-            this.form.querySelector('input').focus();
+            const first = this.form && this.form.querySelector('input');
+            if (first) first.focus();
         }, 300);
     }
 
@@ -104,13 +110,63 @@ class Modal {
 
         // Здесь должна быть отправка на сервер
         console.log('Данные формы:', data);
+        // Показываем экран благодарности
+        this._showThanks();
+    }
 
-        // Показываем сообщение об успехе
-        alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+    _showThanks() {
+        // Создаём элемент спасибо, если ещё не создан
+        if (!this.thanksEl) {
+            const el = document.createElement('div');
+            el.className = 'modal__thanks';
+            el.innerHTML = `
+                <div class="modal__thanks-inner">
+                    <h3 class="modal__thanks-title">Спасибо!</h3>
+                    <p class="modal__thanks-text">Ваша заявка принята. Мы свяжемся с вами в ближайшее время.</p>
+                    <div class="modal__thanks-actions">
+                        <button type="button" class="modal__thanks-close btn">Закрыть</button>
+                    </div>
+                </div>
+            `;
+            this.thanksEl = el;
 
-        // Закрываем модалку и очищаем форму
-        this.close();
-        this.form.reset();
+            // Закрытие кнопкой внутри экрана спасибо
+            const closeBtn = el.querySelector('.modal__thanks-close');
+            closeBtn.addEventListener('click', () => {
+                this._clearThanksTimer();
+                this.close();
+            });
+        }
+
+        // Спрячем форму и вставим экран спасибо
+        if (this.form) this.form.style.display = 'none';
+        const content = this.modal.querySelector('.modal__content');
+        content.appendChild(this.thanksEl);
+
+        // Фокус на кнопку закрыть
+        setTimeout(() => {
+            const btn = this.thanksEl.querySelector('.modal__thanks-close');
+            if (btn) btn.focus();
+        }, 100);
+
+    }
+
+    _hideThanks() {
+        if (this.thanksEl && this.thanksEl.parentNode) {
+            this.thanksEl.parentNode.removeChild(this.thanksEl);
+        }
+        if (this.form) {
+            this.form.style.display = '';
+            this.form.reset();
+        }
+        this._clearThanksTimer();
+    }
+
+    _clearThanksTimer() {
+        if (this._thanksTimer) {
+            clearTimeout(this._thanksTimer);
+            this._thanksTimer = null;
+        }
     }
 }
 

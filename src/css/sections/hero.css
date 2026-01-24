@@ -225,6 +225,98 @@
     gap: var(--spacing-md);
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 0;
+}
+
+/* Большая кнопка в hero: используем существующий модификатор `.btn--large` в контексте .hero__actions
+   Добавляем анимированный блик через псевдоэлемент ::before. Блик выключается при prefers-reduced-motion. */
+.hero__actions .btn--large {
+    /* fixed height for hero button */
+    height: 80px;
+    padding: 0 calc(var(--space-15) + 24px);
+    font-size: calc(var(--fs-h5) * 1.05);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    position: relative;
+    overflow: visible;
+    display: inline-flex;
+    align-items: center;
+}
+
+.hero__actions .btn--hero::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -120%;
+    width: 28%;
+    height: 220%;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg) translateX(-120%);
+    will-change: transform, opacity;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0;
+    /* Нежный блик отключён по умолчанию — replay включается на hover */
+    animation: none;
+}
+
+@keyframes hero-sheen-loop {
+    0% {
+        transform: skewX(-25deg) translateX(-120%);
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 0.85;
+    }
+
+    30% {
+        transform: skewX(-25deg) translateX(160%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: skewX(-25deg) translateX(160%);
+        opacity: 0;
+    }
+}
+
+/* replay sheen on hover for emphasis */
+.hero__actions .btn--hero:hover::before,
+.hero__actions:focus-within .btn--hero::before {
+    animation: hero-sheen-replay 900ms ease-out 0s 1 both;
+}
+
+/* Триггерим replay блика при наведении на контейнер .hero__actions (а не только на саму кнопку) */
+.hero__actions:hover .btn--large::before,
+.hero__actions:focus-within .btn--large::before {
+    animation: hero-sheen-replay 900ms ease-out 0s 1 both;
+}
+
+@keyframes hero-sheen-replay {
+    0% {
+        transform: skewX(-25deg) translateX(-120%);
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: skewX(-25deg) translateX(160%);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero__actions .btn--large::before,
+    .hero__actions .btn--large:hover::before {
+        animation: none !important;
+        opacity: 0 !important;
+    }
 }
 
 .hero__overlay {
@@ -328,5 +420,109 @@
     .hero__actions {
         justify-content: flex-start;
         /* Aligned the call-to-action buttons to the left */
+    }
+}
+
+/* Rider button positioned to the right of the hero */
+.hero__rider {
+    position: absolute;
+    right: calc(var(--container-pad));
+    top: 50%;
+    transform: translateY(calc(-50% - 12px));
+    z-index: 3;
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 140px;
+    height: 140px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Decorative documents wrapper — behaves like footer mascot (out of flow) */
+.btn__docs,
+.btn_docs {
+    /* positioned absolute and intended to live inside the button (.btn is position:relative)
+       so values place it on the button's top-right */
+    position: absolute;
+    right: 8px;
+    left: auto;
+    top: -14px;
+    /* slightly above the button's midline */
+    transform: none;
+    width: 98px;
+    height: 98px;
+    z-index: 3;
+    /* render above the button */
+    pointer-events: none;
+}
+
+/* default doc offsets (kept for references if wrapper used outside) */
+.btn__docs .btn__doc-1 {
+    right: 12px;
+    top: 12px;
+}
+
+.btn__docs .btn__doc-2 {
+    right: 18px;
+    top: 18px;
+}
+
+/* when docs live inside the hero button, nudge them to sit nicely on the button surface */
+.hero__actions .btn--large .btn__docs .btn__doc-1 {
+    right: 12px;
+    top: 6px;
+    transform: rotate(6deg);
+}
+
+.hero__actions .btn--large .btn__docs .btn__doc-2 {
+    right: 18px;
+    top: 18px;
+    transform: rotate(-6deg);
+}
+
+@media (max-width: 1280px) {
+    .btn__docs {
+        width: 73.5px;
+        /* reduced */
+        height: 73.5px;
+        /* reduced */
+        right: 6px;
+        top: -10px;
+    }
+
+    /* keep original document size (match `.btn__doc` in buttons.css) */
+    .btn__docs .btn__doc {
+        width: 43px;
+        height: 56px;
+    }
+}
+
+@media (max-width: 768px) {
+    .btn__docs {
+        display: none;
+    }
+}
+
+.hero__rider img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 1280px) {
+    .hero__rider {
+        width: 110px;
+        height: 110px;
+        right: calc(var(--container-pad) / 1.5);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero__rider {
+        display: none;
+        /* скрываем на мобильных */
     }
 }

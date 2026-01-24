@@ -1,3 +1,10 @@
+import { autofillDescriptionFromH1 } from './description-autofill.js';
+// Автоматически подставлять description из первого h1
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autofillDescriptionFromH1);
+} else {
+    autofillDescriptionFromH1();
+}
 /**
  * ================================================
  * MAIN.JS
@@ -7,7 +14,8 @@
 
 // Импорты компонентов
 import Navigation from './components/navigation.js';
-import GallerySlider from './components/gallerySlider.js';
+// import GallerySlider from './components/gallerySlider.js'; // Old slider
+import GallerySwiper from './components/gallerySwiper.js'; // New Swiper
 import FAQ from './components/faq.js';
 import Modal from './components/modal.js';
 import PhoneMask from './components/phoneMask.js';
@@ -16,8 +24,11 @@ import ScrollAnimations from './components/scrollAnimations.js';
 // Автоматическая подстановка года
 import './year.js';
 import './settings.js';
-import './telegram-widget.js';
 import './warning-bar.js';
+import './telegram-widget.js';
+import './components/filter.js';
+import Typograph from './components/typograph.js';  
+
 /**
  * ================================================
  * COMPONENT INITIALIZATION
@@ -29,7 +40,8 @@ function initializeNavigation() {
 }
 
 function initializeGallerySlider() {
-    new GallerySlider('gallerySlider');
+    // new GallerySlider('gallerySlider');
+    new GallerySwiper();
 }
 
 function initializeFAQ() {
@@ -69,6 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initializePhoneMask();
     initializeSmoothScroll();
     initializeScrollAnimations();
+    
+    // Инициализация типографа
+    new Typograph();
+
+    // Инициализация warning bar (паттерн-анимация теперь в JS)
+    try { if (window && window.initWarningBar) window.initWarningBar(); } catch (e) { /* fail silently */ }
 
     // Надёжно получаем элемент навигации после загрузки DOM
     const navigation = document.querySelector('.navigation');

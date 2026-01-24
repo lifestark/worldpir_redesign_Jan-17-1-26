@@ -1,7 +1,7 @@
 /* Стили для страницы 404 — чистая, исправленная версия */
 
 .page-404 {
-    background: linear-gradient(180deg, #7F00FF 0.16%, #E100FF 97.82%);
+    background: linear-gradient(180deg, var(--color-404-start) 0.16%, var(--color-404-end) 97.82%);
     min-height: 100vh;
     width: 100vw;
     overflow: hidden;
@@ -116,7 +116,7 @@ body.error {
     font-size: var(--fs-h2);
     line-height: 1.05;
     margin: 0 0 12px;
-    color: #F6D2FF;
+    color: var(--color-404-accent);
     font-weight: 700;
 }
 
@@ -147,8 +147,8 @@ body.error {
 
 /* Контрастная видимая кнопка на градиенте */
 .button--secondary {
-    background-color: #FFFFFF;
-    color: #7F00FF;
+    background-color: var(--color-white);
+    color: var(--color-404-start);
     border-color: transparent;
     padding: 12px 20px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);

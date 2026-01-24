@@ -27,7 +27,7 @@
                 </a>
                 <div class="nav__description">
                     <div class="nav__title--line">Организация детских<br>праздников в Москве и МО</div>
-                    <div class="nav__address">Москва, ул Стромынка 19к2</div>
+                    <div class="nav__address" data-set="address"></div>
                 </div>
             </div>
 
@@ -51,8 +51,8 @@
                     <a class="nav-socials__item" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
                 </div>
                 <div class="nav__contact">
-                    <div class="nav__hours" data-set="hours">Часы работы: 10:00 - 22:00</div>
-                    <a class="nav__phone" href="tel:+78000000000" data-set-link="phone">+7(800)000-00-00</a>
+                    <div class="nav__hours" data-set="hours"></div>
+                    <a class="nav__phone" href="#" data-set-link="phone"></a>
                     <a href="#" class="nav__phone" data-modal="order">Заказать звонок</a>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 </li>
             </ul>
             <div class="navigation__mobile-contacts">
-                <a href="tel:+70000000000" class="navigation__mobile-phone">+7 (000) 000-00-00</a>
+                <a href="#" class="navigation__mobile-phone" data-set-link="phone"></a>
                 <a href="#orderModal" data-modal="order" class="navigation__mobile-cta">Заказать звонок</a>
             </div>
         </div>
@@ -145,9 +145,9 @@ Main content end
                             <a class="footer__icon" href="#" aria-label="Telegram" data-social="tg">TG</a>
                             <a class="footer__icon" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
                         </div>
-                        <a href="tel:+74950777490" class="footer__phone" data-set-link="phone">+7 (495) 077-74-90</a>
-                        <div class="footer__hours" data-set="hours">с 9:00 до 21:00 без выходных</div>
-                        <a class="footer__cta" href="#calc">Получить расчет</a>
+                        <a href="#" class="footer__phone" data-set-link="phone"></a>
+                        <div class="footer__hours" data-set="hours"></div>
+                        <a class="btn btn--primary btn--large" href="#calc">Получить расчет</a>
                     </div>
                 </div>
 
@@ -192,12 +192,16 @@ Main content end
             <p class="modal__subtitle">Заполните форму, мы свяжемся с вами, ответим на все ваши вопросы</p>
 
             <form id="orderForm" class="modal__form">
-                <input type="text" id="name" name="name" class="modal__input" placeholder="Имя" required>
+                <input type="text" id="name" name="name" class="modal__input" placeholder="Имя" required
+                    pattern="^[A-Za-zА-Яа-яЁё\s-]+$" title="Только буквы (латиница или кириллица), пробел и дефис"
+                    aria-describedby="name-error">
+                <div id="name-error" class="form__error" aria-live="polite">Введите только буквы (латиница или
+                    кириллица)</div>
                 <input type="tel" id="phone" name="phone" class="modal__input" placeholder="Телефон*" required
                     inputmode="tel" autocomplete="tel" pattern="^[0-9+()\- ]+$"
                     title="Разрешены только цифры и символы + ( ) -" aria-describedby="phone-hint-template">
                 <small class="form__hint" id="phone-hint-template">Разрешены только цифры и символы + ( ) -</small>
-                <button type="submit" class="modal__button">Кнопка</button>
+                <button type="submit" class="btn btn--primary btn--large">Кнопка</button>
 
                 <div class="modal__consent-block">
                     <button type="button" class="modal__consent-toggle" aria-expanded="false">

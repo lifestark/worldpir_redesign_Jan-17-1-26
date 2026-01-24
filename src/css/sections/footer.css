@@ -25,7 +25,7 @@
 
 /* Purple card */
 .footer__box {
-    background: linear-gradient(90deg, #B56BFF 0%, #6A00FF 55%, #7A00FF 100%);
+    background: linear-gradient(90deg, var(--color-footer-1) 0%, var(--color-footer-2) 55%, var(--color-footer-3) 100%);
     border-radius: 0;
     padding: clamp(30px, 4vw, 60px) clamp(12px, 4.16vw, 80px);
     position: relative;
@@ -120,7 +120,7 @@
     background: rgba(255, 255, 255, 0.18);
     color: var(--color-white);
     text-decoration: none;
-    font-size: 12px;
+    font-size: var(--fs-xs);
     font-weight: 700;
 }
 
@@ -149,22 +149,9 @@
     white-space: nowrap;
 }
 
-.footer__cta {
+/* Use unified button atoms for CTA visuals. Keep small layout spacing here. */
+.footer__contacts .btn {
     margin-top: 6px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 18px;
-    border-radius: 12px;
-    background: #FFB000;
-    color: var(--color-black);
-    font-weight: 900;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-.footer__cta:hover {
-    background: #FFD636;
 }
 
 /* Legal & Copyright Bottom */
@@ -187,7 +174,7 @@
 .footer__legal a {
     color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
-    font-size: 13px;
+    font-size: var(--fs-xs);
     transition: color 0.2s ease;
 }
 
@@ -202,7 +189,7 @@
 .footer__copy p {
     margin: 0;
     color: rgba(255, 255, 255, 0.75);
-    font-size: 12px;
+    font-size: var(--fs-xs);
     line-height: 1.6;
 }
 
@@ -210,7 +197,7 @@
 .footer_company {
     text-align: right;
     color: rgba(255, 255, 255, 0.75);
-    font-size: 12px;
+    font-size: var(--fs-xs);
     line-height: 1.6;
 }
 

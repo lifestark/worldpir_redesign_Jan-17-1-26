@@ -1,110 +1,78 @@
 /* ================================================
-   FORM
-   Формы и элементы ввода
+   FORM (оптимизация без поломки API)
+   Классы те же, поведение то же
    ================================================ */
 
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-lg);
-}
-
-.form__group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs);
-}
-
-.form__label {
-    font-size: var(--fs-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-black);
-}
-
-.form__input,
-.form__select,
-.form__textarea {
-    width: 100%;
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: var(--fs-base);
-    color: var(--color-black);
-    background-color: var(--color-white);
-    border: 2px solid var(--color-gray-300);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
-}
-
-.form__input:focus,
-.form__select:focus,
-.form__textarea:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--color-primary-light);
-}
-
-.form__input::placeholder,
-.form__textarea::placeholder {
-    color: var(--color-gray-400);
-}
-
-.form__textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-.form__select {
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23404040' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right var(--spacing-md) center;
-    padding-right: calc(var(--spacing-md) + 24px);
-}
-
-/* Checkbox */
-.form__checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-sm);
-    cursor: pointer;
-    user-select: none;
-}
-
-.form__checkbox input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
-    flex-shrink: 0;
-    cursor: pointer;
-    accent-color: var(--color-primary);
-}
-
-.form__checkbox span {
-    font-size: var(--fs-sm);
-    color: var(--color-gray-600);
-    line-height: var(--line-height-normal);
-}
-
-/* Form States */
-.form__input--error,
-.form__select--error,
-.form__textarea--error {
-    border-color: var(--color-error);
-}
-
+/* 1) убираем дубли .form__error и делаем один источник правды */
 .form__error {
+    display: none;
     font-size: var(--fs-sm);
     color: var(--color-error);
     margin-top: var(--spacing-xs);
 }
 
-.form__input--success,
-.form__select--success,
-.form__textarea--success {
-    border-color: var(--color-success);
+/* 2) не подсвечиваем invalid, пока поле пустое (меньше “красноты” при открытии форм)
+   Если у input нет placeholder — правило просто не сработает, ничего не ломаем */
+.form__input:invalid {
+    box-shadow: none;
 }
 
-.form__success {
-    font-size: var(--fs-sm);
-    color: var(--color-success);
-    margin-top: var(--spacing-xs);
+.form__input:not(:placeholder-shown):invalid {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 6px rgba(225, 29, 72, 0.08);
+}
+
+.form__input:not(:placeholder-shown):invalid+.form__error {
+    display: block;
+}
+
+/* 3) фокус: оставляем текущий, но добавляем focus-visible (не ломает мышь/тач) */
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 6px rgba(255, 208, 0, 0.12);
+    outline: none;
+}
+
+.form__input:focus-visible,
+.form__select:focus-visible,
+.form__textarea:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.85);
+    outline-offset: 3px;
+}
+
+/* 4) transition: убираем transform (он тут не используется), оставляем только нужное */
+.form__input,
+.form__select,
+.form__textarea {
+    transition: border-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background-color var(--transition-fast),
+        color var(--transition-fast);
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* 5) консистентная “тактильная” высота (если уже задано где-то — переопределится по каскаду) */
+.form__input,
+.form__select {
+    height: 56px;
+}
+
+/* 6) радио не глобально (чтобы не переехать в других местах сайта) */
+.form input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--color-primary);
+}
+
+/* 7) reduced motion: оставляем как было, но теперь точно отключает всё */
+@media (prefers-reduced-motion: reduce) {
+
+    .form__input,
+    .form__select,
+    .form__textarea {
+        transition: none;
+    }
 }

@@ -28,8 +28,8 @@
 }
 
 .card__title {
-    /* Базовый размер заголовка карточки: 16px */
-    font-size: 16px;
+    /* Базовый размер заголовка карточки */
+    font-size: var(--fs-base);
     font-weight: var(--font-weight-semibold);
     margin-bottom: var(--spacing-sm);
     color: var(--color-black);
@@ -302,8 +302,8 @@
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     text-align: center;
     padding: var(--spacing-sm) var(--spacing-md);
-    /* Базовый размер подписи карточки: 16px */
-    font-size: 16px;
+    /* Базовый размер подписи карточки */
+    font-size: var(--fs-base);
     font-weight: var(--font-weight-semibold);
     color: var(--color-black);
     box-shadow: var(--shadow-md);
@@ -321,7 +321,7 @@
 
     .card__title,
     .card--slide .card__caption {
-        font-size: 32px;
+        font-size: var(--fs-h2);
     }
 }
 

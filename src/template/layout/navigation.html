@@ -12,7 +12,7 @@
             </a>
             <div class="nav__description">
                 <div class="nav__title--line">Организация детских<br>праздников в Москве и МО</div>
-                <div class="nav__address">Москва, ул Стромынка 19к2</div>
+                <div class="nav__address" data-set="address"></div>
             </div>
         </div>
 
@@ -36,8 +36,8 @@
                 <a class="nav-socials__item" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
             </div>
             <div class="nav__contact">
-                <div class="nav__hours" data-set="hours">Часы работы: 10:00 - 22:00</div>
-                <a class="nav__phone" href="tel:+78000000000" data-set-link="phone">+7(800)000-00-00</a>
+                <div class="nav__hours" data-set="hours"></div>
+                <a class="nav__phone" href="#" data-set-link="phone"></a>
                 <a href="#orderModal" data-modal="order">Заказать звонок</a>
             </div>
         </div>
@@ -53,62 +53,49 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div class="navigation__mobile" id="mobileMenu">
-        <ul class="navigation__mobile-menu">
-            <li class="navigation__mobile-item"><a href="#services" class="navigation__mobile-link">Услуги</a></li>
-            <li class="navigation__mobile-item"><a href="#packages" class="navigation__mobile-link">Пакеты</a></li>
-            <li class="navigation__mobile-item"><a href="#gallery" class="navigation__mobile-link">Галерея</a></li>
-            <li class="navigation__mobile-item"><a href="#reviews" class="navigation__mobile-link">Отзывы</a></li>
-            <li class="navigation__mobile-item"><a href="#faq" class="navigation__mobile-link">FAQ</a></li>
-            <li class="navigation__mobile-item"><a href="src/pages/contact.html"
-                    class="navigation__mobile-link">Контакты</a>
-            </li>
-        </ul>
-        <div class="navigation__mobile-contacts">
-            <a href="tel:+70000000000" class="navigation__mobile-phone">+7 (000) 000-00-00</a>
-            <a href="#orderModal" data-modal="order" class="navigation__mobile-cta">Заказать звонок</a>
+    <div class="navigation__mobile" id="mobileMenu" aria-hidden="true">
+        <div class="navigation__mobile-header">
+            <button class="navigation__mobile-close" type="button" aria-label="Закрыть меню">&times;</button>
         </div>
-    </div>
 
-    <!-- Бургер-меню -->
-    <div class="burger-menu" id="burgerMenu">
-        <div class="burger-menu__overlay" onclick="closeBurgerMenu()"></div>
-        <div class="burger-menu__content">
-            <button class="burger-menu__close" onclick="closeBurgerMenu()">&times;</button>
-            <div class="burger-menu__logo">
-                <img src="src/img/brand/logo-main__dark.svg" alt="Вселенная праздников">
+        <div class="navigation__mobile-body">
+            <div class="navigation__mobile-logo">
+                <a href="#" class="navigation__logo navigation__logo--mobile">
+                    <img data-src="src/img/brand/logo-main__dark_main.svg"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        alt="Вселенная праздников" class="navigation__logo-img">
+                </a>
             </div>
-            <nav class="burger-menu__nav">
-                <ul>
-                    <li><a href="index.html#hero">О нас</a></li>
-                    <li><a href="index.html#packages">Цены</a></li>
-                    <li><a href="index.html#gallery">Блог</a></li>
-                    <li><a href="index.html#gallery">Фотогалерея</a></li>
-                    <li><a href="index.html#reviews">Отзывы</a></li>
-                    <li><a href="src/pages/contact.html">Контакты</a></li>
-                </ul>
-            </nav>
-            <div class="burger-menu__contact">
-                <p>Москва, ул. Земляной Вал, 7</p>
-                <p>С 9:00 до 20:00 без выходных</p>
-                <a href="tel:+74950777490">+7 (495) 077-74-90</a>
-                <button class="button button--secondary" data-modal="order">Заказать обратный звонок</button>
+            <div class="navigation__mobile-top">
+                <div class="nav__description">
+                    <div class="nav__title--line">Организация детских<br>праздников в Москве и МО</div>
+                    <div class="nav__address" data-set="address"></div>
+                </div>
             </div>
-            <div class="burger-menu__social">
-                <a href="#" class="social-icon vk">VK</a>
-                <a href="#" class="social-icon whatsapp">WhatsApp</a>
-                <a href="#" class="social-icon telegram">Telegram</a>
+
+            <ul class="navigation__mobile-menu" role="menu">
+                <li class="navigation__mobile-item"><a href="#services" class="navigation__mobile-link">Услуги</a></li>
+                <li class="navigation__mobile-item"><a href="#packages" class="navigation__mobile-link">Пакеты</a></li>
+                <li class="navigation__mobile-item"><a href="#gallery" class="navigation__mobile-link">Галерея</a></li>
+                <li class="navigation__mobile-item"><a href="#reviews" class="navigation__mobile-link">Отзывы</a></li>
+                <li class="navigation__mobile-item"><a href="#faq" class="navigation__mobile-link">FAQ</a></li>
+                <li class="navigation__mobile-item"><a href="src/pages/contact.html"
+                        class="navigation__mobile-link">Контакты</a></li>
+            </ul>
+
+            <div class="navigation__mobile-contacts">
+                <div class="nav__socials">
+                    <a class="nav-socials__item" href="#" aria-label="VK" data-social="vk">VK</a>
+                    <a class="nav-socials__item" href="#" aria-label="Telegram" data-social="tg">TG</a>
+                    <a class="nav-socials__item" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
+                </div>
+                <div class="nav__contact">
+                    <div class="nav__hours" data-set="hours"></div>
+                    <a class="nav__phone" href="#" data-set-link="phone"></a>
+                    <a href="#orderModal" data-modal="order"
+                        class="btn btn--primary btn--large navigation__mobile-cta">Заказать звонок</a>
+                </div>
             </div>
         </div>
     </div>
 </nav>
-
-<script>
-    function openBurgerMenu() {
-        document.getElementById('burgerMenu').classList.add('burger-menu--visible');
-    }
-
-    function closeBurgerMenu() {
-        document.getElementById('burgerMenu').classList.remove('burger-menu--visible');
-    }
-</script>

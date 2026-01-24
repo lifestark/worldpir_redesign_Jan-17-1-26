@@ -5,16 +5,23 @@
 .animators {
     padding: 60px 0;
     background: var(--color-bg-light);
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
 }
 
 /* Title */
 .animators__title {
-    font-size: clamp(28px, 4vw, 48px);
+    font-size: var(--fs-h2);
     color: var(--color-black);
-    margin-bottom: 50px;
+    margin: 0 auto 50px;
     text-align: center;
-    font-weight: 900;
-    line-height: 1.2;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    width: 75vw;
+    max-width: 1200px;
 }
 
 /* Filters */
@@ -28,6 +35,9 @@
     border-radius: 20px;
     background: var(--color-white);
     box-shadow: var(--shadow-sm);
+    width: 75vw;
+    max-width: 1200px;
+    margin: 0 auto 40px;
 }
 
 .filter-group {
@@ -47,7 +57,7 @@
 }
 
 .filter-group__title {
-    font-size: 14px;
+    font-size: var(--fs-xs);
     font-weight: 700;
     color: var(--color-black);
     margin: 0;
@@ -61,17 +71,20 @@
 }
 
 .filter-btn {
-    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2) var(--space-4);
     background: transparent;
     border: none;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: var(--fs-sm);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-black);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
     white-space: nowrap;
-    font-family: inherit;
-    font-style: normal;
+    font-family: var(--font-body);
+    border-radius: var(--radius-pill);
     position: relative;
 }
 
@@ -96,8 +109,10 @@
 }
 
 .filter-btn--active {
-    color: var(--color-hover-yellow) !important;
+    color: var(--color-white) !important;
     position: relative;
+    background: var(--color-primary);
+    box-shadow: var(--shadow-sm);
 }
 
 .filter-divider {
@@ -115,14 +130,21 @@
     padding: 0;
     background: transparent;
     border: none;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: var(--fs-sm);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
     white-space: nowrap;
-    font-family: inherit;
+    font-family: var(--font-body);
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    background: transparent;
 }
 
 .filter-option::after {
@@ -142,12 +164,15 @@
 }
 
 .filter-option:hover {
-    color: var(--color-hover-yellow);
+    color: var(--color-black);
+    background: rgba(0, 0, 0, 0.04);
 }
 
 .filter-option.filter-btn--active {
-    color: var(--color-hover-yellow) !important;
+    color: var(--color-white) !important;
     font-weight: 900;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
 /* Cards Grid */
@@ -156,6 +181,9 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
     margin-bottom: 50px;
+    width: 90vw;
+    max-width: none;
+    margin: 0 auto 50px;
 }
 
 .animator-card {
@@ -235,10 +263,14 @@
 @media (max-width: 768px) {
     .animators {
         padding: 40px 0;
+        min-height: auto;
     }
 
     .animators__title {
-        margin-bottom: 30px;
+        margin: 0 16px 30px;
+        font-size: var(--fs-h3);
+        width: auto;
+        max-width: none;
     }
 
     .animators__filters {
@@ -247,6 +279,9 @@
         padding: 15px 20px;
         flex-direction: column;
         align-items: flex-start;
+        width: auto;
+        max-width: none;
+        margin: 0 16px 40px;
     }
 
     .filter-group {
@@ -264,15 +299,18 @@
     }
 
     .filter-btn {
-        font-size: 14px;
+        font-size: var(--fs-sm);
     }
 
     .filter-option {
-        font-size: 14px;
+        font-size: var(--fs-sm);
     }
 
     .animators__grid {
         gap: 20px;
+        width: auto;
+        max-width: none;
+        margin: 0 16px 50px;
     }
 
     .animator-card__bg {
@@ -281,6 +319,26 @@
 
     .animator-card h3 {
         font-size: 16px;
+    }
+}
+
+/* Desktop layout: 2 / 3 / 4 columns depending on viewport */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .animators__grid {
+        grid-template-columns: repeat(3, minmax(260px, 1fr));
+        gap: 28px;
+        max-width: calc((260px * 3) + (28px * 2));
+        margin: 0 auto 50px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .animators__grid {
+        grid-template-columns: repeat(4, minmax(220px, 1fr));
+        justify-items: stretch;
+        gap: 32px;
+        max-width: calc((220px * 4) + (32px * 3));
+        margin: 0 auto 50px;
     }
 }
 

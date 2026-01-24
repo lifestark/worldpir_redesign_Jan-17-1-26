@@ -1,109 +1,215 @@
 /* ================================================
    GALLERY SECTION
-   Секция с галереей/слайдером
+   Свайпер Слайдер (Swiper.js) + Коллаж
    ================================================ */
 
 .gallery {
     position: relative;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
 }
 
-.gallery__slider {
+/* Swiper Container */
+.swiper {
+    width: 100%;
+    height: auto;
     overflow: hidden;
-    border-radius: var(--radius-lg);
+    /* Essential for swiper */
+    padding-bottom: 20px;
 }
 
-.gallery__track {
-    display: flex;
-    transition: transform var(--transition-slow);
+.swiper-slide {
+    height: auto;
+    /* Ensure sizing is correct */
+    box-sizing: border-box;
+    width: 100%;
+    /* Default to full width per slide */
 }
 
-.gallery__slide {
-    min-width: 100%;
-    flex-shrink: 0;
+/* Collage Grid Layout */
+.gallery__collage {
+    display: grid;
+    /* Explicit 3 columns */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+    height: 600px;
+    width: 100%;
+    /* Define areas for clarity */
+    grid-template-areas:
+        "left mid-top right"
+        "left mid-bot right";
 }
 
-.gallery__item {
-    aspect-ratio: 16/9;
-    border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.gallery__img-wrapper {
+    position: relative;
     overflow: hidden;
+    border-radius: 20px;
+    background-color: #f0f0f0;
 }
 
-.gallery__placeholder {
-    font-size: var(--fs-h4);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-gray-600);
+.gallery__img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
 }
 
-.gallery__controls {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 var(--spacing-md);
-    pointer-events: none;
+.gallery__img-wrapper:hover img {
+    transform: scale(1.03);
 }
 
-.gallery__control {
-    pointer-events: all;
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-full);
-    background-color: var(--color-white);
-    color: var(--color-black);
-    font-size: var(--fs-h4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow-lg);
-    transition: all var(--transition-fast);
-    cursor: pointer;
+/* Assign Grid Areas */
+.gallery__img-wrapper:nth-child(1) {
+    grid-area: left;
 }
 
-.gallery__control:hover {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    transform: scale(1.1);
+.gallery__img-wrapper:nth-child(2) {
+    grid-area: mid-top;
 }
 
-.gallery__dots {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-xs);
-    margin-top: var(--spacing-lg);
+.gallery__img-wrapper:nth-child(3) {
+    grid-area: mid-bot;
 }
 
-.gallery__dot {
+.gallery__img-wrapper:nth-child(4) {
+    grid-area: right;
+}
+
+/* Swiper Pagination */
+.swiper-pagination-bullet {
     width: 12px;
     height: 12px;
-    border-radius: var(--radius-full);
-    background-color: var(--color-gray-300);
-    border: none;
-    cursor: pointer;
-    transition: all var(--transition-fast);
+    background: var(--color-gray-300);
+    opacity: 1;
+    transition: all 0.3s;
 }
 
-.gallery__dot--active {
-    background-color: var(--color-primary);
+.swiper-pagination-bullet-active {
+    background: var(--color-primary);
     width: 32px;
+    border-radius: 6px;
+    /* Pill shape */
+}
+
+/* Swiper Navigation */
+.swiper-button-next,
+.swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    color: var(--color-primary);
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10;
+    border: 2px solid var(--color-primary);
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+.swiper-button-next {
+    right: 20px;
+}
+
+.swiper-button-prev {
+    left: 20px;
+}
+
+/* Action Buttons Bottom */
+.gallery__actions {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 48px;
+}
+
+.btn-gallery-yellow {
+    background-color: #FFDE00;
+    color: #2D3436;
+    font-weight: 700;
+    padding: 18px 40px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(255, 222, 0, 0.3);
+}
+
+.btn-gallery-yellow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 222, 0, 0.4);
+}
+
+.btn-gallery-outline {
+    background-color: transparent;
+    color: #2D3436;
+    font-weight: 700;
+    padding: 18px 40px;
+    border-radius: 50px;
+    border: 2px solid #E0E0E0;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+}
+
+.btn-gallery-outline:hover {
+    background-color: #FAFAFA;
+    border-color: #D6D6D6;
 }
 
 /* Responsive */
-@media (max-width: 480px) {
-    .gallery__controls {
-        padding: 0 var(--spacing-xs);
+@media (max-width: 1024px) {
+    .gallery {
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery__collage {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
-    .gallery__control {
-        width: 40px;
-        height: 40px;
-        font-size: var(--fs-h5);
+    .gallery__img-wrapper {
+        width: 100%;
+        height: 300px;
+    }
+
+    .gallery__img-wrapper:nth-child(2),
+    .gallery__img-wrapper:nth-child(3) {
+        height: 200px;
+    }
+
+    .gallery__actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .btn-gallery-yellow,
+    .btn-gallery-outline {
+        width: 100%;
+        text-align: center;
+        max-width: 320px;
     }
 }

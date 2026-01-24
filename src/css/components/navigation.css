@@ -34,47 +34,72 @@
 }
 
 /* Ensure navigation container matches the project content container exactly */
-.navigation__container {
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-    width: 100%;
+/* Strong mobile layout overrides: logo -> nav -> contacts (stacked column) */
+.navigation__mobile {
+    padding: 80px 20px !important;
+    background-color: var(--color-primary-light) !important;
+    overflow-y: auto;
 }
 
-/* --- Left Zone - Логотип --- */
-.navigation__left {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: clamp(10px, 1.04vw, 40px);
-    max-width: 35%;
-    /* Ограничиваем ширину левой зоны */
+.navigation__mobile-body {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    align-items: stretch !important;
 }
 
-.navigation__logo {
-    display: inline-flex;
-    align-items: center;
-    position: relative;
-    transition: opacity var(--transition-base);
+.navigation__mobile-logo {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin-bottom: 8px !important;
 }
 
-.navigation__logo:hover {
-    opacity: 0.8;
+.navigation__mobile-menu {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-.navigation__logo-img {
-    height: clamp(50px, 8vw, 150px);
-    width: auto;
-    display: block;
-    object-fit: contain;
-    transition: opacity var(--transition-base);
+.navigation__mobile-menu .navigation__mobile-item {
+    width: 100% !important;
 }
 
-.navigation__logo-img--dark {
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
+.navigation__mobile-link {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: var(--fs-h2) !important;
+    padding: 14px 8px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    color: var(--color-black) !important;
+    background: transparent !important;
+}
+
+/* ensure socials and contacts appear under the menu, stacked */
+.navigation__mobile .nav__socials {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    margin: 6px 8px !important;
+}
+
+.navigation__mobile .nav__contact {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    margin: 6px 8px !important;
+    position: static !important;
+    gap: 6px !important;
+}
+
+.navigation__mobile .nav__phone,
+.navigation__mobile .navigation__mobile-cta,
+.navigation__mobile .nav__hours {
+    color: var(--color-black) !important;
+    white-space: normal !important;
 }
 
 /* Переключение логотипов */
@@ -86,6 +111,16 @@
 .navigation--scrolled .navigation__logo-img--dark,
 .navigation--white .navigation__logo-img--dark {
     opacity: 1;
+}
+
+/* Когда навигация расположена поверх hero, не показываем тёмный (чёрный) логотип */
+.navigation.navigation--with-hero .navigation__logo-img--dark {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+.navigation.navigation--with-hero .navigation__logo-img--light {
+    opacity: 1 !important;
 }
 
 /* Описание рядом с лого */
@@ -306,8 +341,13 @@
 }
 
 .navigation__burger .no-hero {
-    background: var(--color-primary);
+    /* Deprecated selector: was matching .no-hero inside burger.
+       Use body.no-hero .navigation__burger instead to target
+       when the page has the no-hero state applied to the body. */
+}
 
+body.no-hero .navigation__burger {
+    background: var(--color-primary);
 }
 
 /* Анимация бургера */
@@ -330,7 +370,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--color-white);
+    display: block;
+    background-color: var(--color-primary-light);
     padding: 100px var(--spacing-lg) 40px;
     overflow-y: auto;
     transform: translateX(100%);
@@ -340,6 +381,7 @@
 
 .navigation__mobile--active {
     transform: translateX(0);
+
 }
 
 .navigation__mobile-menu {
@@ -349,8 +391,34 @@
     margin-bottom: 40px;
 }
 
+/* Mobile header (logo + close) */
+.navigation__mobile-header {
+    position: absolute;
+    top: 18px;
+    left: var(--spacing-lg);
+    right: var(--spacing-lg);
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.navigation__logo--mobile .navigation__logo-img {
+    height: 44px;
+}
+
+.navigation__mobile-close {
+    background: transparent;
+    border: none;
+    font-size: var(--fs-h2);
+    line-height: 1;
+    padding: 4px 8px;
+    cursor: pointer;
+    color: var(--color-black);
+}
+
 .navigation__mobile-link {
-    font-size: 24px;
+    font-size: var(--fs-h2);
     font-weight: 600;
     color: var(--color-black);
     text-decoration: none;
@@ -389,7 +457,7 @@
 
 @media (max-width: 1024px) {
     .navigation__link {
-        font-size: 14px;
+        font-size: var(--fs-sm);
     }
 
     .navigation__logo-img {
@@ -470,6 +538,195 @@
 
     .navigation__logo-img--dark {
         opacity: 0 !important;
+    }
+
+    /* FORCE: make mobile menu content stacked and visible */
+    .navigation__mobile {
+        padding: 0;
+        background-color: rgba(0, 0, 0, 0.28);
+        /* backdrop when active */
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+    }
+
+    .navigation__mobile-body {
+        display: block;
+        gap: 18px;
+
+    }
+
+    /* Hide mobile logo by default (only show when mobile menu is active) */
+    .navigation__mobile-logo {
+        display: none !important;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 6px;
+    }
+
+    /* Show mobile logo only when mobile menu is open */
+    .navigation__mobile--active .navigation__mobile-logo {
+        display: flex !important;
+    }
+
+    .navigation__mobile-logo .navigation__logo-img {
+        height: 56px;
+    }
+
+    .navigation__mobile-menu {
+        margin: 0;
+        width: 100%;
+    }
+
+    .navigation__mobile-menu .navigation__mobile-item {
+        width: 100%;
+    }
+
+    /* Panel style: right-side panel with left-aligned content, fixed max-width 300px */
+    :root {
+        --mobile-menu-width: 300px;
+        --mobile-menu-bg: var(--color-surface, #f5f5f5);
+    }
+
+    .navigation__mobile--active {
+        display: flex !important;
+        align-items: flex-start;
+        justify-content: flex-end;
+        background: transparent;
+    }
+
+    .navigation__mobile--active .navigation__mobile-menu,
+    .navigation__mobile--active .navigation__mobile-contacts {
+        background: var(--mobile-menu-bg);
+        color: var(--color-black);
+        border-radius: 12px;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+        padding: 18px 18px;
+        width: var(--mobile-menu-width);
+        max-width: var(--mobile-menu-width);
+        margin: 18px;
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /* left-aligned content */
+    }
+
+    /* Ensure close button inside panel appears at top-right of panel */
+    .navigation__mobile--active .navigation__mobile-close {
+        position: absolute;
+        z-index: 10010;
+        background: transparent;
+        color: var(--color-black);
+        top: 22px;
+        right: calc(18px + 8px);
+        font-size: 28px;
+    }
+
+    /* Logo left-aligned */
+    .navigation__mobile--active .navigation__mobile-logo {
+        display: flex !important;
+        justify-content: flex-start;
+        margin-bottom: 8px;
+        width: 100%;
+    }
+
+    .navigation__mobile--active .navigation__logo-img {
+        height: 44px;
+    }
+
+    .navigation__mobile--active .navigation__mobile-link {
+        font-size: var(--fs-h5);
+        color: var(--color-black) !important;
+        padding: 10px 0;
+        width: 100%;
+        text-align: left;
+        border-bottom: none;
+    }
+
+    .navigation__mobile-contacts {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+        width: 100%;
+    }
+
+    .navigation__mobile-phone {
+        font-size: var(--fs-base);
+        font-weight: 700;
+        color: var(--color-black);
+    }
+
+    .navigation__mobile-cta {
+        display: inline-block;
+        background: var(--color-primary);
+        color: var(--color-white);
+        padding: 8px 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    /* social icons row at bottom of panel */
+    .navigation__mobile .nav__socials {
+        margin-top: auto;
+        display: flex !important;
+        gap: 8px;
+    }
+
+    .navigation__mobile .nav-socials__item {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--color-black);
+        text-decoration: none;
+    }
+
+    .navigation__mobile-link {
+        font-size: var(--fs-h2);
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        color: var(--color-black) !important;
+    }
+
+    /* show socials inside mobile explicitly (override previous hide) */
+    .navigation__mobile .nav__socials {
+        display: flex !important;
+        gap: 12px;
+        align-items: center;
+        margin-left: 18px;
+    }
+
+    .navigation__mobile .nav__contact {
+        align-items: flex-start;
+        text-align: left;
+        margin-left: 18px;
+        margin-top: 6px;
+        gap: 6px;
+    }
+
+    .navigation__mobile .nav__phone,
+    .navigation__mobile .navigation__mobile-cta,
+    .navigation__mobile .nav__hours {
+        color: var(--color-black);
+    }
+}
+
+/* Desktop: hide mobile-only logo/container to avoid duplicate logos */
+@media (min-width: 992px) {
+
+    .navigation__mobile-logo,
+    .navigation__logo--mobile {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        overflow: hidden !important;
     }
 }
 

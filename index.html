@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Вселенная праздников - Организация детских и семейных праздников под ключ в Москве">
+    <meta name="description" content="Организация детских праздников под ключ">
     <title>Вселенная праздников — Организация детских праздников под ключ</title>
     <!-- CSS -->
     <link rel="stylesheet" href="src/css/main.css">
@@ -26,7 +25,7 @@
                 </a>
                 <div class="nav__description">
                     <div class="nav__title--line">Организация детских<br>праздников в Москве и МО</div>
-                    <div class="nav__address">Москва, ул Стромынка 19к2</div>
+                    <div class="nav__address" data-set="address"></div>
                 </div>
             </div>
 
@@ -50,8 +49,8 @@
                     <a class="nav-socials__item" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
                 </div>
                 <div class="nav__contact">
-                    <div class="nav__hours" data-set="hours">Часы работы: 10:00 - 22:00</div>
-                    <a class="nav__phone" href="tel:+78000000000" data-set-link="phone">+7(800)000-00-00</a>
+                    <div class="nav__hours" data-set="hours"></div>
+                    <a class="nav__phone" href="#" data-set-link="phone"></a>
                     <a href="#" class="nav__phone" data-modal="order">Заказать звонок</a>
                 </div>
             </div>
@@ -68,18 +67,33 @@
 
         <!-- Mobile Menu -->
         <div class="navigation__mobile" id="mobileMenu">
-            <ul class="navigation__mobile-menu">
-                <li class="navigation__mobile-item"><a href="#services" class="navigation__mobile-link">Услуги</a></li>
-                <li class="navigation__mobile-item"><a href="#packages" class="navigation__mobile-link">Пакеты</a></li>
-                <li class="navigation__mobile-item"><a href="#gallery" class="navigation__mobile-link">Галерея</a></li>
-                <li class="navigation__mobile-item"><a href="#reviews" class="navigation__mobile-link">Отзывы</a></li>
-                <li class="navigation__mobile-item"><a href="#faq" class="navigation__mobile-link">FAQ</a></li>
-                <li class="navigation__mobile-item"><a href="#contacts" class="navigation__mobile-link">Контакты</a>
-                </li>
-            </ul>
-            <div class="navigation__mobile-contacts">
-                <a href="tel:+70000000000" class="navigation__mobile-phone">+7 (000) 000-00-00</a>
-                <a href="#orderModal" data-modal="order" class="navigation__mobile-cta">Заказать звонок</a>
+            <div class="navigation__mobile-header">
+                <a href="#" class="navigation__logo navigation__logo--mobile">
+                    <img src="src/img/brand/logo-main__dark_main.svg" alt="Вселенная праздников"
+                        class="navigation__logo-img">
+                </a>
+                <ul class="navigation__mobile-menu">
+                    <li class="navigation__mobile-item"><a href="#services" class="navigation__mobile-link">Услуги</a>
+                    </li>
+                    <li class="navigation__mobile-item"><a href="#packages" class="navigation__mobile-link">Пакеты</a>
+                    </li>
+                    <li class="navigation__mobile-item"><a href="#gallery" class="navigation__mobile-link">Галерея</a>
+                    </li>
+                    <li class="navigation__mobile-item"><a href="#reviews" class="navigation__mobile-link">Отзывы</a>
+                    </li>
+                    <li class="navigation__mobile-item"><a href="#faq" class="navigation__mobile-link">FAQ</a></li>
+                    <li class="navigation__mobile-item"><a href="#contacts" class="navigation__mobile-link">Контакты</a>
+                    </li>
+                </ul>
+                <div class="navigation__mobile-contacts">
+                    <div class="nav__socials">
+                        <a class="nav-socials__item" href="#" aria-label="VK" data-social="vk">VK</a>
+                        <a class="nav-socials__item" href="#" aria-label="Telegram" data-social="tg">TG</a>
+                        <a class="nav-socials__item" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
+                    </div>
+                    <a href="#" class="navigation__mobile-phone" data-set-link="phone"></a>
+                    <a href="#orderModal" data-modal="order" class="navigation__mobile-cta">Заказать звонок</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -93,9 +107,23 @@
                     до
                     реализации</p>
                 <div class="hero__actions">
-                    <button class="btn btn--primary btn--large" data-modal="order">Заказать праздник</button>
+                    <button class="btn btn--primary btn--large btn--hero" data-modal="order">
+                        <div class="btn__inner" aria-hidden="true"></div>
+                        <div class="btn__content">
+                            <span class="btn__text">Заказать праздник</span>
+
+                        </div>
+                        <!-- decorative documents: now placed inside the button so they can sit visually on top -->
+                        <div class="btn__docs" aria-hidden="true">
+                            <div class="btn__doc btn__doc-1"></div>
+                            <div class="btn__doc btn__doc-2"></div>
+                        </div>
+                    </button>
                 </div>
             </div>
+
+
+
         </div>
 
     </section>
@@ -236,54 +264,89 @@
             </div>
         </div>
     </section>
-    <!-- End  animators -->
-    <!-- SERVICES SECTION -->
-    <section class="section" id="services">
+    <!-- End animators -->
+
+    <!-- PROGRAM SECTION -->
+    <section class="program" id="program">
         <div class="container">
-            <h2 class="section__title">Наши услуги</h2>
-            <p class="section__subtitle">Всё для идеального праздника в одном месте</p>
+            <h2 class="program__title">В программу любого аниматора входит</h2>
+            <p class="program__description">
+                Превратите ваш праздник в незабываемое зрелище с помощью увлекательных шоу-программ!
+                Яркие представления добавят новые эмоции и сделают мероприятие по-настоящему особенным,
+                подарив гостям массу впечатлений. Мы знаем, как создать масштабный и запоминающийся праздник.
+            </p>
 
-            <div class="services">
-                <div class="card card--service">
-                    <div class="card__icon">🎈</div>
-                    <h3 class="card__title">Детские дни рождения</h3>
-                    <p class="card__description">Организация праздника под ключ с аниматорами, декором и развлечениями
-                    </p>
+            <div class="program__grid">
+                <div class="program-card">
+                    <div class="program-card__icon">💰</div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Фиксированная стоимость программы</h3>
+                        <p class="program-card__text">Без скрытых доплат и сюрпризов — всё прозрачно заранее.</p>
+                    </div>
                 </div>
 
-                <div class="card card--service">
-                    <div class="card__icon">🎭</div>
-                    <h3 class="card__title">Тематические вечеринки</h3>
-                    <p class="card__description">Реализация любых тематик: от супергероев до принцесс</p>
+                <div class="program-card">
+                    <div class="program-card__icon">🎵</div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Музыкальное сопровождение</h3>
+                        <p class="program-card__text">Подбираем плейлист под возраст, формат и настроение праздника.</p>
+                    </div>
                 </div>
 
-                <div class="card card--service">
-                    <div class="card__icon">🎪</div>
-                    <h3 class="card__title">Семейные мероприятия</h3>
-                    <p class="card__description">Организация выпускных, семейных праздников и корпоративов</p>
+                <div class="program-card">
+                    <div class="program-card__icon">📝</div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Авторский сценарий</h3>
+                        <p class="program-card__text">Каждая программа продумана и адаптируется под запрос и аудиторию.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="card card--service">
-                    <div class="card__icon">🎨</div>
-                    <h3 class="card__title">Декор и оформление</h3>
-                    <p class="card__description">Создание уникальной атмосферы с помощью декораций и световых решений
-                    </p>
+                <div class="program-card">
+                    <div class="program-card__icon">🫧</div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Интерактивные элементы</h3>
+                        <p class="program-card__text">Добавляем вовлекающие блоки (доступны при определённой
+                            продолжительности программы).</p>
+                    </div>
                 </div>
 
-                <div class="card card--service">
-                    <div class="card__icon">🎬</div>
-                    <h3 class="card__title">Фото и видеосъёмка</h3>
-                    <p class="card__description">Профессиональная съёмка для сохранения самых ярких моментов</p>
+                <div class="program-card">
+                    <div class="program-card__icon">🎩</div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Фокусы и вау-моменты</h3>
+                        <p class="program-card__text">Небольшие эффектные элементы для удивления и эмоций.</p>
+                    </div>
                 </div>
 
-                <div class="card card--service">
-                    <div class="card__icon">🍰</div>
-                    <h3 class="card__title">Кейтеринг</h3>
-                    <p class="card__description">Детское меню, торты и сладкий стол от проверенных партнёров</p>
+                <div class="program-card">
+                    <div class="program-card__icon">🎂</div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Вынос торта</h3>
+                        <p class="program-card__text">Красивая подача и акцентный момент праздника.</p>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-card__icon">🎨</div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Тематический реквизит</h3>
+                        <p class="program-card__text">Мы регулярно обновляем реквизит и образы, чтобы программы
+                            выглядели современно.</p>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-card__icon">🎈</div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Фигурки из шариков</h3>
+                        <p class="program-card__text">Любимый финал для детей — каждому по шарику.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- End program -->
 
     <!-- PACKAGES SECTION -->
     <section class="section section--alt" id="packages">
@@ -394,41 +457,34 @@
             <p class="section__subtitle">Посмотрите примеры наших работ</p>
 
             <div class="gallery">
-                <div class="gallery__slider" id="gallerySlider">
-                    <div class="gallery__track">
-                        <div class="gallery__slide">
+                <div class="gallery-swiper swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
                             <div class="gallery__item" style="background-color: #f0e6ff;">
                                 <div class="gallery__placeholder">Праздник 1</div>
                             </div>
                         </div>
-                        <div class="gallery__slide">
+                        <div class="swiper-slide">
                             <div class="gallery__item" style="background-color: #e6f0ff;">
                                 <div class="gallery__placeholder">Праздник 2</div>
                             </div>
                         </div>
-                        <div class="gallery__slide">
+                        <div class="swiper-slide">
                             <div class="gallery__item" style="background-color: #ffe6f0;">
                                 <div class="gallery__placeholder">Праздник 3</div>
                             </div>
                         </div>
-                        <div class="gallery__slide">
+                        <div class="swiper-slide">
                             <div class="gallery__item" style="background-color: #f0ffe6;">
                                 <div class="gallery__placeholder">Праздник 4</div>
                             </div>
                         </div>
                     </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next gallery__control gallery__control--next"></div>
+                    <div class="swiper-button-prev gallery__control gallery__control--prev"></div>
                 </div>
-
-                <div class="gallery__controls">
-                    <button class="gallery__control gallery__control--prev" id="galleryPrev"
-                        aria-label="Предыдущий слайд">←</button>
-                    <button class="gallery__control gallery__control--next" id="galleryNext"
-                        aria-label="Следующий слайд">→</button>
-                </div>
-
-                <div class="gallery__dots" id="galleryDots"></div>
             </div>
-        </div>
     </section>
 
     <!-- REVIEWS SECTION -->
@@ -580,9 +636,9 @@
                         <a class="footer__icon" href="#" aria-label="Telegram" data-social="tg">TG</a>
                         <a class="footer__icon" href="#" aria-label="WhatsApp" data-social="wa">WA</a>
                     </div>
-                    <a href="tel:+74950777490" class="footer__phone" data-set-link="phone">+7 (495) 077-74-90</a>
-                    <div class="footer__hours" data-set="hours">с 9:00 до 21:00 без выходных</div>
-                    <a class="footer__cta" href="#calc">Получить расчет</a>
+                    <a href="#" class="footer__phone" data-set-link="phone"></a>
+                    <div class="footer__hours" data-set="hours"></div>
+                    <a class="btn btn--primary btn--large" href="#calc">Получить расчет</a>
                 </div>
             </div>
 
@@ -602,8 +658,8 @@
     </footer>
     <!-- JavaScript -->
 
+    <script src="src/js/loader.js"></script>
     <script src="src/js/main.js" type="module"></script>
-    <script src="src/js/components/filter.js" type="module"></script>
 
     <!-- Modal Structure -->
     <div id="orderModal" class="modal" aria-hidden="true">
@@ -613,12 +669,15 @@
             <p class="modal__subtitle">Заполните форму, мы свяжемся с вами, ответим на все ваши вопросы</p>
 
             <form id="orderForm" class="modal__form">
-                <input type="text" id="name" name="name" class="modal__input" placeholder="Имя" required>
+                <input type="text" id="name" name="name" class="modal__input" placeholder="Имя" required
+                    pattern="^[A-Za-zА-Яа-яЁё\s-]+$" title="Только буквы (латиница или кириллица), пробел и дефис"
+                    aria-describedby="name-error">
+                <div id="name-error" class="form__error" aria-live="polite">Введите только буквы (латиница или
+                    кириллица)</div>
                 <input type="tel" id="phone" name="phone" class="modal__input" placeholder="Телефон*" required
                     inputmode="tel" autocomplete="tel" pattern="^[0-9+()\- ]+$"
                     title="Разрешены только цифры и символы + ( ) -" aria-describedby="phone-hint">
-                <small class="form__hint" id="phone-hint">Разрешены только цифры и символы + ( ) -</small>
-                <button type="submit" class="modal__button">Кнопка</button>
+                <button type="submit" class="btn btn--primary btn--large">Кнопка</button>
 
                 <div class="modal__consent-block">
                     <button type="button" class="modal__consent-toggle" aria-expanded="false">

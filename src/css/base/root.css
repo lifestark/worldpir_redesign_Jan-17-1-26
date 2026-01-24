@@ -1,18 +1,24 @@
-/* ================================================
-    ПЕРЕМЕННЫЕ CSS
-    Все CSS-переменные проекта
-    ================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap');
 
+/* =================================================
+     MERGED :root (добавили новые токены, старые не трогаем)
+     ================================================= */
 :root {
-    /* Colors - Цвета */
-    --color-primary: #b794f6;
-    --color-primary-dark: #9f7ae8;
-    --color-primary-light: #d4c5f9;
-    --color-accent: #6c63ff;
-    --color-accent-dark: #5548e0;
+    /* ====== из 1-го набора (добавлено, без переопределений) ====== */
+    --font-size: 16px;
 
-    --color-white: #ffffff;
+    /* Design System Colors */
+    --color-text: #2D3436;
+    --color-text-secondary: #747474;
+    --color-white: #fff;
+    --color-primary: #FF7675;
+    --color-primary-dark: #E84393;
+    --color-primary-light: #FFEAA7;
+    --color-base-background: #F4F5F6;
+    --color-stroke-soft: #E8E9EB;
+    /* Compatibility tokens (added when missing) */
     --color-black: #1a1a1a;
+    --color-gray-50: #f9fafb;
     --color-gray-100: #f7f7f7;
     --color-gray-200: #e5e5e5;
     --color-gray-300: #d4d4d4;
@@ -21,10 +27,84 @@
     --color-gray-600: #525252;
     --color-gray-700: #404040;
 
-    --color-success: #10b981;
-    --color-error: #ef4444;
-    --color-warning: #f59e0b;
-    --color-cta: #ffd000;
+    /* Accent / CTA aliases to keep older styles working */
+    --color-accent: var(--color-primary);
+    --color-accent-dark: var(--color-primary-dark);
+    --color-accent-light: var(--color-primary-light);
+    --color-cta: var(--color-primary);
+    --color-cta-light: #FF9F80;
+    /* Additional CTA gradient stops (used by hero/large CTAs) */
+    --color-cta-start: #FF8F8A;
+    --color-cta-end: #FF6F6B;
+
+    /* Modal / form fields */
+    --color-field-bg: #F6F7F9;
+    --color-field-border: #E6E9EE;
+
+    /* 404 page */
+    --color-404-start: #7F00FF;
+    --color-404-end: #E100FF;
+    --color-404-accent: #F6D2FF;
+
+    /* Footer gradient */
+    --color-footer-1: #B56BFF;
+    --color-footer-2: #6A00FF;
+    --color-footer-3: #7A00FF;
+
+    /* Contacts section */
+    --color-contacts-bg: #f3edff;
+    --color-contacts-alert: #ff0000;
+
+    /* Reviews star color */
+    --color-star: #fbbf24;
+
+    /* Component sizes */
+    --input-height: 56px;
+    --btn-large-height: 80px;
+    --btn-icon-width: 56px;
+
+    /* Typography alias used across components */
+    --font-body: var(--font-primary);
+    /* Info Colors */
+    --color-alert-success: #22C55E;
+    --color-alert-warning: #F59E0B;
+    --color-alert-error: #E11D48;
+    --color-alert-info: #3B82F6;
+
+
+    /* Pastel Backdrops */
+    --color-pastel-peach: #FFE8DD;
+    --color-pastel-lavender: #E8DDFF;
+    --color-pastel-mint: #D4F4E7;
+    --color-pastel-sky: #D9EEFF;
+    --color-pastel-butter: #FFF5CC;
+    --color-pastel-rose: #FFE0E6;
+
+
+    /* Shadows - Тени */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+    /* Spacing Variables (токены из 1-го набора) */
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-15: 60px;
+    --space-30: 120px;
+
+    /* Radius Variables (токены из 1-го набора) */
+    --radius-pill: 50px;
+    --radius-card: 24px;
+    --radius-soft: 16px;
+
+
+
 
     /* Typography - Типографика */
     --font-primary: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -71,7 +151,6 @@
     --container-max-width: calc(100vw - 2 * var(--container-padding));
     --container-padding: 1rem;
 
-
     /* Border Radius - Скругления */
     --radius-sm: 0.25rem;
     --radius-md: 0.5rem;
@@ -79,11 +158,6 @@
     --radius-xl: 1.5rem;
     --radius-full: 9999px;
 
-    /* Shadows - Тени */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
     /* Transitions - Переходы */
     --transition-fast: 150ms ease;
@@ -100,32 +174,25 @@
 
     /* Определение адаптивного отступа для контейнера */
     --container-pad: clamp(12px,
-            /* Минимальный отступ для экранов шириной 375px */
             calc(12px + (160 - 12) * ((100vw - 375px) / (3840 - 375))),
-            /* Адаптивный расчет отступа */
-            160px
-            /* Максимальный отступ для экранов шириной 3840px */
-        );
+            160px);
 
     /* Переменные для отступов и размеров навигации */
     --no-hero-nav-spacing: clamp(60px, 12vw, 200px);
-    /* Минимальный отступ для контента на странице no-hero */
-
-    /* Адаптивный отступ для основного контента на странице no-hero */
     --no-hero-main-spacing: clamp(80px, 15vw, 220px);
-    /* Отступ для основного контента */
-    /* Начальное (защитное) значение высоты навигации; будет переопределено JS на реальную высоту */
     --nav-height: clamp(80px, 8vw, 140px);
 }
 
-/* Применение адаптивного отступа для контейнеров */
+/* Применение адаптивного отступа для контейнеров (как у тебя) */
 .container,
 .hero__container,
 .navigation__container {
     width: calc(100vw - (var(--container-pad) * 2));
-    /* Ширина с учетом отступов */
     padding-left: var(--container-pad);
-    /* Левый отступ */
     padding-right: var(--container-pad);
-    /* Правый отступ */
+}
+
+/* Utility: lock body scroll when off-canvas components are open */
+body.no-scroll {
+    overflow: hidden;
 }

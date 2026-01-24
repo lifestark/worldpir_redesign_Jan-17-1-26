@@ -1,72 +1,195 @@
 /* ================================================
    REVIEWS SECTION
-   Секция с отзывами
+   Секция с отзывами (Carousel)
    ================================================ */
 
-.reviews {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-lg);
-}
-
-.review {
-    background-color: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
-}
-
-.review:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-xl);
-}
-
-.review__header {
+.reviews__header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: var(--spacing-lg);
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
 }
 
-.review__avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: var(--radius-full);
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-    color: var(--color-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--fs-nav);
-    font-weight: var(--font-weight-bold);
-    flex-shrink: 0;
-}
-
-.review__info {
+/* Force text alignment to left in this layout context if needed, 
+   or keep inherited center if prefer title centered and widget absolutely positioned.
+   Based on request, let's flex align them. 
+*/
+.reviews__titles {
+    text-align: left;
     flex: 1;
 }
 
-.review__name {
-    font-size: var(--fs-nav);
-    font-weight: var(--font-weight-semibold);
-    margin-bottom: var(--spacing-xs);
+.reviews__titles .section__title,
+.reviews__titles .section__subtitle {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
 }
 
-.review__rating {
-    color: #fbbf24;
-    font-size: var(--fs-base);
+.reviews__widget-wrapper {
+    flex-shrink: 0;
+    /* Removed background/shadow/padding to make it clean as requested */
 }
 
-.review__text {
-    font-size: var(--fs-base);
-    line-height: var(--line-height-relaxed);
-    color: var(--color-gray-600);
+/* Custom Rating Badge (Yandex Style) */
+.rating-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color-white);
+    border-radius: var(--radius-pill); /* 50px */
+    padding: 12px 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft shadow like image */
+    text-decoration: none;
+    color: var(--color-black);
+    gap: 16px;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    min-width: 280px;
+}
+
+.rating-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.rating-badge__icon {
+    width: auto;
+    min-width: 48px;
+    height: 48px;
+    padding: 0 10px;
+    border-radius: 12px; /* Rounded rect to fit text better */
+    background-color: #E63946;
+    color: white;
+    font-weight: 700;
+    font-size: 13px; /* Smaller font to fit "Профи.ру" */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.rating-badge__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rating-badge__top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.rating-badge__score {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.rating-badge__stars {
+    color: #F5C518; /* Gold color */
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.rating-badge__sub {
+    font-size: 13px;
+    color: var(--color-gray-500);
+}
+
+/* Adjust wrapper to not clip the badge shadow */
+.reviews__widget-wrapper {
+    flex-shrink: 0;
+    padding: 10px; /* Slight padding for hover movement/shadow */
+    margin: -10px; /* Compensate for padding in layout */
+}
+@media (max-width: 768px) {
+    .reviews__header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .reviews__titles {
+        text-align: center;
+        flex: unset;
+        width: 100%;
+    }
+
+    .reviews__titles .section__title,
+    .reviews__titles .section__subtitle {
+        text-align: center;
+    }
+    
+    .reviews__widget-wrapper {
+        width: 100%;
+        max-width: 320px; /* Limit width */
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.reviews-marquee {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 20px 0;
+    /* Optional mask to fade edges */
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.reviews-marquee__track {
+    display: flex;
+    gap: 32px;
+    width: max-content;
+    animation: marquee-scroll 60s linear infinite;
+    /* Ensure hardware acceleration for smooth scroll */
+    will-change: transform;
+}
+
+.review-screenshot {
+    height: 500px; /* Base height for desktop */
+    width: auto;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    background: var(--color-white);
+    flex-shrink: 0;
+    transition: transform var(--transition-base);
+}
+
+.review-screenshot:hover {
+    transform: scale(1.02);
+}
+
+@keyframes marquee-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } 
+}
+
+/* Pause on hover for readability */
+.reviews-marquee:hover .reviews-marquee__track {
+    animation-play-state: paused;
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+    .review-screenshot {
+        height: 400px;
+    }
+}
+
 @media (max-width: 768px) {
-    .reviews {
-        grid-template-columns: 1fr;
+    .review-screenshot {
+        height: 300px;
+    }
+    
+    .reviews-marquee__track {
+        gap: 16px; 
+        animation-duration: 40s; /* Faster on mobile if needed */
     }
 }

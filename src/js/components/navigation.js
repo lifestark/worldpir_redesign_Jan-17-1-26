@@ -5,12 +5,15 @@
  * ================================================
  */
 
+import { settings } from '../settings.js';
+
 class Navigation {
     constructor() {
         // Элементы DOM
         this.nav = document.getElementById('mainNav');
         this.burgerBtn = document.getElementById('burgerBtn');
         this.mobileMenu = document.getElementById('mobileMenu');
+        this.mobileClose = document.querySelector('.navigation__mobile-close');
         this.navLinks = document.querySelectorAll('.navigation__link, .navigation__mobile-link');
 
         // Состояние
@@ -33,6 +36,7 @@ class Navigation {
 
         // События
         this.burgerBtn.addEventListener('click', () => this.toggleMobileMenu());
+        if (this.mobileClose) this.mobileClose.addEventListener('click', () => this.closeMobileMenu());
         window.addEventListener('scroll', () => this.handleScroll());
 
         // Закрытие мобильного меню при клике на ссылку
@@ -53,6 +57,16 @@ class Navigation {
 
         // Первичная проверка скролла
         this.handleScroll();
+
+        // Populate contacts from centralized `settings`
+        this.populateContacts();
+
+        // Accessibility: close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isMobileMenuOpen) {
+                this.closeMobileMenu();
+            }
+        });
     }
 
     /**
@@ -99,6 +113,24 @@ class Navigation {
         // Accessibility
         this.burgerBtn.setAttribute('aria-expanded', 'true');
         this.burgerBtn.setAttribute('aria-label', 'Закрыть меню');
+        if (this.mobileMenu) this.mobileMenu.setAttribute('aria-hidden', 'false');
+
+        // Save previously focused element and move focus into menu
+        this._previousFocus = document.activeElement;
+        const firstFocusable = this.mobileMenu && this.mobileMenu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+        if (firstFocusable) firstFocusable.focus();
+
+        // Lazy-load mobile logo only when menu opens
+        try {
+            const mobileLogoImg = this.mobileMenu && this.mobileMenu.querySelector('.navigation__mobile-logo img[data-src]');
+            if (mobileLogoImg && mobileLogoImg.dataset && mobileLogoImg.dataset.src) {
+                // load only once
+                if (!mobileLogoImg.dataset.loaded) {
+                    mobileLogoImg.src = mobileLogoImg.dataset.src;
+                    mobileLogoImg.dataset.loaded = 'true';
+                }
+            }
+        } catch (e) { /* ignore */ }
     }
 
     /**
@@ -116,6 +148,38 @@ class Navigation {
         // Accessibility
         this.burgerBtn.setAttribute('aria-expanded', 'false');
         this.burgerBtn.setAttribute('aria-label', 'Открыть меню');
+        if (this.mobileMenu) this.mobileMenu.setAttribute('aria-hidden', 'true');
+
+        // Restore focus
+        if (this._previousFocus) {
+            try { this._previousFocus.focus(); } catch (e) { this.burgerBtn.focus(); }
+        } else {
+            this.burgerBtn.focus();
+        }
+    }
+
+    /**
+     * Заполняет элементы контактов из `siteData`
+     */
+    populateContacts() {
+        // hours
+        const hoursEls = document.querySelectorAll('[data-set="hours"]');
+        hoursEls.forEach(el => { el.textContent = settings.company.hours; });
+
+        // phone (text + tel href)
+        const phoneEls = document.querySelectorAll('[data-set-link="phone"]');
+        phoneEls.forEach(el => {
+            if (el.tagName.toLowerCase() === 'a') {
+                el.href = `tel:${settings.company.phone_clean}`;
+                el.textContent = settings.company.phone;
+            } else {
+                el.textContent = settings.company.phone;
+            }
+        });
+
+        // address placeholders (if any)
+        const addrEls = document.querySelectorAll('[data-set="address"]');
+        addrEls.forEach(el => { el.textContent = settings.company.address; });
     }
 
     /**
@@ -138,3 +202,6 @@ class Navigation {
 
 // Экспорт для использования в других модулях
 export default Navigation;
+
+// expose global for non-module usage (safe try)
+try { window.Navigation = Navigation; } catch (e) { /* ignore */ }
