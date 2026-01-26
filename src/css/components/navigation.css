@@ -566,6 +566,18 @@ body.no-hero .navigation__burger {
         padding: 20px 0;
     }
 
+    /* If page includes a hero, keep nav overlaying the hero so the
+       hero doesn't get pushed down. This preserves visual overlay
+       while still allowing the nav to be part of scrolling context. */
+    .navigation.navigation--with-hero {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: calc(var(--z-nav, 10000) + 20);
+        background: transparent;
+    }
+
     .navigation--white,
     .navigation--scrolled {
         background-color: var(--color-white);
@@ -598,17 +610,20 @@ body.no-hero .navigation__burger {
         color: var(--nav-fg);
     }
 
-    /* Mobile overlay sits absolutely under the header so it will
-       move together with the page when the header scrolls away. */
+    /* Mobile overlay: pin to viewport top so the panel appears from
+       the top and overlays content. Burger remains fixed. */
     .navigation__mobile {
-        position: absolute;
+        position: fixed;
+        top: 0;
         left: 0;
         right: 0;
-        top: 100%;
+        bottom: 0;
         background-color: transparent;
         display: flex;
         align-items: flex-start;
         justify-content: flex-end;
+        z-index: var(--z-mobile-menu, calc(var(--z-nav, 10000) + 5));
+        /* keep pointer-events/visibility handled by active class */
     }
 
     /* When mobile menu is open, hide the main nav bands (keep burger visible)
