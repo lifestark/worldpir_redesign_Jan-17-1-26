@@ -5,16 +5,13 @@
    - на mobile NAV + overlay = fixed
    ================================================ */
 
-/* =======================
-   BASE (all)
-======================= */
 
 .navigation {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: var(--z-nav, var(--z-fixed, 10000));
+    z-index: var(--z-nav, var(--z-fixed, 20000));
 
     background: var(--nav-bg);
     box-shadow: var(--nav-shadow);

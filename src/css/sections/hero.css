@@ -1,25 +1,14 @@
-/* ================================================
-    СЕКЦИЯ HERO
-    Главная секция с призывом к действию
-    ================================================ */
-
 .hero {
     position: relative;
     top: 0;
     left: 0;
 
     height: 80vh;
-    /* Установка отступа от навигации */
-    padding-top: calc(var(--nav-height, 80px) + 24px);
-    /* Отступ от навигации */
+    padding-top: 0;
     display: flex;
     align-items: flex-start;
-    /* Выравнивание контента по верхнему краю */
     justify-content: flex-start;
-    /* Выравнивание контента по левому краю */
-    /* Адаптивное масштабирование фонового изображения */
     --hero-bg-scale: clamp(0.6, calc(100vw / 1920), 1);
-    /* Использование современных форматов изображений с резервными вариантами */
     background-image: -webkit-image-set(url('../../img/background/1920.avif') 1x,
             url('../../img/background/1920.webp') 1x,
             url('../../img/background/1920.jpg') 1x,
@@ -31,18 +20,41 @@
             url('../../img/background/1920_2x.avif') type('image/avif') 2x,
             url('../../img/background/1920@2x.webp') type('image/webp') 2x);
     background-position: right center;
-    /* чтобы персонажи были справа */
     background-repeat: no-repeat;
     background-size: cover;
-    /* стандарт для hero */
     transition: none;
-    /* убрали дерганье */
     overflow: hidden;
-    /* Поднятие секции выше — убрано, чтобы избежать перекрытий с навигацией */
     margin-top: 0;
 }
 
-/* Responsive background images (DPR-aware) */
+/* Force hero to start at the very top of the page (0,0) by negating nav height
+   and keep nav visually above via its z-index. Also keep hero content readable
+   by adding top padding equal to nav height. */
+.hero--force-top {
+    margin-top: calc(-1 * var(--nav-height, 64px));
+}
+
+.hero__content {
+    padding-top: calc(var(--nav-height, 64px) + 24px);
+}
+
+@media (min-width: 1024px) {
+    /* lift the hero up so its top aligns with the very top of the page/window
+       (compensate for the fixed navigation height) */
+
+    /* push the hero content down inside the hero so visual position looks balanced */
+    .hero__content {
+        padding-top: calc(var(--nav-height, 80px) + 40px);
+    }
+}
+
+/* push hero content down on mobile so it doesn't overlap fixed nav */
+.hero__content {
+    /* ensure content sits below nav even if --nav-height isn't set yet
+           use max() to fall back to a reasonable minimum */
+    padding-top: calc(max(var(--nav-height, 64px), 80px) + 16px);
+}
+
 @media (min-resolution: 2dppx) {
     .hero {
         background-image: -webkit-image-set(url('../../img/background/1920_2x.avif') 1x,
@@ -64,11 +76,9 @@
                 url('../../img/background/1280.jpg') type('image/jpeg') 1x,
                 url('../../img/background/1280_2x.avif') type('image/avif') 2x,
                 url('../../img/background/1280@2x.webp') type('image/webp') 2x);
-        /* На этой точке задаём позиционирование и отступы отдельно (не внутри image-set)
-           Отодвигаем содержимое вниз на высоту навигации, чтобы текст/кнопки не перекрывались */
         justify-content: flex-start;
         background-position: left top;
-        padding-top: var(--nav-height);
+        padding-top: 0;
     }
 }
 
@@ -153,18 +163,14 @@
     }
 }
 
-/* Large desktop / wide monitors (use higher-res background) */
 @media (min-width: 2560px) {
     .hero {
-        /* use the higher-resolution 1920_2x file available in assets */
         background-image: url('../../img/background/2560.avif');
-        /* keep image scaled by height but allow full scale on very wide screens */
         --hero-bg-scale: 1;
         background-position: center top;
     }
 }
 
-/* Добавление поддержки разрешения 2560px */
 @media (min-width: 1920px) and (max-width: 2560px) {
     .hero {
         background-image: -webkit-image-set(url('../../img/background/2560.avif') 1x,
@@ -180,7 +186,6 @@
     }
 }
 
-/* Добавление поддержки разрешения 2560px с @2x */
 @media (min-width: 1920px) and (max-width: 2560px) and (min-resolution: 2dppx) {
     .hero {
         background-image: -webkit-image-set(url('../../img/background/2560_2x.avif') 1x,
@@ -199,10 +204,7 @@
 }
 
 .hero__content {
-    padding-top: 100px;
     text-align: left;
-    /* Выравнивание контента по левому краю */
-
 }
 
 .hero__title {
@@ -229,10 +231,7 @@
     z-index: 0;
 }
 
-/* Большая кнопка в hero: используем существующий модификатор `.btn--large` в контексте .hero__actions
-   Добавляем анимированный блик через псевдоэлемент ::before. Блик выключается при prefers-reduced-motion. */
 .hero__actions .btn--large {
-    /* fixed height for hero button */
     height: 80px;
     padding: 0 calc(var(--space-15) + 24px);
     font-size: calc(var(--fs-h5) * 1.05);
@@ -257,7 +256,6 @@
     pointer-events: none;
     mix-blend-mode: screen;
     opacity: 0;
-    /*  блик отключён по умолчанию — replay включается на hover */
     animation: none;
 }
 
@@ -282,7 +280,6 @@
     }
 }
 
-/* replay sheen on hover for emphasis */
 .hero__actions .btn--hero:hover::before,
 .hero__actions:focus-within .btn--hero::before {
     animation: hero-sheen-replay 900ms ease-out 0s 1 both;
@@ -322,7 +319,6 @@
     display: none;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .hero {
         min-height: 80vh;
@@ -350,9 +346,7 @@
 @media (min-width: 1024px) {
     .hero {
         align-items: center;
-        /* Вернули центрирование для десктопа */
         background-position: left center;
-        /* Прижали фон к левому краю на десктопах */
     }
 
     .hero__content {
@@ -362,24 +356,24 @@
 
 @media (max-width: 1023px) {
     .hero {
-        /* На мобильных помещаем содержимое сверху; навигация фиксирована сверху */
         align-items: flex-start;
         justify-content: flex-start;
         background-position: left top;
-        /* отодвигаем контент геро вниз на высоту навигации, чтобы не наезжал */
-        padding-top: var(--nav-height);
+        padding-top: 0;
         margin-top: 0;
+    }
+    /* Strong mobile offset: ensure hero content never sits under a tall nav */
+    .hero__content {
+        padding-top: calc(var(--nav-height, 120px) + 24px) !important;
     }
 }
 
 @media (min-width: 1920px) {
     .navigation__container {
-        /* Removed fixed max-width to allow dynamic resizing */
         max-width: unset;
     }
 }
 
-/* если на очень широких нужно чуть сдвинуть кадр */
 @media (min-width: 2200px) {
     .hero {
         background-position: 75% center;
@@ -394,8 +388,7 @@
 
 @media (min-width: 1920px) {
     .hero {
-        padding-top: calc(var(--nav-height, 200px) + 100px);
-        /* Increased padding to ensure the background image does not overlap the navigation */
+        padding-top: 0;
     }
 }
 
@@ -408,21 +401,17 @@
 @media (min-width: 1920px) {
     .hero__content {
         text-align: left;
-        /* Aligned the hero content to the left for large screens */
     }
 
     .hero__title {
         text-align: left;
-        /* Aligned the hero title to the left for large screens */
     }
 
     .hero__actions {
         justify-content: flex-start;
-        /* Aligned the call-to-action buttons to the left */
     }
 }
 
-/* Rider button positioned to the right of the hero */
 .hero__rider {
     position: absolute;
     right: calc(var(--container-pad));
@@ -440,25 +429,19 @@
     cursor: pointer;
 }
 
-/* Decorative documents wrapper — behaves like footer mascot (out of flow) */
 .btn__docs,
 .btn_docs {
-    /* positioned absolute and intended to live inside the button (.btn is position:relative)
-       so values place it on the button's top-right */
     position: absolute;
     right: 8px;
     left: auto;
     top: -14px;
-    /* slightly above the button's midline */
     transform: none;
     width: 98px;
     height: 98px;
     z-index: 3;
-    /* render above the button */
     pointer-events: none;
 }
 
-/* default doc offsets (kept for references if wrapper used outside) */
 .btn__docs .btn__doc-1 {
     right: 12px;
     top: 12px;
@@ -469,7 +452,6 @@
     top: 18px;
 }
 
-/* when docs live inside the hero button, nudge them to sit nicely on the button surface */
 .hero__actions .btn--large .btn__docs .btn__doc-1 {
     right: 12px;
     top: 6px;
@@ -485,14 +467,11 @@
 @media (max-width: 1280px) {
     .btn__docs {
         width: 73.5px;
-        /* reduced */
         height: 73.5px;
-        /* reduced */
         right: 6px;
         top: -10px;
     }
 
-    /* keep original document size (match `.btn__doc` in buttons.css) */
     .btn__docs .btn__doc {
         width: 43px;
         height: 56px;
@@ -522,6 +501,5 @@
 @media (max-width: 768px) {
     .hero__rider {
         display: none;
-        /* скрываем на мобильных */
     }
 }
