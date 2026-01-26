@@ -485,14 +485,14 @@ body.has-open-nav {
         display: none;
     }
 
-    /* make header scroll with page on mobile, keep burger fixed */
+    /* keep header fixed on mobile so it stays above hero */
     .navigation {
-        position: static ;
-        top: auto ;
-        left: auto ;
-        right: auto ;
+        position: fixed ;
+        top: 0 ;
+        left: 0 ;
+        right: 0 ;
         width: 100%;
-        z-index: initial ;
+        z-index: var(--z-nav, var(--z-fixed, 10000)) ;
         background: var(--nav-bg);
     }
 

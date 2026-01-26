@@ -7,12 +7,7 @@
     position: relative;
     top: 0;
     left: 0;
-    /* Высота секции рассчитывается по аспекту фоновой картинки плюс отступ для фиксированной навигации.
-         --hero-aspect — отношение высоты/ширины изображения (например, 16:9 = 0.5625).
-         Высота = min(100vh, 100vw * aspect + nav-height). */
-    --hero-aspect: 0.5625;
-    /* По умолчанию 16:9 — при необходимости скорректируйте */
-    /* Высота теперь вычисляется из ширины фоновой картинки: width * aspect + nav offset */
+
     height: 80vh;
     /* Установка отступа от навигации */
     padding-top: calc(var(--nav-height, 80px) + 24px);
@@ -43,9 +38,8 @@
     transition: none;
     /* убрали дерганье */
     overflow: hidden;
-    /* Поднятие секции выше */
-    margin-top: -20px;
-    /* Регулируйте значение для достижения нужного результата */
+    /* Поднятие секции выше — убрано, чтобы избежать перекрытий с навигацией */
+    margin-top: 0;
 }
 
 /* Responsive background images (DPR-aware) */
@@ -70,6 +64,11 @@
                 url('../../img/background/1280.jpg') type('image/jpeg') 1x,
                 url('../../img/background/1280_2x.avif') type('image/avif') 2x,
                 url('../../img/background/1280@2x.webp') type('image/webp') 2x);
+        /* На этой точке задаём позиционирование и отступы отдельно (не внутри image-set)
+           Отодвигаем содержимое вниз на высоту навигации, чтобы текст/кнопки не перекрывались */
+        justify-content: flex-start;
+        background-position: left top;
+        padding-top: var(--nav-height);
     }
 }
 
@@ -200,6 +199,7 @@
 }
 
 .hero__content {
+    padding-top: 100px;
     text-align: left;
     /* Выравнивание контента по левому краю */
 
@@ -257,7 +257,7 @@
     pointer-events: none;
     mix-blend-mode: screen;
     opacity: 0;
-    /* Нежный блик отключён по умолчанию — replay включается на hover */
+    /*  блик отключён по умолчанию — replay включается на hover */
     animation: none;
 }
 
@@ -288,7 +288,6 @@
     animation: hero-sheen-replay 900ms ease-out 0s 1 both;
 }
 
-/* Триггерим replay блика при наведении на контейнер .hero__actions (а не только на саму кнопку) */
 .hero__actions:hover .btn--large::before,
 .hero__actions:focus-within .btn--large::before {
     animation: hero-sheen-replay 900ms ease-out 0s 1 both;
@@ -349,30 +348,26 @@
 }
 
 @media (min-width: 1024px) {
-    .hero__content {
-        max-width: 50vw;
-        /* Ограничение ширины контента до 50% ширины вьюпорта на десктопах */
-    }
-}
-
-@media (min-width: 1024px) {
     .hero {
         align-items: center;
         /* Вернули центрирование для десктопа */
-        /* Отступ от навигации */
         background-position: left center;
         /* Прижали фон к левому краю на десктопах */
+    }
+
+    .hero__content {
+        max-width: 50vw;
     }
 }
 
 @media (max-width: 1023px) {
     .hero {
-
-        /* На мобильных помещаем содержимое сверху и центрируем по горизонтали */
+        /* На мобильных помещаем содержимое сверху; навигация фиксирована сверху */
         align-items: flex-start;
-        justify-content: center;
-        background-position: center top;
-        /* убираем негативный margin, чтобы хиро начинался ровно под навигацией */
+        justify-content: flex-start;
+        background-position: left top;
+        /* отодвигаем контент геро вниз на высоту навигации, чтобы не наезжал */
+        padding-top: var(--nav-height);
         margin-top: 0;
     }
 }
