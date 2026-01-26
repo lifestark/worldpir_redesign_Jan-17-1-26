@@ -19,6 +19,9 @@
     /* foreground color for links/text (default: light for overlay on hero) */
     --nav-fg: var(--color-white);
 
+    /* apply current foreground as default text color for the nav root */
+    color: var(--nav-fg);
+
     transition:
         background-color var(--transition-base),
         box-shadow var(--transition-base),
@@ -228,8 +231,14 @@
 
 @media (max-width: 991px) {
     .nav__order-link {
-        display: none; /* keep mobile CTA inside the panel */
+        display: none;
+        /* keep mobile CTA inside the panel */
     }
+}
+
+.nav__order {
+    display: none;
+    /* in mobile header we show CTA inside panel */
 }
 }
 
@@ -245,12 +254,7 @@
     color: var(--nav-fg);
 }
 
-@media (max-width: 991px) {
-    .nav__order {
-        display: none;
-        /* in mobile header we show CTA inside panel */
-    }
-}
+@media (max-width: 991px) {}
 
 /* BURGER */
 .navigation__burger {
@@ -960,13 +964,13 @@ body.no-hero .navigation>.navigation__container a {
 /* Ensure phone and hours are visible and styled consistently */
 .nav__hours {
     display: block;
-    color: var(--nav-fg);
+    color: inherit;
     font-size: var(--fs-xs);
 }
 
 .nav__phone {
     display: inline-block;
-    color: var(--nav-fg);
+    color: inherit;
     margin-left: 8px;
     text-decoration: none;
 }
