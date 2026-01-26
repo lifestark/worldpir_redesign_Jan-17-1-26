@@ -77,21 +77,6 @@
     }
 }
 
-/* Ensure foreground color (links/text) switches to dark on desktop when scrolled */
-@media (min-width: 992px) {
-
-    .navigation.navigation--scrolled,
-    .navigation.navigation--white {
-        --nav-fg: var(--color-black);
-    }
-
-    .navigation.navigation--scrolled .navigation__link,
-    .navigation.navigation--white .navigation__link,
-    .navigation.navigation--scrolled .nav__contact,
-    .navigation.navigation--white .nav__contact {
-        color: var(--color-black);
-    }
-}
 
 /* CENTER */
 .navigation__center {
@@ -240,6 +225,24 @@
 
 .nav__phone:hover {
     color: var(--color-primary)
+}
+
+/* Order button in header */
+.nav__order {
+    margin-left: 12px;
+    padding: 8px 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--nav-fg);
+}
+
+@media (max-width: 991px) {
+    .nav__order {
+        display: none; /* in mobile header we show CTA inside panel */
+    }
 }
 
 /* BURGER */
