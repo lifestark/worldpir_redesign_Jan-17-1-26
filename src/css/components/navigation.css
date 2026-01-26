@@ -600,7 +600,7 @@ body.no-hero .navigation__burger {
     .navigation__burger {
         display: flex;
         position: fixed;
-        top: calc(var(--warning-bar-height, 0px) + (var(--nav-height) / 2) - 22px);
+        top: calc((var(--nav-height) / 2) - 22px);
         right: 8px;
     }
 
@@ -828,7 +828,7 @@ body.no-hero .navigation__burger {
     /* Keep burger visible at top-right on small phones */
     .navigation__burger {
         right: 8px;
-        top: calc(var(--warning-bar-height, 0px) + (var(--nav-height) / 2) - 22px);
+        top: calc((var(--nav-height) / 2) - 22px);
     }
 }
 
@@ -850,7 +850,7 @@ body.no-hero .navigation__burger {
     /* Ensure burger stays on top-right above the slide-over */
     .navigation__burger {
         right: 8px;
-        top: calc(var(--warning-bar-height, 0px) + (var(--nav-height) / 2) - 22px);
+        top: calc((var(--nav-height) / 2) - 22px);
         z-index: var(--z-burger, 11000);
     }
 
