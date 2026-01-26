@@ -1,0 +1,131 @@
+/* =========================================
+   PROGRAM SECTION STYLES
+   В программу любого аниматора входит
+   ========================================= */
+
+.program {
+  padding: 80px 0;
+  background: var(--color-white);
+}
+
+.program__title {
+  font-size: var(--fs-h2);
+  color: var(--color-black);
+  margin: 0 auto 24px;
+  text-align: center;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  max-width: 900px;
+}
+
+.program__description {
+  font-size: var(--fs-base);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+
+.program__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 32px;
+  margin: 0 auto;
+  max-width: var(--container-width, 1200px);
+  justify-items: center;
+  align-items: stretch;
+}
+
+.program-card__content {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.program-card__title {
+  font-size: var(--fs-h5);
+  color: var(--color-black);
+  margin: 0 0 8px 0;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+@media (max-width: 600px) {
+  .program-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 12px;
+  }
+
+  .program-card__icon {
+    margin: 0 auto 16px auto;
+    width: 48px;
+    height: 48px;
+    font-size: 36px;
+  }
+
+  .program-card__content {
+    width: 100%;
+  }
+}
+
+.program-card__text {
+  font-size: var(--fs-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .program {
+    padding: 60px 0;
+  }
+
+  .program__title {
+    font-size: var(--fs-h3);
+    margin-bottom: 20px;
+  }
+
+  .program__description {
+    font-size: var(--fs-sm);
+    margin-bottom: 40px;
+    padding: 0 16px;
+  }
+
+  .program__grid {
+    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+    max-width: 100%;
+  }
+
+  .program-card {
+    padding: 24px 20px;
+  }
+
+  .program-card__icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .program-card__title {
+    font-size: var(--fs-base);
+  }
+
+  .program-card__text {
+    font-size: var(--fs-xs);
+  }
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1024px) {
+  .program__grid {
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    gap: 32px;
+    max-width: calc((280px * 3) + (32px * 2));
+  }
+}

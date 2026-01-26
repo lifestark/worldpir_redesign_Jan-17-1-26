@@ -1,0 +1,532 @@
+/* ================================================
+    СЕКЦИЯ HERO
+    Главная секция с призывом к действию
+    ================================================ */
+
+.hero {
+    position: relative;
+    top: 0;
+    left: 0;
+    /* Высота секции рассчитывается по аспекту фоновой картинки плюс отступ для фиксированной навигации.
+         --hero-aspect — отношение высоты/ширины изображения (например, 16:9 = 0.5625).
+         Высота = min(100vh, 100vw * aspect + nav-height). */
+    --hero-aspect: 0.5625;
+    /* По умолчанию 16:9 — при необходимости скорректируйте */
+    /* Высота теперь вычисляется из ширины фоновой картинки: width * aspect + nav offset */
+    height: 80vh;
+    /* Установка отступа от навигации */
+    padding-top: calc(var(--nav-height, 80px) + 24px);
+    /* Отступ от навигации */
+    display: flex;
+    align-items: flex-start;
+    /* Выравнивание контента по верхнему краю */
+    justify-content: flex-start;
+    /* Выравнивание контента по левому краю */
+    /* Адаптивное масштабирование фонового изображения */
+    --hero-bg-scale: clamp(0.6, calc(100vw / 1920), 1);
+    /* Использование современных форматов изображений с резервными вариантами */
+    background-image: -webkit-image-set(url('../../img/background/1920.avif') 1x,
+            url('../../img/background/1920.webp') 1x,
+            url('../../img/background/1920.jpg') 1x,
+            url('../../img/background/1920_2x.avif') 2x,
+            url('../../img/background/1920@2x.webp') 2x);
+    background-image: image-set(url('../../img/background/1920.avif') type('image/avif') 1x,
+            url('../../img/background/1920.webp') type('image/webp') 1x,
+            url('../../img/background/1920.jpg') type('image/jpeg') 1x,
+            url('../../img/background/1920_2x.avif') type('image/avif') 2x,
+            url('../../img/background/1920@2x.webp') type('image/webp') 2x);
+    background-position: right center;
+    /* чтобы персонажи были справа */
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* стандарт для hero */
+    transition: none;
+    /* убрали дерганье */
+    overflow: hidden;
+    /* Поднятие секции выше */
+    margin-top: -20px;
+    /* Регулируйте значение для достижения нужного результата */
+}
+
+/* Responsive background images (DPR-aware) */
+@media (min-resolution: 2dppx) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/1920_2x.avif') 1x,
+                url('../../img/background/1920@2x.webp') 1x);
+        background-image: image-set(url('../../img/background/1920_2x.avif') type('image/avif') 1x,
+                url('../../img/background/1920@2x.webp') type('image/webp') 1x);
+    }
+}
+
+@media (max-width: 1280px) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/1280.avif') 1x,
+                url('../../img/background/1280.webp') 1x,
+                url('../../img/background/1280.jpg') 1x,
+                url('../../img/background/1280_2x.avif') 2x,
+                url('../../img/background/1280@2x.webp') 2x);
+        background-image: image-set(url('../../img/background/1280.avif') type('image/avif') 1x,
+                url('../../img/background/1280.webp') type('image/webp') 1x,
+                url('../../img/background/1280.jpg') type('image/jpeg') 1x,
+                url('../../img/background/1280_2x.avif') type('image/avif') 2x,
+                url('../../img/background/1280@2x.webp') type('image/webp') 2x);
+    }
+}
+
+@media (max-width: 1280px) and (min-resolution: 2dppx) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/1280_2x.avif') 1x,
+                url('../../img/background/1280@2x.webp') 1x);
+        background-image: image-set(url('../../img/background/1280_2x.avif') type('image/avif') 1x,
+                url('../../img/background/1280@2x.webp') type('image/webp') 1x);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/768.avif') 1x,
+                url('../../img/background/768.webp') 1x,
+                url('../../img/background/768.jpg') 1x,
+                url('../../img/background/768@2x.avif') 2x,
+                url('../../img/background/768@2x.webp') 2x);
+        background-image: image-set(url('../../img/background/768.avif') type('image/avif') 1x,
+                url('../../img/background/768.webp') type('image/webp') 1x,
+                url('../../img/background/768.jpg') type('image/jpeg') 1x,
+                url('../../img/background/768@2x.avif') type('image/avif') 2x,
+                url('../../img/background/768@2x.webp') type('image/webp') 2x);
+    }
+}
+
+@media (max-width: 768px) and (min-resolution: 2dppx) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/768@2x.avif') 1x,
+                url('../../img/background/768@2x.webp') 1x);
+        background-image: image-set(url('../../img/background/768@2x.avif') type('image/avif') 1x,
+                url('../../img/background/768@2x.webp') type('image/webp') 1x);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/480.avif') 1x,
+                url('../../img/background/480.webp') 1x,
+                url('../../img/background/480.jpg') 1x,
+                url('../../img/background/480@2x.avif') 2x,
+                url('../../img/background/480@2x.webp') 2x);
+        background-image: image-set(url('../../img/background/480.avif') type('image/avif') 1x,
+                url('../../img/background/480.webp') type('image/webp') 1x,
+                url('../../img/background/480.jpg') type('image/jpeg') 1x,
+                url('../../img/background/480@2x.avif') type('image/avif') 2x,
+                url('../../img/background/480@2x.webp') type('image/webp') 2x);
+    }
+}
+
+@media (max-width: 480px) and (min-resolution: 2dppx) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/480@2x.avif') 1x,
+                url('../../img/background/480@2x.webp') 1x);
+        background-image: image-set(url('../../img/background/480@2x.avif') type('image/avif') 1x,
+                url('../../img/background/480@2x.webp') type('image/webp') 1x);
+    }
+}
+
+@media (max-width: 375px) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/375.avif') 1x,
+                url('../../img/background/375.webp') 1x,
+                url('../../img/background/375.jpg') 1x,
+                url('../../img/background/375@2x.avif') 2x,
+                url('../../img/background/375@2x.webp') 2x);
+        background-image: image-set(url('../../img/background/375.avif') type('image/avif') 1x,
+                url('../../img/background/375.webp') type('image/webp') 1x,
+                url('../../img/background/375.jpg') type('image/jpeg') 1x,
+                url('../../img/background/375@2x.avif') type('image/avif') 2x,
+                url('../../img/background/375@2x.webp') type('image/webp') 2x);
+    }
+}
+
+@media (max-width: 375px) and (min-resolution: 2dppx) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/375@2x.avif') 1x,
+                url('../../img/background/375@2x.webp') 1x);
+        background-image: image-set(url('../../img/background/375@2x.avif') type('image/avif') 1x,
+                url('../../img/background/375@2x.webp') type('image/webp') 1x);
+    }
+}
+
+/* Large desktop / wide monitors (use higher-res background) */
+@media (min-width: 2560px) {
+    .hero {
+        /* use the higher-resolution 1920_2x file available in assets */
+        background-image: url('../../img/background/2560.avif');
+        /* keep image scaled by height but allow full scale on very wide screens */
+        --hero-bg-scale: 1;
+        background-position: center top;
+    }
+}
+
+/* Добавление поддержки разрешения 2560px */
+@media (min-width: 1920px) and (max-width: 2560px) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/2560.avif') 1x,
+                url('../../img/background/2560.webp') 1x,
+                url('../../img/background/2560.jpg') 1x,
+                url('../../img/background/2560_2x.avif') 2x,
+                url('../../img/background/2560@2x.webp') 2x);
+        background-image: image-set(url('../../img/background/2560.avif') type('image/avif') 1x,
+                url('../../img/background/2560.webp') type('image/webp') 1x,
+                url('../../img/background/2560.jpg') type('image/jpeg') 1x,
+                url('../../img/background/2560_2x.avif') type('image/avif') 2x,
+                url('../../img/background/2560@2x.webp') type('image/webp') 2x);
+    }
+}
+
+/* Добавление поддержки разрешения 2560px с @2x */
+@media (min-width: 1920px) and (max-width: 2560px) and (min-resolution: 2dppx) {
+    .hero {
+        background-image: -webkit-image-set(url('../../img/background/2560_2x.avif') 1x,
+                url('../../img/background/2560@2x.webp') 1x);
+        background-image: image-set(url('../../img/background/2560_2x.avif') type('image/avif') 1x,
+                url('../../img/background/2560@2x.webp') type('image/webp') 1x);
+    }
+}
+
+.hero__container {
+    max-width: var(--container-max-width);
+    margin: 0;
+    padding: 0 var(--container-padding);
+    position: relative;
+    z-index: 2;
+}
+
+.hero__content {
+    text-align: left;
+    /* Выравнивание контента по левому краю */
+
+}
+
+.hero__title {
+    font-size: var(--fs-h1);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+    line-height: var(--line-height-tight);
+}
+
+.hero__subtitle {
+    font-size: var(--fs-h5);
+    color: var(--color-white);
+    margin-bottom: var(--spacing-xl);
+    line-height: var(--line-height-relaxed);
+}
+
+.hero__actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 0;
+}
+
+/* Большая кнопка в hero: используем существующий модификатор `.btn--large` в контексте .hero__actions
+   Добавляем анимированный блик через псевдоэлемент ::before. Блик выключается при prefers-reduced-motion. */
+.hero__actions .btn--large {
+    /* fixed height for hero button */
+    height: 80px;
+    padding: 0 calc(var(--space-15) + 24px);
+    font-size: calc(var(--fs-h5) * 1.05);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    position: relative;
+    overflow: visible;
+    display: inline-flex;
+    align-items: center;
+}
+
+.hero__actions .btn--hero::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -120%;
+    width: 28%;
+    height: 220%;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg) translateX(-120%);
+    will-change: transform, opacity;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0;
+    /* Нежный блик отключён по умолчанию — replay включается на hover */
+    animation: none;
+}
+
+@keyframes hero-sheen-loop {
+    0% {
+        transform: skewX(-25deg) translateX(-120%);
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 0.85;
+    }
+
+    30% {
+        transform: skewX(-25deg) translateX(160%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: skewX(-25deg) translateX(160%);
+        opacity: 0;
+    }
+}
+
+/* replay sheen on hover for emphasis */
+.hero__actions .btn--hero:hover::before,
+.hero__actions:focus-within .btn--hero::before {
+    animation: hero-sheen-replay 900ms ease-out 0s 1 both;
+}
+
+/* Триггерим replay блика при наведении на контейнер .hero__actions (а не только на саму кнопку) */
+.hero__actions:hover .btn--large::before,
+.hero__actions:focus-within .btn--large::before {
+    animation: hero-sheen-replay 900ms ease-out 0s 1 both;
+}
+
+@keyframes hero-sheen-replay {
+    0% {
+        transform: skewX(-25deg) translateX(-120%);
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: skewX(-25deg) translateX(160%);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero__actions .btn--large::before,
+    .hero__actions .btn--large:hover::before {
+        animation: none !important;
+        opacity: 0 !important;
+    }
+}
+
+.hero__overlay {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero {
+        min-height: 80vh;
+    }
+
+    .hero__title {
+        font-size: var(--fs-h3);
+    }
+
+    .hero__subtitle {
+        font-size: var(--fs-base);
+    }
+
+    .hero__actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero__actions .btn {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero__content {
+        max-width: 50vw;
+        /* Ограничение ширины контента до 50% ширины вьюпорта на десктопах */
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero {
+        align-items: center;
+        /* Вернули центрирование для десктопа */
+        /* Отступ от навигации */
+        background-position: left center;
+        /* Прижали фон к левому краю на десктопах */
+    }
+}
+
+@media (max-width: 1023px) {
+    .hero {
+
+        /* На мобильных помещаем содержимое сверху и центрируем по горизонтали */
+        align-items: flex-start;
+        justify-content: center;
+        background-position: center top;
+        /* убираем негативный margin, чтобы хиро начинался ровно под навигацией */
+        margin-top: 0;
+    }
+}
+
+@media (min-width: 1920px) {
+    .navigation__container {
+        /* Removed fixed max-width to allow dynamic resizing */
+        max-width: unset;
+    }
+}
+
+/* если на очень широких нужно чуть сдвинуть кадр */
+@media (min-width: 2200px) {
+    .hero {
+        background-position: 75% center;
+    }
+}
+
+@media (min-width: 3000px) {
+    .hero {
+        background-position: 70% center;
+    }
+}
+
+@media (min-width: 1920px) {
+    .hero {
+        padding-top: calc(var(--nav-height, 200px) + 100px);
+        /* Increased padding to ensure the background image does not overlap the navigation */
+    }
+}
+
+@media (min-width: 1920px) {
+    .hero__container {
+        padding: 0 calc(var(--container-padding) * 3);
+    }
+}
+
+@media (min-width: 1920px) {
+    .hero__content {
+        text-align: left;
+        /* Aligned the hero content to the left for large screens */
+    }
+
+    .hero__title {
+        text-align: left;
+        /* Aligned the hero title to the left for large screens */
+    }
+
+    .hero__actions {
+        justify-content: flex-start;
+        /* Aligned the call-to-action buttons to the left */
+    }
+}
+
+/* Rider button positioned to the right of the hero */
+.hero__rider {
+    position: absolute;
+    right: calc(var(--container-pad));
+    top: 50%;
+    transform: translateY(calc(-50% - 12px));
+    z-index: 3;
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 140px;
+    height: 140px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Decorative documents wrapper — behaves like footer mascot (out of flow) */
+.btn__docs,
+.btn_docs {
+    /* positioned absolute and intended to live inside the button (.btn is position:relative)
+       so values place it on the button's top-right */
+    position: absolute;
+    right: 8px;
+    left: auto;
+    top: -14px;
+    /* slightly above the button's midline */
+    transform: none;
+    width: 98px;
+    height: 98px;
+    z-index: 3;
+    /* render above the button */
+    pointer-events: none;
+}
+
+/* default doc offsets (kept for references if wrapper used outside) */
+.btn__docs .btn__doc-1 {
+    right: 12px;
+    top: 12px;
+}
+
+.btn__docs .btn__doc-2 {
+    right: 18px;
+    top: 18px;
+}
+
+/* when docs live inside the hero button, nudge them to sit nicely on the button surface */
+.hero__actions .btn--large .btn__docs .btn__doc-1 {
+    right: 12px;
+    top: 6px;
+    transform: rotate(6deg);
+}
+
+.hero__actions .btn--large .btn__docs .btn__doc-2 {
+    right: 18px;
+    top: 18px;
+    transform: rotate(-6deg);
+}
+
+@media (max-width: 1280px) {
+    .btn__docs {
+        width: 73.5px;
+        /* reduced */
+        height: 73.5px;
+        /* reduced */
+        right: 6px;
+        top: -10px;
+    }
+
+    /* keep original document size (match `.btn__doc` in buttons.css) */
+    .btn__docs .btn__doc {
+        width: 43px;
+        height: 56px;
+    }
+}
+
+@media (max-width: 768px) {
+    .btn__docs {
+        display: none;
+    }
+}
+
+.hero__rider img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 1280px) {
+    .hero__rider {
+        width: 110px;
+        height: 110px;
+        right: calc(var(--container-pad) / 1.5);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero__rider {
+        display: none;
+        /* скрываем на мобильных */
+    }
+}

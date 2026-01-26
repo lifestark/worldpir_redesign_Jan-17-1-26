@@ -1,0 +1,28 @@
+/* ================================================
+   CTA SECTION
+   Призыв к действию
+   ================================================ */
+
+.cta {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    color: var(--color-white);
+    text-align: center;
+}
+
+.cta__content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cta__title {
+    font-size: var(--fs-h2);
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+}
+
+.cta__text {
+    font-size: var(--fs-nav);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--spacing-xl);
+    line-height: var(--line-height-relaxed);
+}

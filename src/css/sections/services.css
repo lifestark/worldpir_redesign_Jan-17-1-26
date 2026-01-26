@@ -1,0 +1,17 @@
+/* ================================================
+   SERVICES SECTION
+   Секция с услугами
+   ================================================ */
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .services {
+        grid-template-columns: 1fr;
+    }
+}

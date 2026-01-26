@@ -1,0 +1,284 @@
+/* DO NOT EDIT: footer CSS locked by developer until further notice */
+/* Запретить перенос для телефона в навигации */
+.nav-phone {
+    white-space: nowrap;
+    overflow-wrap: normal;
+}
+
+/* =========================
+   FOOTER (with floating mascot)
+   ========================= */
+
+.footer {
+    padding: 60px 0 24px 0;
+    margin-top: auto;
+    color: var(--color-white);
+}
+
+.footer__wrap {
+    position: relative;
+    /* anchor for mascot */
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 clamp(12px, 4.16vw, 80px);
+}
+
+/* Purple card */
+.footer__box {
+    background: linear-gradient(90deg, var(--color-footer-1) 0%, var(--color-footer-2) 55%, var(--color-footer-3) 100%);
+    border-radius: 0;
+    padding: clamp(30px, 4vw, 60px) clamp(12px, 4.16vw, 80px);
+    position: relative;
+    /* IMPORTANT: do NOT set overflow:hidden, иначе маскот обрежется */
+}
+
+/* Floating mascot */
+.footer__mascot {
+    position: absolute;
+    left: clamp(18px, 2vw, 34px);
+    top: 0;
+    transform: translateY(-35%);
+    width: clamp(165px, 18vw, 330px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.footer__mascot img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Grid */
+.footer__grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 1fr;
+    /* brand | menu | contacts */
+    gap: clamp(16px, 2vw, 40px);
+    align-items: start;
+    padding-left: clamp(140px, 16vw, 260px);
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+
+
+/* Brand */
+.footer__logo img {
+    height: clamp(50px, 4vw, 80px);
+    width: auto;
+    display: block;
+}
+
+.footer__desc {
+    margin: 14px 0 0;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: clamp(14px, 1vw, 18px);
+    line-height: 1.5;
+    max-width: 520px;
+}
+
+/* Menu */
+.footer__menu {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+}
+
+.footer__menu a {
+    color: rgba(255, 255, 255, 0.98);
+    text-decoration: none;
+    font-size: clamp(14px, 1vw, 18px);
+    line-height: 1.2;
+}
+
+.footer__menu a:hover {
+    text-decoration: underline;
+}
+
+/* Contacts */
+.footer__contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    color: var(--color-white);
+}
+
+.footer__socials {
+    display: flex;
+    gap: 10px;
+}
+
+.footer__icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.18);
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+}
+
+.footer__icon img {
+    width: 18px;
+    height: auto;
+    display: block;
+}
+
+.footer__icon:hover {
+    background: rgba(255, 255, 255, 0.26);
+}
+
+.footer__phone {
+    font-size: clamp(18px, 1.4vw, 28px);
+    font-weight: 900;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer__phone:hover {
+    color: var(--color-hover-yellow);
+    /* Or same yellow as button */
+}
+
+.footer__hours {
+    font-size: clamp(12px, 0.9vw, 16px);
+    color: rgba(255, 255, 255, 0.85);
+    white-space: nowrap;
+}
+
+/* Use unified button atoms for CTA visuals. Keep small layout spacing here. */
+.footer__contacts .btn {
+    margin-top: 6px;
+}
+
+/* Legal & Copyright Bottom */
+.footer__bottom {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 30px;
+}
+
+.footer__legal a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: var(--fs-xs);
+    transition: color 0.2s ease;
+}
+
+.footer__legal a:hover {
+    color: var(--color-white);
+}
+
+.footer__copy {
+    text-align: right;
+}
+
+.footer__copy p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: var(--fs-xs);
+    line-height: 1.6;
+}
+
+/* Дополнительная секция компании в футере (добавлена в разметке) */
+.footer_company {
+    text-align: right;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: var(--fs-xs);
+    line-height: 1.6;
+}
+
+.footer_company p {
+    margin: 0;
+}
+
+/* Перенос в конец для корректного переопределения стилей */
+@media (max-width: 768px) {
+    .footer__mascot {
+        display: none;
+    }
+
+    .footer__grid {
+        grid-template-columns: 1fr !important;
+        justify-items: center !important;
+        padding-left: 0 !important;
+        text-align: center !important;
+        gap: 40px;
+    }
+
+    .footer__brand,
+    .footer__contacts {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    .footer__menu {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        width: fit-content !important;
+        margin: 0 auto !important;
+    }
+
+    .footer__socials {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin: 0 auto 10px !important;
+    }
+
+    .footer__logo img {
+        margin: 0 auto !important;
+    }
+
+    .footer__desc {
+        margin: 14px auto 0 !important;
+    }
+
+    .footer__phone,
+    .footer__hours {
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    .footer__bottom {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        margin-top: 40px !important;
+        padding-top: 20px !important;
+        gap: 20px !important;
+    }
+
+    .footer__legal {
+        justify-content: center !important;
+    }
+
+    .footer__copy {
+        text-align: center !important;
+    }
+}

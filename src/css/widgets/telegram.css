@@ -1,0 +1,6 @@
+/* Telegram widget styles (fallback) */
+.telegram-widget {
+    display: inline-block;
+}
+
+/* Add minimal styling so @import in main.css doesn't 404 */
