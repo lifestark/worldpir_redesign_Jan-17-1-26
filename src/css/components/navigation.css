@@ -16,6 +16,9 @@
     padding: var(--nav-pad) 0;
     min-height: 64px;
 
+    /* foreground color for links/text (default: light for overlay on hero) */
+    --nav-fg: var(--color-white);
+
     transition:
         background-color var(--transition-base),
         box-shadow var(--transition-base),
@@ -26,6 +29,8 @@
 .navigation:is(.navigation--scrolled, .navigation--white) {
     background: var(--color-white);
     box-shadow: var(--nav-shadow);
+    /* switch foreground to dark when nav becomes white/scrolled */
+    --nav-fg: var(--color-black);
 }
 
 .navigation__container {
@@ -576,6 +581,8 @@ body.no-hero .navigation__burger {
         right: 0;
         z-index: calc(var(--z-nav, 10000) + 20);
         background: transparent;
+        /* ensure foreground remains light over the hero */
+        --nav-fg: var(--color-white);
     }
 
     .navigation--white,
