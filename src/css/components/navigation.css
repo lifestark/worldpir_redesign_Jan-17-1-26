@@ -610,20 +610,17 @@ body.no-hero .navigation__burger {
         color: var(--nav-fg);
     }
 
-    /* Mobile overlay: pin to viewport top so the panel appears from
-       the top and overlays content. Burger remains fixed. */
+    /* Mobile overlay sits absolutely under the header so it will
+       move together with the page when the header scrolls away. */
     .navigation__mobile {
-        position: fixed;
-        top: 0;
+        position: absolute;
         left: 0;
         right: 0;
-        bottom: 0;
+        top: 100%;
         background-color: transparent;
         display: flex;
         align-items: flex-start;
         justify-content: flex-end;
-        z-index: var(--z-mobile-menu, calc(var(--z-nav, 10000) + 5));
-        /* keep pointer-events/visibility handled by active class */
     }
 
     /* When mobile menu is open, hide the main nav bands (keep burger visible)
