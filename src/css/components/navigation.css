@@ -1,0 +1,1194 @@
+/* ================================================
+   NAVIGATION (оптимизировано)
+   ================================================ */
+
+/* NAV (tokens) */
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-nav, var(--z-fixed, 10000));
+
+    /* state tokens are defined in :root to avoid duplication */
+    background: var(--nav-bg);
+    box-shadow: var(--nav-shadow);
+    padding: var(--nav-pad) 0;
+    min-height: 64px;
+
+    /* foreground color for links/text (default: light for overlay on hero) */
+    --nav-fg: var(--color-white);
+
+    /* apply current foreground as default text color for the nav root */
+    color: var(--nav-fg);
+
+    transition:
+        background-color var(--transition-base),
+        box-shadow var(--transition-base),
+        padding var(--transition-base);
+}
+
+/* scrolled/white state: keep base navigation tokens to avoid color changes on scroll */
+.navigation:is(.navigation--scrolled, .navigation--white) {
+    background: var(--color-white);
+    box-shadow: var(--nav-shadow);
+    /* switch foreground to dark when nav becomes white/scrolled */
+    --nav-fg: var(--color-black);
+}
+
+.navigation__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(20px, 3vw, 60px);
+}
+
+/* LEFT */
+.nav__description {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    font-size: clamp(12px, .83vw, 24px);
+    color: var(--nav-fg);
+    line-height: 1.2;
+    max-width: 300px;
+}
+
+@media (min-width:992px) {
+    .navigation__left {
+        display: flex;
+        align-items: center;
+        gap: clamp(12px, 1.2vw, 28px);
+    }
+
+    .navigation__logo {
+        flex: 0 0 auto;
+        display: block
+    }
+
+    .nav__description {
+        margin: 0
+    }
+
+    /* Hide mobile-only logo/container on larger screens */
+    .navigation__mobile-logo,
+    .navigation__logo--mobile {
+        display: none;
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+    }
+}
+
+
+/* CENTER */
+.navigation__center {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+    padding-right: 12px;
+    /* small reserve so right zone doesn't get overlapped */
+}
+
+.navigation__menu {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ensure right zone keeps its space and doesn't shrink unexpectedly */
+.navigation__right {
+    flex: 0 0 auto;
+}
+
+.navigation__link {
+    display: block;
+    padding: var(--spacing-xs) 0;
+    font-size: var(--fs-base);
+    font-weight: 400;
+    color: var(--nav-fg);
+    text-decoration: none;
+    position: relative;
+    transition: color .2s;
+}
+
+.navigation__link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width var(--transition-base);
+}
+
+.navigation__link:hover::after {
+    width: 100%
+}
+
+.navigation__link:hover {
+    color: var(--color-accent)
+}
+
+/* RIGHT */
+.navigation__right {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 24px);
+    color: var(--nav-fg);
+    flex-shrink: 0;
+}
+
+.nav__socials {
+    display: flex;
+    gap: 10px;
+    width: auto;
+
+    flex-shrink: 0;
+}
+
+.nav-socials__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+
+    border-radius: var(--radius-full);
+    background: transparent;
+    /* header/footer: transparent */
+    color: var(--color-white);
+    /* white icons in header by default */
+    font-size: var(--fs-xs);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Social icon images inside links */
+.nav-socials__item .nav-socials__icon,
+.nav-socials__item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.navigation:is(.navigation--scrolled, .navigation--white) .nav-socials__item {
+    background-color: var(--color-gray-200);
+    color: var(--color-black);
+}
+
+.nav-socials__item:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+.nav__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Ensure contact block is always visible and uses the nav foreground color */
+.nav__contact {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    color: var(--nav-fg) !important;
+}
+
+/* Mobile: keep contacts accessible in header area (stacked if needed) */
+@media (max-width: 991px) {
+    .navigation__right .nav__contact {
+        align-items: flex-end;
+        text-align: right;
+    }
+}
+
+.nav__order-link {
+    margin-left: 12px;
+    padding: 0;
+    display: inline-block;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--nav-fg);
+    text-decoration: none;
+    border: none;
+    background: transparent;
+}
+
+.nav__order-link:hover,
+.nav__order-link:focus {
+    text-decoration: underline;
+}
+
+@media (max-width: 991px) {
+    .nav__order-link {
+        display: none;
+        /* keep mobile CTA inside the panel */
+    }
+}
+
+.nav__order {
+    display: none;
+    /* in mobile header we show CTA inside panel */
+}
+}
+
+/* Order button in header */
+.nav__order {
+    margin-left: 12px;
+    padding: 8px 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--nav-fg);
+}
+
+@media (max-width: 991px) {}
+
+/* BURGER */
+.navigation__burger {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 8px;
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    border: none;
+    padding: 0;
+    z-index: var(--z-burger);
+    transition: transform .2s, box-shadow .2s, background-color .2s;
+}
+
+.navigation__burger-lines {
+    width: 22px;
+    height: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.navigation__burger-line {
+    width: 100%;
+    height: 2px;
+    background: var(--color-black);
+    border-radius: 2px;
+    transition: background-color .2s, transform .28s, opacity .28s;
+}
+
+.navigation__burger:is(:hover, :focus-visible) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    background: var(--color-primary-light);
+}
+
+.navigation__burger:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+.navigation__burger:is(:hover, :focus-visible) .navigation__burger-line {
+    background: var(--color-accent-dark);
+}
+
+@media (hover:none) {
+    .navigation__burger {
+        width: 56px;
+        height: 56px
+    }
+
+    .navigation__burger-lines {
+        width: 26px
+    }
+}
+
+
+
+.navigation__burger--active .navigation__burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.navigation__burger--active .navigation__burger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* LOGOS */
+.navigation__logo-img--dark {
+    display: none;
+    visibility: hidden
+}
+
+.navigation__logo-img--light {
+    display: block;
+    visibility: visible
+}
+
+.navigation:is(.navigation--scrolled, .navigation--white) .navigation__logo-img--dark {
+    display: block;
+    visibility: visible
+}
+
+.navigation:is(.navigation--scrolled, .navigation--white) .navigation__logo-img--light {
+    display: none;
+    visibility: hidden
+}
+
+/* ================================================
+   MOBILE MENU 
+   
+   ================================================ */
+.navigation__mobile {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-mobile-menu, var(--z-nav, 10000));
+    background: transparent;
+    pointer-events: none;
+    /* hide mobile container when closed to prevent visible artifacts */
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear .28s, opacity .28s ease;
+
+}
+
+.navigation__mobile--active {
+    pointer-events: auto;
+
+    /* reveal overlay when active */
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+/* панель справа (двигаем) */
+.navigation__mobile-body {
+    overflow-x: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100dvh;
+    width: min(320px, 86vw);
+    background: var(--color-white);
+
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 18px;
+    transform: translateX(110%);
+    transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+    will-change: transform;
+
+
+
+}
+
+.navigation__mobile--active .navigation__mobile-body {
+    transform: translateX(0);
+}
+
+/* header: лого по центру, крестик справа */
+.navigation__mobile-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    margin-bottom: 14px;
+}
+
+.navigation__logo--mobile {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigation__logo--mobile .navigation__logo-img {
+    height: 44px;
+    width: auto;
+    display: block;
+}
+
+.navigation__mobile-close {
+    margin-left: auto;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--color-white, #fff);
+    border: 1px solid rgba(0, 0, 0, .08);
+    border-radius: 12px;
+    cursor: pointer;
+
+    font-size: 28px;
+    line-height: 1;
+    color: var(--color-black, #111);
+
+    box-shadow: none;
+    transition: transform .15s ease;
+}
+
+.navigation__mobile-close:hover {
+    transform: translateY(-1px);
+}
+
+.navigation__mobile-close:focus-visible {
+    outline: 3px solid var(--color-accent, #6c63ff);
+    outline-offset: 3px;
+}
+
+/* меню слева столбиком */
+.navigation__mobile-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 4px 0 8px;
+}
+
+.navigation__mobile-link {
+    width: 100%;
+    display: block;
+    padding: 8px 0;
+    text-align: left;
+    color: var(--color-black, #111);
+    text-decoration: none;
+    font-size: var(--fs-nav, 18px);
+}
+
+/* контакты + соцсети снизу слева */
+.navigation__mobile-contacts,
+.navigation__mobile .nav__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-top: auto;
+    padding-top: 14px;
+}
+
+.navigation__mobile .nav__socials {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-direction: row;
+    /* keep socials inline in mobile panel */
+}
+
+.navigation__mobile .nav-socials__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(52, 52, 52, 0.9);
+    color: var(--color-black, #111);
+    text-decoration: none;
+    width: auto;
+    height: auto;
+    padding: 6px;
+}
+
+/* Header and footer socials: white icons on transparent background */
+.navigation .nav-socials__item,
+.footer .nav-socials__item,
+.header .nav-socials__item {
+    background: transparent;
+    color: var(--color-black);
+    border-radius: 6px;
+}
+
+/* Do not override icon colors globally; allow source images (SVG/PNG) to keep their colors */
+.navigation:not(.navigation--scrolled) .nav-socials__item img {
+    filter: none;
+}
+
+/* Responsive */
+@media (max-width:1400px) {
+    .nav__description {
+        display: none
+    }
+}
+
+@media (max-width:1200px) {
+    .navigation__menu {
+        gap: var(--spacing-sm)
+    }
+
+    .navigation__logo-img {
+        height: clamp(50px, 6vw, 100px)
+    }
+}
+
+/* Medium screens: tighten spacing and reduce link size to avoid collisions */
+@media (max-width:1400px) {
+    .navigation__link {
+        font-size: var(--fs-sm);
+    }
+
+    .navigation__container {
+        gap: clamp(12px, 2vw, 40px);
+    }
+}
+
+@media (max-width:1100px) {
+    .navigation__menu {
+        gap: var(--spacing-sm)
+    }
+
+
+}
+
+/* Show socials and working hours on tablet sizes */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .nav__socials {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .nav__hours {
+        display: block;
+        font-size: var(--fs-xs);
+        opacity: .9;
+    }
+
+    .navigation__right {
+        margin-right: 12px;
+    }
+}
+
+/* removed: merged into tablet breakpoint block below */
+
+
+@media (max-width:991px) {
+    .navigation.navigation--open {
+        background: var(--nav-bg);
+        box-shadow: var(--nav-shadow);
+    }
+
+    .navigation {
+        position: relative;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 20px 0;
+    }
+
+
+    .navigation.navigation--with-hero {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: calc(var(--z-nav, 10000) + 20);
+        background: transparent;
+        /* ensure foreground remains light over the hero */
+        --nav-fg: var(--color-white);
+    }
+
+    .navigation--white,
+    .navigation--scrolled {
+        background-color: var(--color-white);
+        /* keep as part of flow on small screens (not fixed) */
+        position: relative;
+    }
+
+    .navigation.navigation--open {
+        position: fixed;
+        background: var(--nav-bg);
+        box-shadow: var(--nav-shadow);
+        z-index: var(--z-nav-open);
+    }
+
+    .navigation__center {
+        display: none
+    }
+
+
+    .navigation__burger {
+        display: flex;
+        position: fixed;
+        top: calc((var(--nav-height) / 2) - 22px);
+        right: 8px;
+    }
+
+    .navigation__right {
+        margin-left: auto;
+        margin-right: 8px;
+        color: var(--nav-fg);
+    }
+
+    /* Mobile overlay sits absolutely under the header so it will
+       move together with the page when the header scrolls away. */
+    .navigation__mobile {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        background-color: transparent;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+    }
+
+    /* When mobile menu is open, hide the main nav bands (keep burger visible)
+       This prevents the header/logo/contacts from showing behind the slide-over. */
+    .navigation--open .navigation__left,
+    .navigation--open .navigation__center,
+    .navigation--open .navigation__right {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* Ensure burger stays visible and on top */
+    .navigation--open .navigation__burger {
+        visibility: visible;
+        z-index: calc(var(--z-burger) + 10);
+    }
+
+    /* Hide only the mobile "top" duplicate container if present; keep header/logo inside the panel visible */
+    .navigation--open .navigation__mobile-top {
+        display: none;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .navigation__mobile-body {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .navigation__mobile-menu {
+        width: 100%;
+        margin: 0 0 40px;
+    }
+
+    .navigation__mobile .navigation__mobile-link {
+        background: transparent;
+        border-bottom: none;
+        box-shadow: none;
+        font-size: var(--fs-base);
+        color: var(--color-black);
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .navigation__mobile .navigation__mobile-contacts,
+    .navigation__mobile .nav__contact {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navigation__mobile .nav__socials {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin-left: 12px;
+        margin-top: auto;
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .navigation__mobile .nav-socials__item {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--color-black);
+        color: var(--color-black);
+        text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    @media (max-width: 991px) {
+
+        .navigation__mobile .nav-socials__item .nav-socials__icon,
+        .navigation__mobile .nav-socials__item img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .navigation {
+            position: relative;
+        }
+    }
+
+    .navigation__mobile .nav__contact {
+        align-items: flex-start;
+        text-align: left;
+        margin-left: 12px;
+        margin-top: 4px;
+        gap: 4px;
+    }
+
+    .navigation__mobile .nav__phone,
+    .navigation__mobile .navigation__mobile-cta,
+    .navigation__mobile .nav__hours {
+        color: var(--color-black);
+    }
+}
+
+
+/* Overlay + mobile socials normalization */
+.navigation__mobile.navigation__mobile--active {
+    background: rgba(0, 0, 0, 0.32);
+    transition: 0.28s ease;
+}
+
+.navigation__mobile-body {
+    /* ensure panel content is always on white */
+    background: var(--color-white);
+}
+
+/* Mobile panel social buttons: fixed size and no filter */
+.navigation__mobile .nav-socials__item {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    /* ensure icons contrast — fallback if SVG is white */
+    color: var(--color-black);
+}
+
+.navigation__mobile .nav-socials__item img,
+.navigation__mobile .nav-socials__item .nav-socials__icon {
+    /* prefer to keep original icon colors; fall back to forced dark only if inherited color is transparent */
+    filter: none;
+    width: 60%;
+    height: 60%;
+    display: block;
+}
+
+/* Use SVG masks for mobile social buttons so we can control color via CSS without inline SVG */
+.navigation__mobile .nav-socials__item {
+    background-color: transparent;
+    /* keep button background controllable */
+    color: var(--color-black, #111);
+
+    /* mask rendering: centered, not repeated, sized to icon area */
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: 60% 60%;
+    mask-size: 60% 60%;
+
+    /* icon color will follow `color` via mask */
+    background-color: currentColor;
+}
+
+.navigation__mobile .nav-socials__item img {
+    display: none;
+}
+
+.navigation__mobile .nav-socials__item[data-social="vk"] {
+    -webkit-mask-image: url("src/img/svg/social_icons_vk.svg");
+    mask-image: url("src/img/svg/social_icons_vk.svg");
+}
+
+.navigation__mobile .nav-socials__item[data-social="tg"] {
+    -webkit-mask-image: url("src/img/svg/social_icons_tg.svg");
+    mask-image: url("src/img/svg/social_icons_tg.svg");
+}
+
+.navigation__mobile .nav-socials__item[data-social="wa"] {
+    -webkit-mask-image: url("src/img/svg/social_icons_wa.svg");
+    mask-image: url("src/img/svg/social_icons_wa.svg");
+}
+
+/* Header/footer keep original smaller size */
+.navigation .nav-socials__item {
+    width: 36px;
+    height: 36px;
+}
+
+/* --- Specific breakpoints for burger menu width --- */
+/* Very small screens (phones): full width drawer */
+@media (max-width: 375px) {
+    .navigation__mobile {
+        justify-content: flex-end;
+        background-color: transparent;
+    }
+
+    .navigation__mobile-body {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 40px;
+        box-shadow: none;
+    }
+
+    /* Keep burger visible at top-right on small phones */
+    .navigation__burger {
+        right: 8px;
+        top: calc((var(--nav-height) / 2) - 22px);
+    }
+}
+
+/* Tablets and small desktops: fixed-width slide-over (300px) */
+@media (min-width: 376px) and (max-width: 1024px) {
+    .navigation__mobile {
+        justify-content: flex-end;
+        background-color: transparent;
+    }
+
+    .navigation__mobile-body {
+        width: 300px;
+        max-width: 90%;
+        margin: 0 0 40px 0;
+        border-radius: 12px 0 0 12px;
+        overflow: hidden;
+    }
+
+    /* Ensure burger stays on top-right above the slide-over */
+    .navigation__burger {
+        right: 8px;
+        top: calc((var(--nav-height) / 2) - 22px);
+        z-index: var(--z-burger, 11000);
+    }
+
+    /* bring in font-size and logo sizing from previous max-width:1024 rules */
+    .navigation__link {
+        font-size: var(--fs-sm);
+    }
+
+    .navigation__logo-img {
+        height: 60px;
+    }
+}
+
+@media (min-width:992px) {
+    /* larger-screen adjustments live earlier in the file */
+}
+
+/* Restore desktop scroll behavior: change nav background + shadow when scrolled */
+@media (min-width: 992px) {
+
+    .navigation.navigation--scrolled,
+    .navigation.navigation--white {
+        background-color: var(--color-white, #fff);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+}
+
+/* 'More' overflow styles removed — feature disabled */
+
+/* NO-HERO */
+body.no-hero .navigation {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+}
+
+body.no-hero .navigation>.navigation__container a {
+    color: black
+}
+
+/* Mobile: stack social links and add spacing under CTA */
+@media (max-width: 991px) {
+    .navigation__mobile .nav__socials {
+        display: flex;
+        flex-direction: row;
+        /* force inline in mobile panel */
+        align-items: center;
+        font-size: 16px;
+        gap: 12px;
+    }
+
+    .navigation__mobile .nav-socials__item {
+        width: auto;
+        height: auto;
+        display: inline-flex;
+        padding: 0;
+        background: transparent;
+    }
+
+    /* Mobile: show black icons on white buttons */
+    .navigation__mobile .nav__socials__item {
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--color-black);
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        padding: 0;
+    }
+
+    .navigation__mobile .nav__socials__item img {
+        filter: none;
+        color: #111;
+        width: 60%;
+        height: 60%;
+        display: block;
+        margin: auto;
+    }
+}
+
+/* Hide only header socials on very small screens (<=600px) - keep hours visible */
+@media (max-width: 600px) {
+    .nav__socials {
+        display: none;
+    }
+}
+
+/* Ensure phone and hours are visible and styled consistently */
+.nav__hours {
+    display: block;
+    color: inherit;
+    font-size: var(--fs-xs);
+}
+
+.nav__phone {
+    display: inline-block;
+    color: inherit;
+    margin-left: 8px;
+    text-decoration: none;
+}
+
+.navigation__right .nav__contact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Phones: pin mobile CTA to bottom of viewport and add body padding so content isn't hidden */
+@media (max-width: 600px) {
+    .navigation__mobile .navigation__mobile-cta {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        z-index: calc(var(--z-mobile-menu, 10100) + 50);
+        width: auto;
+        display: inline-flex;
+        justify-content: center;
+    }
+
+    .navigation__mobile-body {
+        /* leave space for the fixed CTA */
+        padding-bottom: 80px;
+    }
+}
+
+/* Lock page scrolling when navigation is open to avoid content shift */
+html.has-open-nav {
+    overflow: hidden;
+    touch-action: none;
+}
+
+/* also lock body for some browsers / platforms to avoid content shift */
+body.has-open-nav {
+    overflow: hidden;
+    touch-action: none;
+}
+
+/* ===================================================================
+   Consolidated responsive rules (grouped)
+   All effective media queries are placed here to keep responsive logic
+   in one location. These rules intentionally override earlier scattered
+   definitions when necessary.
+   =================================================================== */
+
+/* Largest -> Smaller: keep order predictable */
+
+@media (max-width: 1400px) {
+    .nav__description {
+        display: none;
+    }
+
+    .navigation__container {
+        gap: clamp(12px, 2vw, 40px);
+    }
+
+    .navigation__link {
+        font-size: var(--fs-sm);
+    }
+}
+
+@media (max-width: 1200px) {
+    .navigation__menu {
+        gap: var(--spacing-sm);
+    }
+
+    .navigation__logo-img {
+        height: clamp(50px, 6vw, 100px);
+    }
+}
+
+@media (max-width: 1100px) {
+    .navigation__menu {
+        gap: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 991px) {
+/* desktop adjustments (kept concise here) */
+    .navigation.navigation--scrolled,
+    .navigation.navigation--white {
+        --nav-fg: var(--color-black);
+        background-color: var(--color-white, #fff);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+    }
+    /* Mobile header becomes part of document flow by default */
+    .navigation {
+        position: relative;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 20px 0;
+    }
+
+    /* If page has hero, keep overlay behavior */
+    .navigation.navigation--with-hero {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: calc(var(--z-nav, 10000)+20);
+        background: transparent;
+        --nav-fg: var(--color-white);
+    }
+
+    /* White/scrolled stays in flow too */
+    .navigation--white,
+    .navigation--scrolled {
+        position: relative;
+        background-color: var(--color-white);
+    }
+
+    .navigation__center {
+        display: none;
+    }
+
+    /* Burger fixed on screen */
+    .navigation__burger {
+        display: flex;
+        position: fixed;
+        top: calc((var(--nav-height) / 2) - 22px);
+        right: 8px;
+    }
+
+    .navigation__mobile {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        background: transparent;
+    }
+
+    .navigation.navigation--open {
+        position: fixed;
+        background: var(--nav-bg);
+        box-shadow: var(--nav-shadow);
+        z-index: var(--z-nav-open);
+    }
+
+    /* Keep header contact visible but allow panel CTA to handle mobile ordering */
+    .nav__hours,
+    .nav__phone {
+        color: inherit;
+    }
+}
+
+@media (max-width: 600px) {
+
+    /* hide only social icons in header to save space */
+    .nav__socials {
+        display: none;
+    }
+
+    /* Mobile panel CTA pinned */
+    .navigation__mobile .navigation__mobile-cta {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        z-index: calc(var(--z-mobile-menu, 10100)+50);
+        display: inline-flex;
+        justify-content: center;
+    }
+
+    .navigation__mobile-body {
+        padding-bottom: 80px;
+    }
+}
+
+@media (max-width: 375px) {
+    .navigation__mobile {
+        justify-content: flex-end;
+    }
+
+    .navigation__mobile-body {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 40px;
+        box-shadow: none;
+    }
+
+    .navigation__burger {
+        right: 8px;
+        top: calc((var(--nav-height) / 2) - 22px);
+    }
+}
+
+@media (min-width: 376px) and (max-width: 1024px) {
+    .navigation__mobile {
+        justify-content: flex-end;
+    }
+
+    .navigation__mobile-body {
+        width: 300px;
+        max-width: 90%;
+        margin: 0 0 40px 0;
+        border-radius: 12px 0 0 12px;
+        overflow: hidden;
+    }
+
+    .navigation__burger {
+        right: 8px;
+        top: calc((var(--nav-height) / 2) - 22px);
+        z-index: var(--z-burger, 11000);
+    }
+
+    .navigation__link {
+        font-size: var(--fs-sm);
+    }
+
+    .navigation__logo-img {
+        height: 60px;
+    }
+}
+
+/* End consolidated responsive rules */
