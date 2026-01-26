@@ -241,7 +241,8 @@
 
 @media (max-width: 991px) {
     .nav__order {
-        display: none; /* in mobile header we show CTA inside panel */
+        display: none;
+        /* in mobile header we show CTA inside panel */
     }
 }
 
@@ -306,13 +307,7 @@
     }
 }
 
-body.no-hero .navigation__burger {
-    background: var(--color-primary)
-}
 
-.navigation__burger--active .navigation__burger-line:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
 
 .navigation__burger--active .navigation__burger-line:nth-child(2) {
     opacity: 0;
@@ -574,11 +569,11 @@ body.no-hero .navigation__burger {
 
 
 @media (max-width:991px) {
-.navigation.navigation--open {
+    .navigation.navigation--open {
         background: var(--nav-bg);
         box-shadow: var(--nav-shadow);
     }
- 
+
     .navigation {
         position: relative;
         background-color: transparent;
@@ -949,13 +944,31 @@ body.no-hero .navigation>.navigation__container a {
     }
 }
 
-/* Hide header social links on very small screens (<=600px) */
+/* Hide only header socials on very small screens (<=600px) - keep hours visible */
 @media (max-width: 600px) {
-
-    .nav__socials,
-    .nav__hours {
+    .nav__socials {
         display: none;
     }
+}
+
+/* Ensure phone and hours are visible and styled consistently */
+.nav__hours {
+    display: block;
+    color: var(--nav-fg);
+    font-size: var(--fs-xs);
+}
+
+.nav__phone {
+    display: inline-block;
+    color: var(--nav-fg);
+    margin-left: 8px;
+    text-decoration: none;
+}
+
+.navigation__right .nav__contact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 /* Phones: pin mobile CTA to bottom of viewport and add body padding so content isn't hidden */
