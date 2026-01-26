@@ -209,22 +209,28 @@
     }
 }
 
-.nav__hours {
-    font-size: var(--fs-xs);
-    opacity: .8;
-    white-space: nowrap;
-}
-
-.nav__phone {
-    font-size: var(--fs-btn);
-    font-weight: var(--font-weight-bold);
-    color: inherit;
+.nav__order-link {
+    margin-left: 12px;
+    padding: 0;
+    display: inline-block;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--nav-fg);
     text-decoration: none;
-    white-space: nowrap;
+    border: none;
+    background: transparent;
 }
 
-.nav__phone:hover {
-    color: var(--color-primary)
+.nav__order-link:hover,
+.nav__order-link:focus {
+    text-decoration: underline;
+}
+
+@media (max-width: 991px) {
+    .nav__order-link {
+        display: none; /* keep mobile CTA inside the panel */
+    }
+}
 }
 
 /* Order button in header */
