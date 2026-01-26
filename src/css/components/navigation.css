@@ -1,29 +1,31 @@
-/* DO NOT EDIT: navigation CSS locked by developer until further notice */
 /* ================================================
-    НАВИГАЦИЯ
-    Компонент шапки/навигации
-    ================================================ */
+   NAVIGATION (оптимизировано)
+   ================================================ */
 
+/* NAV (tokens) */
 .navigation {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: var(--z-fixed);
-    transition: all var(--transition-base);
-    padding: clamp(8px, 2vw, 20px) 0;
-    min-height: 80px;
+    z-index: var(--z-nav, var(--z-fixed, 10000));
+
+    /* state tokens are defined in :root to avoid duplication */
+    background: var(--nav-bg);
+    box-shadow: var(--nav-shadow);
+    padding: var(--nav-pad) 0;
+    min-height: 64px;
+
+    transition:
+        background-color var(--transition-base),
+        box-shadow var(--transition-base),
+        padding var(--transition-base);
 }
 
-.navigation--with-hero {
-    background-color: transparent;
-}
-
-.navigation--scrolled,
-.navigation--white {
-    background-color: var(--color-white);
-    box-shadow: var(--shadow-md);
-    padding: 10px 0;
+/* scrolled/white state: keep base navigation tokens to avoid color changes on scroll */
+.navigation:is(.navigation--scrolled, .navigation--white) {
+    background: var(--color-white);
+    box-shadow: var(--nav-shadow);
 }
 
 .navigation__container {
@@ -33,154 +35,99 @@
     gap: clamp(20px, 3vw, 60px);
 }
 
-/* Ensure navigation container matches the project content container exactly */
-/* Strong mobile layout overrides: logo -> nav -> contacts (stacked column) */
-.navigation__mobile {
-    padding: 80px 20px !important;
-    background-color: var(--color-primary-light) !important;
-    overflow-y: auto;
-}
-
-.navigation__mobile-body {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 18px !important;
-    align-items: stretch !important;
-}
-
-.navigation__mobile-logo {
-    display: flex !important;
-    justify-content: center !important;
-    width: 100% !important;
-    margin-bottom: 8px !important;
-}
-
-.navigation__mobile-menu {
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.navigation__mobile-menu .navigation__mobile-item {
-    width: 100% !important;
-}
-
-.navigation__mobile-link {
-    display: block !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    font-size: var(--fs-h2) !important;
-    padding: 14px 8px !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
-    color: var(--color-black) !important;
-    background: transparent !important;
-}
-
-/* ensure socials and contacts appear under the menu, stacked */
-.navigation__mobile .nav__socials {
-    display: flex !important;
-    gap: 12px !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    margin: 6px 8px !important;
-}
-
-.navigation__mobile .nav__contact {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    text-align: left !important;
-    margin: 6px 8px !important;
-    position: static !important;
-    gap: 6px !important;
-}
-
-.navigation__mobile .nav__phone,
-.navigation__mobile .navigation__mobile-cta,
-.navigation__mobile .nav__hours {
-    color: var(--color-black) !important;
-    white-space: normal !important;
-}
-
-/* Переключение логотипов */
-.navigation--scrolled .navigation__logo-img--light,
-.navigation--white .navigation__logo-img--light {
-    opacity: 0;
-}
-
-.navigation--scrolled .navigation__logo-img--dark,
-.navigation--white .navigation__logo-img--dark {
-    opacity: 1;
-}
-
-/* Когда навигация расположена поверх hero, не показываем тёмный (чёрный) логотип */
-.navigation.navigation--with-hero .navigation__logo-img--dark {
-    display: none !important;
-    opacity: 0 !important;
-}
-
-.navigation.navigation--with-hero .navigation__logo-img--light {
-    opacity: 1 !important;
-}
-
-/* Описание рядом с лого */
+/* LEFT */
 .nav__description {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-xs);
-    font-size: clamp(12px, 0.83vw, 24px);
-    color: var(--color-white);
+    font-size: clamp(12px, .83vw, 24px);
+    color: var(--nav-fg);
     line-height: 1.2;
     max-width: 300px;
-    /* Ограничиваем ширину текста */
 }
 
-.navigation--scrolled .nav__description,
-.navigation--white .nav__description {
-    color: var(--color-black);
+@media (min-width:992px) {
+    .navigation__left {
+        display: flex;
+        align-items: center;
+        gap: clamp(12px, 1.2vw, 28px);
+    }
+
+    .navigation__logo {
+        flex: 0 0 auto;
+        display: block
+    }
+
+    .nav__description {
+        margin: 0
+    }
+
+    /* Hide mobile-only logo/container on larger screens */
+    .navigation__mobile-logo,
+    .navigation__logo--mobile {
+        display: none;
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+    }
 }
 
-.nav__title--line {
-    font-size: var(--fs-sm);
-    font-weight: var(--font-weight-medium);
+/* Ensure foreground color (links/text) switches to dark on desktop when scrolled */
+@media (min-width: 992px) {
+
+    .navigation.navigation--scrolled,
+    .navigation.navigation--white {
+        --nav-fg: var(--color-black);
+    }
+
+    .navigation.navigation--scrolled .navigation__link,
+    .navigation.navigation--white .navigation__link,
+    .navigation.navigation--scrolled .nav__contact,
+    .navigation.navigation--white .nav__contact {
+        color: var(--color-black);
+    }
 }
 
-.nav__address {
-    font-size: var(--fs-xs);
-    opacity: 0.8;
-}
-
-/* --- Center Zone - Меню --- */
+/* CENTER */
 .navigation__center {
-    flex: 1;
+    flex: 1 1 auto;
     display: flex;
     justify-content: center;
     min-width: 0;
-    /* Разрешаем сжиматься */
+    padding-right: 12px;
+    /* small reserve so right zone doesn't get overlapped */
 }
 
 .navigation__menu {
     display: flex;
-    align-items: center;
     gap: var(--spacing-lg);
+    align-items: center;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ensure right zone keeps its space and doesn't shrink unexpectedly */
+.navigation__right {
+    flex: 0 0 auto;
 }
 
 .navigation__link {
     display: block;
     padding: var(--spacing-xs) 0;
-    font-size: clamp(14px, 1.14vw, 32px);
-    font-weight: 500;
-    color: var(--color-white);
-    transition: color 0.2s;
-    position: relative;
+    font-size: var(--fs-base);
+    font-weight: 400;
+    color: var(--nav-fg);
     text-decoration: none;
+    position: relative;
+    transition: color .2s;
 }
 
 .navigation__link::after {
-    content: '';
+    content: "";
     position: absolute;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     width: 0;
     height: 2px;
     background-color: var(--color-primary);
@@ -188,35 +135,27 @@
 }
 
 .navigation__link:hover::after {
-    width: 100%;
-}
-
-.navigation--scrolled .navigation__link,
-.navigation--white .navigation__link {
-    color: var(--color-black);
+    width: 100%
 }
 
 .navigation__link:hover {
-    color: var(--color-accent);
+    color: var(--color-accent)
 }
 
-/* --- Right Zone - Контакты --- */
+/* RIGHT */
 .navigation__right {
     display: flex;
     align-items: center;
     gap: clamp(8px, 1vw, 24px);
-    color: var(--color-white);
+    color: var(--nav-fg);
     flex-shrink: 0;
-}
-
-.navigation--scrolled .navigation__right,
-.navigation--white .navigation__right {
-    color: var(--color-black);
 }
 
 .nav__socials {
     display: flex;
     gap: 10px;
+    width: auto;
+
     flex-shrink: 0;
 }
 
@@ -226,22 +165,32 @@
     justify-content: center;
     width: 36px;
     height: 36px;
+
     border-radius: var(--radius-full);
-    background-color: rgba(255, 255, 255, 0.15);
+    background: transparent;
+    /* header/footer: transparent */
     color: var(--color-white);
+    /* white icons in header by default */
     font-size: var(--fs-xs);
-    transition: all var(--transition-fast);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
 }
 
-.navigation--scrolled .nav-socials__item,
-.navigation--white .nav-socials__item {
+/* Social icon images inside links */
+.nav-socials__item .nav-socials__icon,
+.nav-socials__item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.navigation:is(.navigation--scrolled, .navigation--white) .nav-socials__item {
     background-color: var(--color-gray-200);
     color: var(--color-black);
 }
 
 .nav-socials__item:hover {
-    background-color: var(--color-primary) !important;
-    color: var(--color-white) !important;
+    background-color: var(--color-primary);
+    color: var(--color-white);
     transform: translateY(-2px);
 }
 
@@ -253,18 +202,14 @@
     flex-shrink: 0;
 }
 
-.nav__contact a {
-    white-space: nowrap;
-}
-
 .nav__hours {
     font-size: var(--fs-xs);
-    opacity: 0.8;
+    opacity: .8;
     white-space: nowrap;
 }
 
 .nav__phone {
-    font-size: var(--fs-h5);
+    font-size: var(--fs-btn);
     font-weight: var(--font-weight-bold);
     color: inherit;
     text-decoration: none;
@@ -272,10 +217,10 @@
 }
 
 .nav__phone:hover {
-    color: var(--color-primary);
+    color: var(--color-primary)
 }
 
-/* --- Burger Menu --- */
+/* BURGER */
 .navigation__burger {
     position: relative;
     width: 44px;
@@ -290,9 +235,9 @@
     box-shadow: var(--shadow-sm);
     border: none;
     padding: 0;
-    z-index: 10000;
+    z-index: var(--z-burger);
+    transition: transform .2s, box-shadow .2s, background-color .2s;
 }
-
 
 .navigation__burger-lines {
     width: 22px;
@@ -307,14 +252,12 @@
     height: 2px;
     background: var(--color-black);
     border-radius: 2px;
-    transition: all 0.3s ease;
+    transition: background-color .2s, transform .28s, opacity .28s;
 }
 
-/* Hover / focus states for burger */
-.navigation__burger:hover,
-.navigation__burger:focus {
+.navigation__burger:is(:hover, :focus-visible) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     background: var(--color-primary-light);
 }
 
@@ -323,34 +266,25 @@
     outline-offset: 3px;
 }
 
-.navigation__burger:hover .navigation__burger-line,
-.navigation__burger:focus .navigation__burger-line {
+.navigation__burger:is(:hover, :focus-visible) .navigation__burger-line {
     background: var(--color-accent-dark);
 }
 
-/* Slight enlarge hit area on touch devices */
-@media (hover: none) {
+@media (hover:none) {
     .navigation__burger {
         width: 56px;
-        height: 56px;
+        height: 56px
     }
 
     .navigation__burger-lines {
-        width: 26px;
+        width: 26px
     }
 }
 
-.navigation__burger .no-hero {
-    /* Deprecated selector: was matching .no-hero inside burger.
-       Use body.no-hero .navigation__burger instead to target
-       when the page has the no-hero state applied to the body. */
-}
-
 body.no-hero .navigation__burger {
-    background: var(--color-primary);
+    background: var(--color-primary)
 }
 
-/* Анимация бургера */
 .navigation__burger--active .navigation__burger-line:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
@@ -363,317 +297,384 @@ body.no-hero .navigation__burger {
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* --- Mobile Menu --- */
+/* LOGOS */
+.navigation__logo-img--dark {
+    display: none;
+    visibility: hidden
+}
+
+.navigation__logo-img--light {
+    display: block;
+    visibility: visible
+}
+
+.navigation:is(.navigation--scrolled, .navigation--white) .navigation__logo-img--dark {
+    display: block;
+    visibility: visible
+}
+
+.navigation:is(.navigation--scrolled, .navigation--white) .navigation__logo-img--light {
+    display: none;
+    visibility: hidden
+}
+
+@media (max-width:991px) {
+    .navigation.navigation--open {
+        background: var(--nav-bg);
+        box-shadow: var(--nav-shadow);
+    }
+}
+
+/* ================================================
+   MOBILE MENU 
+   
+   ================================================ */
 .navigation__mobile {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: block;
-    background-color: var(--color-primary-light);
-    padding: 100px var(--spacing-lg) 40px;
-    overflow-y: auto;
-    transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: calc(var(--z-fixed) - 1);
+    inset: 0;
+    z-index: var(--z-mobile-menu, var(--z-nav, 10000));
+    background: transparent;
+    pointer-events: none;
+    /* hide mobile container when closed to prevent visible artifacts */
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear .28s, opacity .28s ease;
+
 }
 
 .navigation__mobile--active {
-    transform: translateX(0);
+    pointer-events: auto;
 
+    /* reveal overlay when active */
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
 }
 
-.navigation__mobile-menu {
+/* панель справа (двигаем) */
+.navigation__mobile-body {
+    overflow-x: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100dvh;
+    width: min(320px, 86vw);
+    background: var(--color-white);
+
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-bottom: 40px;
+    overflow-y: auto;
+    padding: 18px;
+    transform: translateX(110%);
+    transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+    will-change: transform;
+
+
+
 }
 
-/* Mobile header (logo + close) */
+.navigation__mobile--active .navigation__mobile-body {
+    transform: translateX(0);
+}
+
+/* header: лого по центру, крестик справа */
 .navigation__mobile-header {
-    position: absolute;
-    top: 18px;
-    left: var(--spacing-lg);
-    right: var(--spacing-lg);
-    display: block;
+    position: relative;
+    display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    min-height: 56px;
+    margin-bottom: 14px;
+}
+
+.navigation__logo--mobile {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navigation__logo--mobile .navigation__logo-img {
     height: 44px;
+    width: auto;
+    display: block;
 }
 
 .navigation__mobile-close {
-    background: transparent;
-    border: none;
-    font-size: var(--fs-h2);
-    line-height: 1;
-    padding: 4px 8px;
+    margin-left: auto;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--color-white, #fff);
+    border: 1px solid rgba(0, 0, 0, .08);
+    border-radius: 12px;
     cursor: pointer;
-    color: var(--color-black);
+
+    font-size: 28px;
+    line-height: 1;
+    color: var(--color-black, #111);
+
+    box-shadow: none;
+    transition: transform .15s ease;
+}
+
+.navigation__mobile-close:hover {
+    transform: translateY(-1px);
+}
+
+.navigation__mobile-close:focus-visible {
+    outline: 3px solid var(--color-accent, #6c63ff);
+    outline-offset: 3px;
+}
+
+/* меню слева столбиком */
+.navigation__mobile-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 4px 0 8px;
 }
 
 .navigation__mobile-link {
-    font-size: var(--fs-h2);
-    font-weight: 600;
-    color: var(--color-black);
-    text-decoration: none;
-    padding: 10px 0;
+    width: 100%;
     display: block;
-    border-bottom: 1px solid var(--color-gray-100);
+    padding: 8px 0;
+    text-align: left;
+    color: var(--color-black, #111);
+    text-decoration: none;
+    font-size: var(--fs-nav, 18px);
 }
 
-/* --- Медиа-запросы --- */
+/* контакты + соцсети снизу слева */
+.navigation__mobile-contacts,
+.navigation__mobile .nav__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-@media (max-width: 1400px) {
+    margin-top: auto;
+    padding-top: 14px;
+}
+
+.navigation__mobile .nav__socials {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-direction: row;
+    /* keep socials inline in mobile panel */
+}
+
+.navigation__mobile .nav-socials__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(52, 52, 52, 0.9);
+    color: var(--color-black, #111);
+    text-decoration: none;
+    width: auto;
+    height: auto;
+    padding: 6px;
+}
+
+/* Header and footer socials: white icons on transparent background */
+.navigation .nav-socials__item,
+.footer .nav-socials__item,
+.header .nav-socials__item {
+    background: transparent;
+    color: var(--color-black);
+    border-radius: 6px;
+}
+
+/* Do not override icon colors globally; allow source images (SVG/PNG) to keep their colors */
+.navigation:not(.navigation--scrolled) .nav-socials__item img {
+    filter: none;
+}
+
+/* Responsive */
+@media (max-width:1400px) {
     .nav__description {
-        display: none;
+        display: none
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width:1200px) {
     .navigation__menu {
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm)
     }
 
     .navigation__logo-img {
-        height: clamp(50px, 6vw, 100px);
+        height: clamp(50px, 6vw, 100px)
     }
 }
 
-@media (max-width: 1100px) {
-    .navigation__menu {
-        gap: var(--spacing-sm);
-    }
-
-    .nav__socials {
-        display: none;
-    }
-}
-
-@media (max-width: 1024px) {
+/* Medium screens: tighten spacing and reduce link size to avoid collisions */
+@media (max-width:1400px) {
     .navigation__link {
         font-size: var(--fs-sm);
     }
 
-    .navigation__logo-img {
-        height: 60px;
+    .navigation__container {
+        gap: clamp(12px, 2vw, 40px);
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width:1100px) {
+    .navigation__menu {
+        gap: var(--spacing-sm)
+    }
+
+
+}
+
+/* Show socials and working hours on tablet sizes */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .nav__socials {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .nav__hours {
+        display: block;
+        font-size: var(--fs-xs);
+        opacity: .9;
+    }
+
+    .navigation__right {
+        margin-right: 12px;
+    }
+}
+
+/* removed: merged into tablet breakpoint block below */
+
+
+@media (max-width:991px) {
+
+    /* On mobile keep nav in document flow so it scrolls with page.
+       Burger button is fixed separately below. */
     .navigation {
-        position: absolute;
-        /* Теперь навигация уезжает вместе с контентом */
-        background-color: transparent !important;
+        position: relative;
+        background-color: transparent;
         box-shadow: none;
         padding: 20px 0;
-        z-index: 1000;
     }
 
     .navigation--white,
     .navigation--scrolled {
-        background-color: var(--color-white) !important;
-        position: absolute;
-        /* Всё равно absolute, чтобы уезжала */
+        background-color: var(--color-white);
+        /* keep as part of flow on small screens (not fixed) */
+        position: relative;
     }
 
-    .navigation--white .navigation__right,
-    .navigation--scrolled .navigation__right {
-        color: var(--color-black);
-    }
-
-    .navigation--white .navigation__logo-img--light,
-    .navigation--scrolled .navigation__logo-img--light {
-        opacity: 0 !important;
-    }
-
-    .navigation--white .navigation__logo-img--dark,
-    .navigation--scrolled .navigation__logo-img--dark {
-        opacity: 1 !important;
-    }
-
-    /* Когда открыто мобильное меню, фиксируем шапку, чтобы бургер был под рукой для закрытия */
     .navigation.navigation--open {
         position: fixed;
-        background-color: var(--color-white) !important;
-        z-index: 10001;
-    }
-
-    .navigation__container {
-        justify-content: space-between;
+        background: var(--nav-bg);
+        box-shadow: var(--nav-shadow);
+        z-index: var(--z-nav-open);
     }
 
     .navigation__center {
-        display: none;
+        display: none
     }
 
-    .nav__socials,
-    .nav__hours {
-        display: none;
-    }
 
     .navigation__burger {
         display: flex;
         position: fixed;
-        top: 18px;
-        right: clamp(15px, 5vw, 80px);
-        z-index: 10002;
+        top: calc(var(--warning-bar-height, 0px) + (var(--nav-height) / 2) - 22px);
+        right: 8px;
     }
 
     .navigation__right {
         margin-left: auto;
-        margin-right: 60px;
-        color: var(--color-white);
+        margin-right: 8px;
+        color: var(--nav-fg);
     }
 
-    /* Логотипы на мобильном по умолчанию (для hero) */
-    .navigation__logo-img--light {
-        opacity: 1 !important;
-    }
-
-    .navigation__logo-img--dark {
-        opacity: 0 !important;
-    }
-
-    /* FORCE: make mobile menu content stacked and visible */
+    /* Mobile overlay sits absolutely under the header so it will
+       move together with the page when the header scrolls away. */
     .navigation__mobile {
-        padding: 0;
-        background-color: rgba(0, 0, 0, 0.28);
-        /* backdrop when active */
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        background-color: transparent;
         display: flex;
         align-items: flex-start;
         justify-content: flex-end;
+    }
+
+    /* When mobile menu is open, hide the main nav bands (keep burger visible)
+       This prevents the header/logo/contacts from showing behind the slide-over. */
+    .navigation--open .navigation__left,
+    .navigation--open .navigation__center,
+    .navigation--open .navigation__right {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* Ensure burger stays visible and on top */
+    .navigation--open .navigation__burger {
+        visibility: visible;
+        z-index: calc(var(--z-burger) + 10);
+    }
+
+    /* Hide only the mobile "top" duplicate container if present; keep header/logo inside the panel visible */
+    .navigation--open .navigation__mobile-top {
+        display: none;
+        visibility: hidden;
+        pointer-events: none;
     }
 
     .navigation__mobile-body {
-        display: block;
+        display: flex;
+        flex-direction: column;
         gap: 18px;
-
-    }
-
-    /* Hide mobile logo by default (only show when mobile menu is active) */
-    .navigation__mobile-logo {
-        display: none !important;
-        width: 100%;
-        justify-content: center;
-        margin-bottom: 6px;
-    }
-
-    /* Show mobile logo only when mobile menu is open */
-    .navigation__mobile--active .navigation__mobile-logo {
-        display: flex !important;
-    }
-
-    .navigation__mobile-logo .navigation__logo-img {
-        height: 56px;
     }
 
     .navigation__mobile-menu {
-        margin: 0;
         width: 100%;
+        margin: 0 0 40px;
     }
 
-    .navigation__mobile-menu .navigation__mobile-item {
-        width: 100%;
-    }
-
-    /* Panel style: right-side panel with left-aligned content, fixed max-width 300px */
-    :root {
-        --mobile-menu-width: 300px;
-        --mobile-menu-bg: var(--color-surface, #f5f5f5);
-    }
-
-    .navigation__mobile--active {
-        display: flex !important;
-        align-items: flex-start;
-        justify-content: flex-end;
+    .navigation__mobile .navigation__mobile-link {
         background: transparent;
-    }
-
-    .navigation__mobile--active .navigation__mobile-menu,
-    .navigation__mobile--active .navigation__mobile-contacts {
-        background: var(--mobile-menu-bg);
-        color: var(--color-black);
-        border-radius: 12px;
-        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-        padding: 18px 18px;
-        width: var(--mobile-menu-width);
-        max-width: var(--mobile-menu-width);
-        margin: 18px;
-        align-self: stretch;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        /* left-aligned content */
-    }
-
-    /* Ensure close button inside panel appears at top-right of panel */
-    .navigation__mobile--active .navigation__mobile-close {
-        position: absolute;
-        z-index: 10010;
-        background: transparent;
-        color: var(--color-black);
-        top: 22px;
-        right: calc(18px + 8px);
-        font-size: 28px;
-    }
-
-    /* Logo left-aligned */
-    .navigation__mobile--active .navigation__mobile-logo {
-        display: flex !important;
-        justify-content: flex-start;
-        margin-bottom: 8px;
-        width: 100%;
-    }
-
-    .navigation__mobile--active .navigation__logo-img {
-        height: 44px;
-    }
-
-    .navigation__mobile--active .navigation__mobile-link {
-        font-size: var(--fs-h5);
-        color: var(--color-black) !important;
-        padding: 10px 0;
-        width: 100%;
-        text-align: left;
         border-bottom: none;
-    }
-
-    .navigation__mobile-contacts {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-top: 12px;
-        width: 100%;
-    }
-
-    .navigation__mobile-phone {
+        box-shadow: none;
         font-size: var(--fs-base);
-        font-weight: 700;
         color: var(--color-black);
-    }
-
-    .navigation__mobile-cta {
-        display: inline-block;
-        background: var(--color-primary);
-        color: var(--color-white);
-        padding: 8px 12px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
+        display: block;
+        width: 100%;
         text-align: left;
     }
 
-    /* social icons row at bottom of panel */
+    .navigation__mobile .navigation__mobile-contacts,
+    .navigation__mobile .nav__contact {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+
     .navigation__mobile .nav__socials {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin-left: 12px;
         margin-top: auto;
-        display: flex !important;
+        display: flex;
+        flex-direction: row;
         gap: 8px;
+        align-items: center;
     }
 
     .navigation__mobile .nav-socials__item {
@@ -683,32 +684,31 @@ body.no-hero .navigation__burger {
         width: 36px;
         height: 36px;
         border-radius: 8px;
-        background: transparent;
+        background: var(--color-black);
         color: var(--color-black);
         text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     }
 
-    .navigation__mobile-link {
-        font-size: var(--fs-h2);
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-        color: var(--color-black) !important;
-    }
+    @media (max-width: 991px) {
 
-    /* show socials inside mobile explicitly (override previous hide) */
-    .navigation__mobile .nav__socials {
-        display: flex !important;
-        gap: 12px;
-        align-items: center;
-        margin-left: 18px;
+        .navigation__mobile .nav-socials__item .nav-socials__icon,
+        .navigation__mobile .nav-socials__item img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .navigation {
+            position: relative;
+        }
     }
 
     .navigation__mobile .nav__contact {
         align-items: flex-start;
         text-align: left;
-        margin-left: 18px;
-        margin-top: 6px;
-        gap: 6px;
+        margin-left: 12px;
+        margin-top: 4px;
+        gap: 4px;
     }
 
     .navigation__mobile .nav__phone,
@@ -718,24 +718,241 @@ body.no-hero .navigation__burger {
     }
 }
 
-/* Desktop: hide mobile-only logo/container to avoid duplicate logos */
-@media (min-width: 992px) {
 
-    .navigation__mobile-logo,
-    .navigation__logo--mobile {
-        display: none !important;
-        visibility: hidden !important;
-        height: 0 !important;
-        overflow: hidden !important;
+/* Overlay + mobile socials normalization */
+.navigation__mobile.navigation__mobile--active {
+    background: rgba(0, 0, 0, 0.32);
+    transition: 0.28s ease;
+}
+
+.navigation__mobile-body {
+    /* ensure panel content is always on white */
+    background: var(--color-white);
+}
+
+/* Mobile panel social buttons: fixed size and no filter */
+.navigation__mobile .nav-socials__item {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    /* ensure icons contrast — fallback if SVG is white */
+    color: var(--color-black);
+}
+
+.navigation__mobile .nav-socials__item img,
+.navigation__mobile .nav-socials__item .nav-socials__icon {
+    /* prefer to keep original icon colors; fall back to forced dark only if inherited color is transparent */
+    filter: none;
+    width: 60%;
+    height: 60%;
+    display: block;
+}
+
+/* Use SVG masks for mobile social buttons so we can control color via CSS without inline SVG */
+.navigation__mobile .nav-socials__item {
+    background-color: transparent;
+    /* keep button background controllable */
+    color: var(--color-black, #111);
+
+    /* mask rendering: centered, not repeated, sized to icon area */
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: 60% 60%;
+    mask-size: 60% 60%;
+
+    /* icon color will follow `color` via mask */
+    background-color: currentColor;
+}
+
+.navigation__mobile .nav-socials__item img {
+    display: none;
+}
+
+.navigation__mobile .nav-socials__item[data-social="vk"] {
+    -webkit-mask-image: url("src/img/svg/social_icons_vk.svg");
+    mask-image: url("src/img/svg/social_icons_vk.svg");
+}
+
+.navigation__mobile .nav-socials__item[data-social="tg"] {
+    -webkit-mask-image: url("src/img/svg/social_icons_tg.svg");
+    mask-image: url("src/img/svg/social_icons_tg.svg");
+}
+
+.navigation__mobile .nav-socials__item[data-social="wa"] {
+    -webkit-mask-image: url("src/img/svg/social_icons_wa.svg");
+    mask-image: url("src/img/svg/social_icons_wa.svg");
+}
+
+/* Header/footer keep original smaller size */
+.navigation .nav-socials__item {
+    width: 36px;
+    height: 36px;
+}
+
+/* --- Specific breakpoints for burger menu width --- */
+/* Very small screens (phones): full width drawer */
+@media (max-width: 375px) {
+    .navigation__mobile {
+        justify-content: flex-end;
+        background-color: transparent;
+    }
+
+    .navigation__mobile-body {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 40px;
+        box-shadow: none;
+    }
+
+    /* Keep burger visible at top-right on small phones */
+    .navigation__burger {
+        right: 8px;
+        top: calc(var(--warning-bar-height, 0px) + (var(--nav-height) / 2) - 22px);
     }
 }
 
-body.no-hero .navigation {
-    background-color: var(--color-white);
-    color: black;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+/* Tablets and small desktops: fixed-width slide-over (300px) */
+@media (min-width: 376px) and (max-width: 1024px) {
+    .navigation__mobile {
+        justify-content: flex-end;
+        background-color: transparent;
+    }
+
+    .navigation__mobile-body {
+        width: 300px;
+        max-width: 90%;
+        margin: 0 0 40px 0;
+        border-radius: 12px 0 0 12px;
+        overflow: hidden;
+    }
+
+    /* Ensure burger stays on top-right above the slide-over */
+    .navigation__burger {
+        right: 8px;
+        top: calc(var(--warning-bar-height, 0px) + (var(--nav-height) / 2) - 22px);
+        z-index: var(--z-burger, 11000);
+    }
+
+    /* bring in font-size and logo sizing from previous max-width:1024 rules */
+    .navigation__link {
+        font-size: var(--fs-sm);
+    }
+
+    .navigation__logo-img {
+        height: 60px;
+    }
 }
 
-body.no-hero .navigation a {
-    color: black;
+@media (min-width:992px) {
+    /* larger-screen adjustments live earlier in the file */
+}
+
+/* Restore desktop scroll behavior: change nav background + shadow when scrolled */
+@media (min-width: 992px) {
+
+    .navigation.navigation--scrolled,
+    .navigation.navigation--white {
+        background-color: var(--color-white, #fff);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+}
+
+/* 'More' overflow styles removed — feature disabled */
+
+/* NO-HERO */
+body.no-hero .navigation {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
+}
+
+body.no-hero .navigation>.navigation__container a {
+    color: black
+}
+
+/* Mobile: stack social links and add spacing under CTA */
+@media (max-width: 991px) {
+    .navigation__mobile .nav__socials {
+        display: flex;
+        flex-direction: row;
+        /* force inline in mobile panel */
+        align-items: center;
+        font-size: 16px;
+        gap: 12px;
+    }
+
+    .navigation__mobile .nav-socials__item {
+        width: auto;
+        height: auto;
+        display: inline-flex;
+        padding: 0;
+        background: transparent;
+    }
+
+    /* Mobile: show black icons on white buttons */
+    .navigation__mobile .nav__socials__item {
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--color-black);
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        padding: 0;
+    }
+
+    .navigation__mobile .nav__socials__item img {
+        filter: none;
+        color: #111;
+        width: 60%;
+        height: 60%;
+        display: block;
+        margin: auto;
+    }
+}
+
+/* Hide header social links on very small screens (<=600px) */
+@media (max-width: 600px) {
+
+    .nav__socials,
+    .nav__hours {
+        display: none;
+    }
+}
+
+/* Phones: pin mobile CTA to bottom of viewport and add body padding so content isn't hidden */
+@media (max-width: 600px) {
+    .navigation__mobile .navigation__mobile-cta {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        z-index: calc(var(--z-mobile-menu, 10100) + 50);
+        width: auto;
+        display: inline-flex;
+        justify-content: center;
+    }
+
+    .navigation__mobile-body {
+        /* leave space for the fixed CTA */
+        padding-bottom: 80px;
+    }
+}
+
+/* Lock page scrolling when navigation is open to avoid content shift */
+html.has-open-nav {
+    overflow: hidden;
+    touch-action: none;
+}
+
+/* also lock body for some browsers / platforms to avoid content shift */
+body.has-open-nav {
+    overflow: hidden;
+    touch-action: none;
 }
