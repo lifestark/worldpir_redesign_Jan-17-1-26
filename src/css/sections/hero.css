@@ -362,6 +362,7 @@
         padding-top: 0;
         margin-top: 0;
     }
+
     /* Strong mobile offset: ensure hero content never sits under a tall nav */
     .hero__content {
         padding-top: calc(var(--nav-height, 120px) + 24px) !important;
