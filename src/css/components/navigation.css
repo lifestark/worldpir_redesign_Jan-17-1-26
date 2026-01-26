@@ -207,6 +207,23 @@
     flex-shrink: 0;
 }
 
+/* Ensure contact block is always visible and uses the nav foreground color */
+.nav__contact {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    color: var(--nav-fg) !important;
+}
+
+/* Mobile: keep contacts accessible in header area (stacked if needed) */
+@media (max-width: 991px) {
+    .navigation__right .nav__contact {
+        align-items: flex-end;
+        text-align: right;
+    }
+}
+
 .nav__hours {
     font-size: var(--fs-xs);
     opacity: .8;
@@ -321,13 +338,6 @@ body.no-hero .navigation__burger {
 .navigation:is(.navigation--scrolled, .navigation--white) .navigation__logo-img--light {
     display: none;
     visibility: hidden
-}
-
-@media (max-width:991px) {
-    .navigation.navigation--open {
-        background: var(--nav-bg);
-        box-shadow: var(--nav-shadow);
-    }
 }
 
 /* ================================================
@@ -561,9 +571,11 @@ body.no-hero .navigation__burger {
 
 
 @media (max-width:991px) {
-
-    /* On mobile keep nav in document flow so it scrolls with page.
-       Burger button is fixed separately below. */
+.navigation.navigation--open {
+        background: var(--nav-bg);
+        box-shadow: var(--nav-shadow);
+    }
+ 
     .navigation {
         position: relative;
         background-color: transparent;
@@ -571,9 +583,7 @@ body.no-hero .navigation__burger {
         padding: 20px 0;
     }
 
-    /* If page includes a hero, keep nav overlaying the hero so the
-       hero doesn't get pushed down. This preserves visual overlay
-       while still allowing the nav to be part of scrolling context. */
+
     .navigation.navigation--with-hero {
         position: absolute;
         top: 0;
