@@ -181,9 +181,17 @@
     --no-hero-nav-spacing: clamp(60px, 12vw, 200px);
     --no-hero-main-spacing: clamp(80px, 15vw, 220px);
     --nav-height: clamp(80px, 8vw, 140px);
+    /* Navigation local tokens (declare defaults here to avoid duplicates) */
+    --nav-top-offset: 0px;
+    --nav-fg: var(--color-white);
+    --mobile-menu-bg: var(--color-gray-100);
 }
 
 /* Применение адаптивного отступа для контейнеров (как у тебя) */
+body {
+    overscroll-behavior-y: none;
+}
+
 .container,
 .hero__container,
 .navigation__container {
@@ -313,7 +321,7 @@ body.no-scroll {
 /* Safety: ensure content sits below fixed navigation even before JS runs */
 body.no-hero {
     /* Use the computed --nav-height directly to avoid double offsets */
-    padding-top: var(--nav-height) !important;
+    padding-top: var(--nav-height);
 }
 
 /* Make browser anchor scrolling account for fixed header */

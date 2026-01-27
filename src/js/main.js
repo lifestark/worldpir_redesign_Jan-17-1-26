@@ -5,31 +5,22 @@ if (document.readyState === 'loading') {
 } else {
     autofillDescriptionFromH1();
 }
-/**
- * ================================================
- * MAIN.JS
- * Основной JavaScript файл приложения
- * ================================================
- */
-
-// Импорты компонентов
 import Navigation from './components/navigation.js';
 import GallerySwiper from './components/gallerySwiper.js'; // New Swiper
 import FAQ from './components/faq.js';
 import Modal from './components/modal.js';
 
 import { SmoothScroll, ScrollAnimations } from './components/scroll-effects.js';
-import PhoneMask from './components/phoneMask.js';
-import Typograph from './components/typograph.js';
+import PhoneMask from './components/formGuide.js';
+import Typograph from './components/formGuide.js';
 import { init as initFallbacks } from './fallbacks.js';
 // Автоматическая подстановка года
 import './year.js';
 import './settings.js';
 import './widgets/telegram-widget.js';
-// optional filter module — load dynamically if present to avoid 404s
 (async function () {
     try {
-        await import('./components/filter.js');
+        await import('./components/filterAnimators.js');
     } catch (e) {
         // filter module missing in some builds — fail silently
     }
@@ -43,7 +34,16 @@ import './widgets/telegram-widget.js';
  * ================================================
  */
 function initializeNavigation() {
-    new Navigation();
+    // store instance on window to avoid duplicate initializations
+    try {
+        if (!window.__NavigationInitialized) {
+            window.__NavigationInstance = new Navigation();
+            window.__NavigationInitialized = true;
+        }
+    } catch (e) {
+        // ignore initialization errors
+        console.debug('Navigation init failed', e);
+    }
 }
 
 function initializeGallerySlider() {

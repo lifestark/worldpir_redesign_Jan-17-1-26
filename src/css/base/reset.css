@@ -48,6 +48,32 @@ img {
     display: block;
 }
 
+/* Prevent horizontal overflow from tables and other wide content */
+table {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* Utility classes to allow explicit horizontal scroll where intended */
+.u-scroll-x,
+.overflow-x-auto {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.max-100 {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 button {
     font-family: inherit;
     font-size: inherit;

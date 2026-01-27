@@ -25,14 +25,17 @@
     transition: none;
     overflow: hidden;
     margin-top: 0;
+    z-index: 0;
 }
 
 /* Force hero to start at the very top of the page (0,0) by negating nav height
    and keep nav visually above via its z-index. Also keep hero content readable
-   by adding top padding equal to nav height. */
+ 
+ /*  by adding top padding equal to nav height. 
 .hero--force-top {
     margin-top: calc(-1 * var(--nav-height, 64px));
 }
+        */
 
 .hero__content {
     padding-top: calc(var(--nav-height, 64px) + 24px);
@@ -49,11 +52,7 @@
 }
 
 /* push hero content down on mobile so it doesn't overlap fixed nav */
-.hero__content {
-    /* ensure content sits below nav even if --nav-height isn't set yet
-           use max() to fall back to a reasonable minimum */
-    padding-top: calc(max(var(--nav-height, 64px), 80px) + 16px);
-}
+/* (mobile-specific stronger offset handled in media query below) */
 
 @media (min-resolution: 2dppx) {
     .hero {
@@ -310,8 +309,8 @@
 
     .hero__actions .btn--large::before,
     .hero__actions .btn--large:hover::before {
-        animation: none !important;
-        opacity: 0 !important;
+        animation: none;
+        opacity: 0;
     }
 }
 
@@ -360,12 +359,22 @@
         justify-content: flex-start;
         background-position: left top;
         padding-top: 0;
-        margin-top: 0;
+        /* Pull the whole hero up so the navigation (which is positioned
+           relative on mobile) visually overlays the hero without pushing it down */
+        margin-top: calc(-1 * var(--nav-height, 64px));
     }
 
-    /* Strong mobile offset: ensure hero content never sits under a tall nav */
+    /* Strong mobile offset: keep hero content positioned correctly when
+       the hero itself is pulled up. Use the nav-height variable so the
+       computed layout stays stable across devices. */
     .hero__content {
-        padding-top: calc(var(--nav-height, 120px) + 24px) !important;
+        padding-top: calc(var(--nav-height, 64px) + 24px);
+    }
+
+    /* Ensure the hero container does not sit above the navigation in stacking
+       context — nav should remain on top. */
+    .hero__container {
+        z-index: 0;
     }
 }
 

@@ -5,30 +5,30 @@
    ================================================ */
 
 /* Base - Базовые стили */
-@import url('base/root.css');
-@import url('base/reset.css');
-@import url('base/typography.css');
-@import url('base/utilities.css');
-@import url('base/fonts.css');
+@import url('./base/root.css');
+@import url('./base/reset.css');
+@import url('./base/typography.css');
+@import url('./base/utilities.css');
+@import url('./base/fonts.css');
 
 /* Components - Переиспользуемые компоненты */
-@import url('components/buttons.css');
-@import url('components/cards.css');
-@import url('components/modal.css');
-@import url('components/form.css');
-@import url('components/navigation.css');
-@import url('widgets/telegram.css');
+@import url('./components/buttons.css');
+@import url('./components/cards.css');
+@import url('./components/modal.css');
+@import url('./components/form.css');
+@import url('./components/navigation.css');
+@import url('./widgets/telegram.css');
 
 /* Sections - Секции страницы */
-@import url('sections/hero.css');
-@import url('sections/animators.css');
-@import url('sections/program.css');
-@import url('sections/services.css');
-@import url('sections/packages.css');
-@import url('sections/benefits.css');
-@import url('sections/gallery.css');
-@import url('sections/reviews.css');
-@import url('sections/faq.css');
-@import url('sections/cta.css');
-@import url('sections/contacts.css');
-@import url('sections/footer.css');
+@import url('./sections/hero.css');
+@import url('./sections/animators.css');
+@import url('./sections/program.css');
+@import url('./sections/services.css');
+@import url('./sections/packages.css');
+@import url('./sections/benefits.css');
+@import url('./sections/gallery.css');
+@import url('./sections/reviews.css');
+@import url('./sections/faq.css');
+@import url('./sections/cta.css');
+@import url('./sections/contacts.css');
+@import url('./sections/footer.css');

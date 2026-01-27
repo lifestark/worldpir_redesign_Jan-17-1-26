@@ -42,12 +42,13 @@
 }
 
 /* Reset orders so source order (HTML) dictates layout */
-.card--package > * {
-    order: unset !important;
+.card--package>* {
+    order: unset;
 }
 
 .card--package .card__title {
-    font-size: 1.25rem; /* ~20px */
+    font-size: 1.25rem;
+    /* ~20px */
     margin-bottom: 4px;
     text-transform: uppercase;
     text-align: center;
@@ -59,7 +60,8 @@
 }
 
 .card--package .card__price-value {
-    font-size: 1.75rem; /* ~28px */
+    font-size: 1.75rem;
+    /* ~28px */
 }
 
 .card--package .card__description {
@@ -69,11 +71,14 @@
 }
 
 .card--package .card__features {
-    font-size: 0.85rem; /* Smaller text */
+    font-size: 0.85rem;
+    /* Smaller text */
     line-height: 1.3;
-    gap: 6px; /* Tighter gap between items */
+    gap: 6px;
+    /* Tighter gap between items */
     margin-bottom: 16px;
-    flex-grow: 0; /* Let content determine height, button pushes away */
+    flex-grow: 0;
+    /* Let content determine height, button pushes away */
 }
 
 .card--package .card__feature {
@@ -93,14 +98,16 @@
 .card--package .btn {
     margin-top: auto;
     padding: 10px 20px;
-    min-height: 44px; /* Smaller button height */
+    min-height: 44px;
+    /* Smaller button height */
     height: auto;
 }
 
 /* Featured card adjustments */
 .card--featured {
     border: 2px solid var(--color-accent);
-    transform: scale(1.02); /* Slight scale */
+    transform: scale(1.02);
+    /* Slight scale */
     background: linear-gradient(135deg, #E8DDFF 0%, #FFE0E6 100%);
 }
 
@@ -111,6 +118,7 @@
 
 /* Responsive adjustments */
 @media (min-width: 1024px) {
+
     /* Ensure the container fits in viewport height if possible */
     .packages {
         align-items: stretch;

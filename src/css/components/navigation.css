@@ -1,34 +1,47 @@
 /* ================================================
-   NAVIGATION (refactor)
-   - единый каскад
-   - минимум медиа
-   - на mobile NAV + overlay = fixed
-   ================================================ */
+   NAVIGATION (refactor — optimized)
+   desktop не трогаем, мобилка <=991 — единый контракт
+    ================================================ */
 
+/* Global: prevent background from moving when mobile menu is open (applies on desktop and mobile) */
+html.is-mobile-menu-open,
+html.is-mobile-menu-open body {
+    overflow: hidden;
+    height: 100%;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: auto;
+}
 
+/* When menu is closed, keep body pinned to top; when opened, compensate for fixed nav */
+html:not(.is-mobile-menu-open) body {
+    padding-top: 0;
+}
+
+html.is-mobile-menu-open body {
+    padding-top: calc(var(--nav-height, 64px) + var(--warning-bar-height, 0px));
+}
+
+    /* When menu is closed, keep body pinned to top; when opened, compensate for fixed nav */
+
+/* ---------- DESKTOP/BASE (как у тебя, без смены логики) ---------- */
 .navigation {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: var(--z-nav, var(--z-fixed, 20000));
-
     background: var(--nav-bg);
     box-shadow: var(--nav-shadow);
-    padding: var(--nav-pad) 0;
+
+    padding-top: calc(var(--nav-pad, 16px) + var(--nav-top-offset));
+    padding-bottom: var(--nav-pad, 16px);
     min-height: 64px;
 
-    /* default fg (hero overlay) */
-    --nav-fg: var(--color-white);
     color: var(--nav-fg);
 
-    transition:
-        background-color var(--transition-base),
-        box-shadow var(--transition-base),
-        padding var(--transition-base);
+    transition: background-color var(--transition-base), box-shadow var(--transition-base);
 }
 
-/* white/scrolled -> dark fg */
 .navigation:is(.navigation--scrolled, .navigation--white) {
     background: var(--color-white);
     box-shadow: var(--nav-shadow);
@@ -58,10 +71,10 @@
     flex-direction: column;
     gap: var(--spacing-xs);
     font-size: clamp(12px, .83vw, 24px);
-    color: var(--nav-fg);
     line-height: 1.2;
     max-width: 300px;
     margin: 0;
+    color: var(--nav-fg);
 }
 
 .navigation__center {
@@ -74,11 +87,14 @@
 
 .navigation__menu {
     display: flex;
-    gap: var(--spacing-lg);
     align-items: center;
+    gap: var(--spacing-lg);
     white-space: nowrap;
+    /* allow horizontal scrolling when items overflow (covers 1201-1400 gap) */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+    overscroll-behavior-x: contain;
 }
 
 .navigation__right {
@@ -86,8 +102,8 @@
     display: flex;
     align-items: center;
     gap: clamp(8px, 1vw, 24px);
-    color: var(--nav-fg);
     flex-shrink: 0;
+    color: var(--nav-fg);
 }
 
 .navigation__link {
@@ -108,7 +124,7 @@
     bottom: 0;
     width: 0;
     height: 2px;
-    background-color: var(--color-primary);
+    background: var(--color-primary);
     transition: width var(--transition-base);
 }
 
@@ -124,7 +140,6 @@
 .nav__socials {
     display: flex;
     gap: 10px;
-    width: auto;
     flex-shrink: 0;
 }
 
@@ -148,17 +163,17 @@
 }
 
 .navigation:is(.navigation--scrolled, .navigation--white) .nav-socials__item {
-    background-color: var(--color-gray-200);
+    background: var(--color-gray-200);
     color: var(--color-black);
 }
 
 .nav-socials__item:hover {
-    background-color: var(--color-primary);
+    background: var(--color-primary);
     color: var(--color-white);
     transform: translateY(-2px);
 }
 
-/* contact (без дублей/) */
+/* contact */
 .nav__contact {
     display: flex;
     flex-direction: column;
@@ -172,7 +187,6 @@
 .nav__hours {
     font-size: var(--fs-xs);
     opacity: .8;
-    white-space: nowrap;
     color: inherit;
 }
 
@@ -181,23 +195,21 @@
     font-weight: var(--font-weight-bold);
     color: inherit;
     text-decoration: none;
-    white-space: nowrap;
 }
 
 .nav__phone:hover {
     color: var(--color-primary);
 }
 
-/* order link/button */
+/* order */
 .nav__order-link {
     margin-left: 12px;
-    padding: 0;
     display: inline-block;
     font-size: var(--fs-sm);
     font-weight: 600;
     color: var(--nav-fg);
     text-decoration: none;
-    border: none;
+    border: 0;
     background: transparent;
 }
 
@@ -212,7 +224,6 @@
     width: 44px;
     height: 44px;
     display: none;
-    /* включаем в mobile */
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -220,7 +231,7 @@
     border-radius: 8px;
     background: var(--color-white);
     box-shadow: var(--shadow-sm);
-    border: none;
+    border: 0;
     padding: 0;
     z-index: var(--z-burger, 11000);
     transition: transform .2s, box-shadow .2s, background-color .2s;
@@ -244,7 +255,7 @@
 
 .navigation__burger:is(:hover, :focus-visible) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
     background: var(--color-primary-light);
 }
 
@@ -301,155 +312,16 @@
     visibility: hidden;
 }
 
-/* mobile menu overlay */
-.navigation__mobile {
-    position: fixed;
-    inset: 0;
-    z-index: var(--z-mobile-menu, 10100);
-    background: transparent;
-    pointer-events: none;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s linear .28s, opacity .28s ease;
+
+/* на десктопе моб-оверлей вообще не существует */
+@media (min-width:992px) {
+    .navigation__mobile {
+        display: none;
+    }
 }
 
-.navigation__mobile--active {
-    pointer-events: auto;
-    visibility: visible;
-    opacity: 1;
-    transition-delay: 0s;
-}
-
-/* slide panel */
-.navigation__mobile-body {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100dvh;
-    width: min(320px, 86vw);
-    background: var(--color-white);
-
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 18px;
-
-    transform: translateX(110%);
-    transition: transform .35s cubic-bezier(.4, 0, .2, 1);
-    will-change: transform;
-}
-
-.navigation__mobile--active .navigation__mobile-body {
-    transform: translateX(0);
-}
-
-.navigation__mobile-header {
-    position: relative;
-    display: flex;
-    align-items: center;
-    min-height: 56px;
-    margin-bottom: 14px;
-}
-
-.navigation__logo--mobile {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.navigation__logo--mobile .navigation__logo-img {
-    height: 44px;
-    width: auto;
-    display: block;
-}
-
-.navigation__mobile-close {
-    margin-left: auto;
-    width: 44px;
-    height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--color-white, #fff);
-    border: 1px solid rgba(0, 0, 0, .08);
-    border-radius: 12px;
-    cursor: pointer;
-
-    font-size: 28px;
-    line-height: 1;
-    color: var(--color-black, #111);
-    transition: transform .15s ease;
-}
-
-.navigation__mobile-close:hover {
-    transform: translateY(-1px);
-}
-
-.navigation__mobile-close:focus-visible {
-    outline: 3px solid var(--color-accent, #6c63ff);
-    outline-offset: 3px;
-}
-
-.navigation__mobile-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    padding: 4px 0 8px;
-}
-
-.navigation__mobile-link {
-    width: 100%;
-    display: block;
-    padding: 8px 0;
-    text-align: left;
-    color: var(--color-black, #111);
-    text-decoration: none;
-    font-size: var(--fs-nav, 18px);
-}
-
-.navigation__mobile-contacts,
-.navigation__mobile .nav__contact {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: auto;
-    padding-top: 14px;
-}
-
-.navigation__mobile .nav__socials {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-direction: row;
-}
-
-/* overlay dim */
-.navigation__mobile.navigation__mobile--active {
-    background: rgba(0, 0, 0, 0.32);
-    transition: opacity .28s ease;
-}
-
-/* scroll lock */
-html.has-open-nav,
-body.has-open-nav {
-    overflow: hidden;
-    touch-action: none;
-}
-
-/* =======================
-   RESPONSIVE (grouped)
-   only 4 breakpoints
-======================= */
-
-/* <= 1400 */
-@media (max-width: 1400px) {
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1400px) {
     .nav__description {
         display: none;
     }
@@ -463,10 +335,13 @@ body.has-open-nav {
     }
 }
 
-/* <= 1200 */
-@media (max-width: 1200px) {
+@media (max-width:1200px) {
     .navigation__menu {
         gap: var(--spacing-sm);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+        overscroll-behavior-x: contain;
     }
 
     .navigation__logo-img {
@@ -474,82 +349,145 @@ body.has-open-nav {
     }
 }
 
-/* <= 991 (mobile/tablet) */
-@media (max-width: 991px) {
+/* ---------- MOBILE/TABLET <=991: единый контракт открытия ---------- */
+/* JS должен ставить ТОЛЬКО: html.is-mobile-menu-open */
+@media (max-width:991px) {
 
-    /* hide desktop center menu */
+    /* анти-горизонтальный скролл от off-canvas */
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    /* меню по центру скрываем */
     .navigation__center {
         display: none;
     }
 
-    /* keep header fixed on mobile so it stays above hero */
+    /* nav в обычном состоянии не фиксируем (как ты хотел) */
     .navigation {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
         width: 100%;
-        z-index: var(--z-nav, var(--z-fixed, 10000));
         background: var(--nav-bg);
     }
 
-    /* show burger */
+    /* бургер всегда фикс */
     .navigation__burger {
         display: flex;
         position: fixed;
-        top: calc((var(--nav-height, 64px) / 2) - 22px);
+        top: calc((var(--nav-height, 64px)/2) - 22px + var(--warning-bar-height, 0px));
         right: 8px;
-        z-index: calc(var(--z-burger, 11000) + 10);
+        z-index: calc(var(--z-burger, 11000) + 20);
     }
 
-    /* compact header right */
     .navigation__right {
         margin-left: auto;
-        margin-right: 8px;
-    }
-
-    /* ensure fixed burger doesn't overlap right-side contacts */
-    .navigation__right {
-        /* leave space for the fixed burger */
         margin-right: 72px;
     }
 
-    /* hide order link in header (CTA inside panel) */
     .nav__order-link {
         display: none;
     }
 
-    /* On mobile, do not change navigation colors on scroll — keep overlay look
-       unless navigation explicitly set to white (e.g. pages with no hero). */
+    /* на mobile не меняем тему при скролле (кроме явно white) */
     .navigation.navigation--scrolled:not(.navigation--white) {
-        background: var(--nav-bg) !important;
-        box-shadow: none !important;
-        --nav-fg: var(--color-white) !important;
+        background: var(--nav-bg);
+        box-shadow: none;
+        --nav-fg: var(--color-white);
     }
 
-    /* Ensure logo and social colors follow the overridden fg on mobile */
-    .navigation.navigation--scrolled:not(.navigation--white) .nav-socials__item,
-    .navigation.navigation--scrolled:not(.navigation--white) .navigation__logo-img--dark {
-        background-color: transparent !important;
-        color: var(--nav-fg) !important;
-    }
-    .navigation.navigation--scrolled:not(.navigation--white) .navigation__logo-img--light {
-        display: block !important;
-        visibility: visible !important;
-    }
-    /* Keep the light logo on mobile always — prevent swapping to dark logo */
+    /* всегда light-лого на mobile */
     .navigation__logo-img--dark {
-        display: none !important;
-        visibility: hidden !important;
+        display: none;
+        visibility: hidden;
     }
-    .navigation__logo-img--light {
-        display: block !important;
-        visibility: visible !important;
-    }
-}
 
-/* <= 600 (phones) */
-@media (max-width: 600px) {
+    .navigation__logo-img--light {
+        display: block;
+        visibility: visible;
+    }
+
+    /* OVERLAY: состояние по умолчанию (закрыто) */
+    .navigation__mobile {
+        position: fixed;
+        inset: 0;
+        /* sit above the navigation; keep relation to nav z-index */
+        z-index: calc(var(--z-nav, 20000) + 100);
+        /* overlay */
+        display: block;
+        background: rgba(0, 0, 0, .32);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity .28s ease, visibility 0s linear .28s;
+    }
+
+    /* Force non-interactive state when not active; safer than relying on pointer-events alone */
+    .navigation__mobile:not(.navigation__mobile--active) {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* Enforce the HTML-level contract: when html lacks the open class, ensure overlay is hidden */
+    html:not(.is-mobile-menu-open) .navigation__mobile {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* PANEL: всегда существует, двигаем transform */
+    .navigation__mobile-body {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100dvh;
+        width: 300px;
+        background: var(--mobile-menu-bg);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 18px;
+        transform: translateX(110%);
+        transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+        will-change: transform;
+    }
+
+    /* ACTIVE (открыто) */
+    html.is-mobile-menu-open .navigation__mobile {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition: opacity .28s ease, visibility 0s linear 0s;
+    }
+
+    html.is-mobile-menu-open .navigation__mobile-body {
+        transform: translateX(0);
+    }
+
+    /* чтобы не было “полосы” хедера при открытом меню */
+    html.is-mobile-menu-open .navigation__left,
+    html.is-mobile-menu-open .navigation__right {
+        display: none;
+    }
+
+    html.is-mobile-menu-open .navigation__container {
+        justify-content: flex-end;
+    }
+
+    /* фиксируем nav только в момент open, без прыжка контента */
+    html.is-mobile-menu-open .navigation {
+        position: fixed;
+        top: var(--warning-bar-height, 0px);
+        left: 0;
+        right: 0;
+        z-index: var(--z-nav, 20000);
+    }
+    /* (body padding-top is defined globally; panel scrolling defined on panel block above) */
+}
+@media (max-width:600px) {
     .nav__socials {
         display: none;
     }
@@ -559,7 +497,7 @@ body.has-open-nav {
         left: 12px;
         right: 12px;
         bottom: 12px;
-        z-index: calc(var(--z-mobile-menu, 10100) + 50);
+        z-index: calc(var(--z-mobile-menu, 20100) + 50);
         width: auto;
         display: inline-flex;
         justify-content: center;
@@ -570,19 +508,18 @@ body.has-open-nav {
     }
 }
 
-/* <= 375 (small phones) */
-@media (max-width: 375px) {
+@media (max-width:375px) {
     .navigation__mobile-body {
         width: 100%;
         max-width: 100%;
-        margin: 0 0 40px;
-        box-shadow: none;
+        right: 0;
+        left: 0;
     }
 }
 
 /* NO-HERO */
 body.no-hero .navigation {
-    background-color: var(--color-white);
+    background: var(--color-white);
     box-shadow: 0 2px 5px rgba(0, 0, 0, .1);
     --nav-fg: var(--color-black);
 }

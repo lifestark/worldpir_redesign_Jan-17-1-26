@@ -233,8 +233,8 @@
     cursor: pointer;
 
     background: var(--color-white);
-    box-shadow: none !important;
-    outline: none !important;
+    box-shadow: none;
+    outline: none;
     border-color: #E6E9EE;
     color: rgba(0, 0, 0, 0.7);
     border: none;

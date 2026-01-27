@@ -50,8 +50,8 @@
         box-shadow var(--transition-fast),
         background-color var(--transition-fast),
         color var(--transition-fast);
-    box-shadow: none !important;
-    outline: none !important;
+    box-shadow: none;
+    outline: none;
 }
 
 /* 5) консистентная “тактильная” высота (если уже задано где-то — переопределится по каскаду) */

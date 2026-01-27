@@ -245,15 +245,15 @@
     /* ensure hero sheen does not animate when user requests reduced motion */
     .btn--hero:hover .btn__inner::before,
     .btn--hero:focus-visible .btn__inner::before {
-        animation: none !important;
-        opacity: 0 !important;
+        animation: none;
+        opacity: 0;
     }
 
     /* also disable hero section's own pseudo-element sheen */
     .hero__actions .btn--hero::before,
     .hero__actions .btn--large::before {
-        animation: none !important;
-        opacity: 0 !important;
+        animation: none;
+        opacity: 0;
     }
 }
 
@@ -338,10 +338,10 @@
 .hero__actions .btn__icon,
 .hero .hero__actions .btn__icon {
     /* Поднимаем иконку вверх и увеличиваем, чтобы она выступала за верхнюю грань кнопки */
-    top: -12px !important;
-    transform: translateY(0) rotate(0deg) !important;
-    right: 8px !important;
-    width: 84px !important;
+    top: -12px;
+    transform: translateY(0) rotate(0deg);
+    right: 8px;
+    width: 84px;
 }
 
 @media (max-width: 768px) {
