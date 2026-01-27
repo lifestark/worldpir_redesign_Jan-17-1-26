@@ -11,8 +11,7 @@ import FAQ from './components/faq.js';
 import Modal from './components/modal.js';
 
 import { SmoothScroll, ScrollAnimations } from './components/scroll-effects.js';
-import PhoneMask from './components/formGuide.js';
-import Typograph from './components/formGuide.js';
+import { PhoneMask, Typograph } from './components/formGuide.js';
 import { init as initFallbacks } from './fallbacks.js';
 // Автоматическая подстановка года
 import './year.js';
