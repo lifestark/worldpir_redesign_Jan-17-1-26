@@ -36,33 +36,60 @@ window.APP_SETTINGS = settings;
 // Auto-apply settings to DOM elements
 (function () {
     function applySettings() {
-        try {
-            console.debug('[settings] applySettings start', settings.company);
-        } catch (e) { /* ignore */ }
+        // start applying settings
         // 1. Text Content Updates (data-set="keys")
         document.querySelectorAll('[data-set]').forEach(el => {
             const key = el.getAttribute('data-set');
-            if (settings.company[key]) {
-                if (key === 'address_html') {
-                    el.innerHTML = settings.company[key];
-                } else {
-                    el.textContent = settings.company[key];
+            const value = settings.company[key];
+            if (!value) return;
+            // allow a tiny safe subset for address_html (only <br> tags)
+            if (key === 'address_html') {
+                // sanitize by parsing and keeping only text and <br>
+                const temp = document.createElement('div');
+                temp.innerHTML = value;
+                // remove any element nodes that are not BR, and strip attributes
+                const walker = document.createTreeWalker(temp, NodeFilter.SHOW_ELEMENT, null, false);
+                const toRemove = [];
+                while (walker.nextNode()) {
+                    const node = walker.currentNode;
+                    if (node.tagName !== 'BR') toRemove.push(node);
+                    else {
+                        // remove attributes from BR just in case
+                        while (node.attributes && node.attributes.length) node.removeAttribute(node.attributes[0].name);
+                    }
                 }
+                toRemove.forEach(n => {
+                    const parent = n.parentNode;
+                    while (n.firstChild) parent.insertBefore(n.firstChild, n);
+                    parent.removeChild(n);
+                });
+                // set sanitized markup
+                el.innerHTML = temp.innerHTML;
+            } else {
+                el.textContent = value;
             }
         });
 
         // 2. Phone Links (href="tel:...")
         document.querySelectorAll('[data-set-link="phone"]').forEach(el => {
-            el.href = `tel:${settings.company.phone_clean}`;
-            if (!el.hasAttribute('data-no-text')) {
+            // sanitize phone for href: digits only (no spaces, no plus)
+            const phoneDigits = (settings.company.phone_clean || '').replace(/\D+/g, '');
+            if (el.tagName && el.tagName.toLowerCase() === 'a') {
+                if (phoneDigits) el.href = `tel:${phoneDigits}`;
+                if (!el.hasAttribute('data-no-text')) el.textContent = settings.company.phone;
+            } else {
                 el.textContent = settings.company.phone;
             }
         });
 
         // 3. Email Links (href="mailto:...")
         document.querySelectorAll('[data-set-link="email"]').forEach(el => {
-            el.href = `mailto:${settings.company.email}`;
-            el.textContent = settings.company.email;
+            if (el.tagName && el.tagName.toLowerCase() === 'a') {
+                el.href = `mailto:${settings.company.email}`;
+                el.textContent = settings.company.email;
+            } else {
+                el.textContent = settings.company.email;
+            }
         });
 
         // 4. Social Links
@@ -88,7 +115,7 @@ window.APP_SETTINGS = settings;
                 legalBlock.innerHTML = html;
             }
         }
-        try { console.debug('[settings] applySettings finished'); } catch (e) { }
+        // finished
     }
 
     // Auto-run on DOM ready
@@ -103,3 +130,5 @@ window.APP_SETTINGS = settings;
     // Run again shortly after load as a safe fallback
     window.addEventListener('load', () => setTimeout(applySettings, 120));
 })();
+
+// (no inline fallbacks here — use src/js/fallbacks.js)

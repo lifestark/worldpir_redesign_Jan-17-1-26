@@ -14,12 +14,14 @@ if (document.readyState === 'loading') {
 
 // Импорты компонентов
 import Navigation from './components/navigation.js';
-// import GallerySlider from './components/gallerySlider.js'; // Old slider
 import GallerySwiper from './components/gallerySwiper.js'; // New Swiper
 import FAQ from './components/faq.js';
 import Modal from './components/modal.js';
-import PhoneMask from './components/phoneMask.js';
+
 import { SmoothScroll, ScrollAnimations } from './components/scroll-effects.js';
+import PhoneMask from './components/phoneMask.js';
+import Typograph from './components/typograph.js';
+import { init as initFallbacks } from './fallbacks.js';
 // Автоматическая подстановка года
 import './year.js';
 import './settings.js';
@@ -32,7 +34,7 @@ import './widgets/telegram-widget.js';
         // filter module missing in some builds — fail silently
     }
 })();
-import Typograph from './components/typograph.js';
+
 
 /**
  * ================================================
@@ -147,6 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Также обновляем сразу
     updateNavHeight();
+
+    // initialize lightweight fallbacks (calls applySiteSettings once if needed)
+    try { initFallbacks(); } catch (e) { /* ignore */ }
 });
 
 

@@ -37,7 +37,6 @@ class Navigation {
         // События
         this.burgerBtn.addEventListener('click', () => this.toggleMobileMenu());
         if (this.mobileClose) this.mobileClose.addEventListener('click', () => this.closeMobileMenu());
-        window.addEventListener('scroll', () => this.handleScroll());
 
         // Закрытие мобильного меню при клике на ссылку
         this.navLinks.forEach(link => {
@@ -55,11 +54,7 @@ class Navigation {
             }
         });
 
-        // Первичная проверка скролла
-        this.handleScroll();
-
-        // Populate contacts from centralized `settings`
-        this.populateContacts();
+        // Note: scroll state and contact population handled centrally in `main.js` / `settings.js`
 
         // Accessibility: close on Escape
         document.addEventListener('keydown', (e) => {
@@ -158,29 +153,7 @@ class Navigation {
         }
     }
 
-    /**
-     * Заполняет элементы контактов из `siteData`
-     */
-    populateContacts() {
-        // hours
-        const hoursEls = document.querySelectorAll('[data-set="hours"]');
-        hoursEls.forEach(el => { el.textContent = settings.company.hours; });
-
-        // phone (text + tel href)
-        const phoneEls = document.querySelectorAll('[data-set-link="phone"]');
-        phoneEls.forEach(el => {
-            if (el.tagName.toLowerCase() === 'a') {
-                el.href = `tel:${settings.company.phone_clean}`;
-                el.textContent = settings.company.phone;
-            } else {
-                el.textContent = settings.company.phone;
-            }
-        });
-
-        // address placeholders (if any)
-        const addrEls = document.querySelectorAll('[data-set="address"]');
-        addrEls.forEach(el => { el.textContent = settings.company.address; });
-    }
+    // Contact population handled by `settings.js` to avoid duplication
 
     /**
      * Плавная прокрутка к секции

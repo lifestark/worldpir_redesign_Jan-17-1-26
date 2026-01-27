@@ -518,6 +518,34 @@ body.has-open-nav {
     .nav__order-link {
         display: none;
     }
+
+    /* On mobile, do not change navigation colors on scroll — keep overlay look
+       unless navigation explicitly set to white (e.g. pages with no hero). */
+    .navigation.navigation--scrolled:not(.navigation--white) {
+        background: var(--nav-bg) !important;
+        box-shadow: none !important;
+        --nav-fg: var(--color-white) !important;
+    }
+
+    /* Ensure logo and social colors follow the overridden fg on mobile */
+    .navigation.navigation--scrolled:not(.navigation--white) .nav-socials__item,
+    .navigation.navigation--scrolled:not(.navigation--white) .navigation__logo-img--dark {
+        background-color: transparent !important;
+        color: var(--nav-fg) !important;
+    }
+    .navigation.navigation--scrolled:not(.navigation--white) .navigation__logo-img--light {
+        display: block !important;
+        visibility: visible !important;
+    }
+    /* Keep the light logo on mobile always — prevent swapping to dark logo */
+    .navigation__logo-img--dark {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    .navigation__logo-img--light {
+        display: block !important;
+        visibility: visible !important;
+    }
 }
 
 /* <= 600 (phones) */
